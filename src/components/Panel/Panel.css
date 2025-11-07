@@ -1,0 +1,14 @@
+/* === PANEL BASE === */
+.arkem-panel {
+  background: var(--semantic-background-base);
+  border: var(--border-width-thin, 1px) solid var(--semantic-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-12, 12px);
+  box-sizing: border-box;
+}
+
+/* === PANEL WITH INNER SHADOW === */
+.arkem-panel--inner-shadow {
+  box-shadow: var(--shadow-inner-panel);
+}
+

@@ -1,0 +1,17 @@
+/* === LABEL === */
+.arkem-label {
+  display: inline-block;
+  font-size: var(--fonts-semantic-md, 14px);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--fonts-semantic-md-line-height, 20px);
+  font-family: var(--font-family-base);
+  color: var(--semantic-text-primary);
+  margin: 0;
+  cursor: pointer;
+}
+
+.arkem-label:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

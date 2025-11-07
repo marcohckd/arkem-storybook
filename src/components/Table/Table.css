@@ -1,0 +1,187 @@
+/* === TABLE CONTAINER === */
+.arkem-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-family: var(--font-family-base);
+}
+
+/* === TABLE HEADER === */
+.arkem-table__header {
+  background: var(--semantic-table-header-bg);
+}
+
+.arkem-table__head {
+  background: var(--semantic-table-header-bg);
+  color: var(--semantic-table-header-text);
+  font-size: var(--fonts-semantic-md);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.2%;
+  text-align: left;
+  padding: var(--spacing-12);
+  border-bottom: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-divider-subtle);
+  white-space: nowrap;
+}
+
+/* Small size variant */
+.arkem-table--sm .arkem-table__head {
+  font-size: var(--fonts-semantic-sm);
+  padding: var(--spacing-8, 8px) var(--spacing-12, 12px);
+  color: var(--semantic-text-secondary);
+}
+
+/* Extra small size variant */
+.arkem-table--xs .arkem-table__head {
+  font-size: var(--fonts-semantic-xs);
+  padding: var(--spacing-style-spacing-4px-1-5-6px, 6px) var(--spacing-8, 8px);
+  color: var(--semantic-text-secondary);
+}
+
+
+.arkem-table__head--sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.arkem-table__head--sortable:hover {
+  background: var(--semantic-table-header-bg);
+}
+
+.arkem-table__head--sticky {
+  background: var(--semantic-table-sticky-column-bg);
+}
+
+/* Visual divider for right-side sticky columns */
+.arkem-table__head--sticky-right {
+  border-left: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-divider-subtle);
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.arkem-table__head--group-header {
+  background: var(--semantic-table-header-group-bg);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  font-size: var(--fonts-semantic-sm);
+  letter-spacing: 0.2%;
+}
+
+.arkem-table__head--subheader {
+  background: var(--semantic-table-header-subheader-bg);
+}
+
+/* === TABLE BODY === */
+.arkem-table__body {
+  background: var(--semantic-background-base);
+}
+
+/* === TABLE ROW === */
+.arkem-table__row {
+  height: var(--component-table-body-row-height);
+  border-bottom: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-border);
+  transition: background-color 0.15s ease-in-out;
+}
+
+.arkem-table__row--even {
+  background: var(--semantic-table-row-even);
+}
+
+.arkem-table__row--odd {
+  background: var(--semantic-table-row-odd);
+}
+
+.arkem-table__row:hover {
+  background: var(--semantic-table-row-hover);
+}
+
+.arkem-table__row--even:hover {
+  background: var(--semantic-table-row-hover);
+}
+
+.arkem-table__row--odd:hover {
+  background: var(--semantic-table-row-hover);
+}
+
+.arkem-table__row--selected {
+  background: var(--semantic-table-row-selected);
+  border-left: 2px solid var(--semantic-brand-base);
+}
+
+.arkem-table__row--selected:hover {
+  background: var(--semantic-table-row-selected);
+}
+
+/* === TABLE CELL === */
+.arkem-table__cell {
+  padding: var(--spacing-12);
+  font-size: var(--fonts-semantic-md);
+  color: var(--semantic-table-body-text);
+  background: inherit;
+}
+
+/* Small size variant */
+.arkem-table--sm .arkem-table__cell {
+  font-size: var(--fonts-semantic-sm);
+  padding: var(--spacing-8, 8px) var(--spacing-12, 12px);
+  color: var(--semantic-text-secondary);
+}
+
+/* Extra small size variant */
+.arkem-table--xs .arkem-table__cell {
+  font-size: var(--fonts-semantic-xs);
+  padding: var(--spacing-style-spacing-4px-1-5-6px, 6px) var(--spacing-8, 8px);
+  color: var(--semantic-text-secondary);
+}
+
+.arkem-table__cell--sticky {
+  background: var(--semantic-table-sticky-column-bg);
+}
+
+/* Visual divider for right-side sticky columns */
+.arkem-table__cell--sticky-right {
+  border-left: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-divider-subtle);
+  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure sticky cells maintain background on hover */
+.arkem-table__row:hover .arkem-table__cell--sticky {
+  background: var(--semantic-table-sticky-column-bg);
+}
+
+.arkem-table__row--selected .arkem-table__cell--sticky {
+  background: var(--semantic-table-sticky-column-bg);
+}
+
+.arkem-table__row--selected:hover .arkem-table__cell--sticky {
+  background: var(--semantic-table-sticky-column-bg);
+}
+
+/* === DIVIDERS === */
+/* Subtle dividers: external borders, between groups, between headers and rows */
+.arkem-table__head--divider-subtle,
+.arkem-table__cell--divider-subtle {
+  border-right: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-divider-subtle);
+}
+
+/* Muted dividers: between columns of the same group */
+.arkem-table__head--divider-muted,
+.arkem-table__cell--divider-muted {
+  border-right: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-divider-muted);
+}
+
+/* === TABLE CONTAINER WRAPPER === */
+.arkem-table-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  border: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-divider-subtle);
+  border-radius: var(--radius-md);
+  background: var(--semantic-table-row-even);
+}
+
+/* === FOCUS VISIBLE === */
+.arkem-table__head--sortable:focus-visible {
+  outline: 2px solid var(--semantic-focus-ring);
+  outline-offset: -2px;
+}
+

@@ -1,0 +1,682 @@
+
+.arkem-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-style-spacing-4px-2-8px);
+  line-height: 1;
+  font-family: var(--font-family-base);
+  font-size: var(--fonts-semantic-md);
+  color: var(--semantic-text-primary);
+  background: transparent;
+  border-radius: var(--radius-mode-1-radius-md);
+  border: 1px solid transparent;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease, font-weight 0.15s ease, opacity 0.15s ease;
+  outline: none;
+  cursor: pointer;
+}
+
+.arkem-btn[data-icon-only="true"] {
+  gap: 0;
+}
+
+.arkem-btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: currentColor;
+}
+
+.arkem-btn__icon svg {
+  color: currentColor;
+}
+
+/* Hide icons based on flags */
+.arkem-btn[data-has-leading="false"] .arkem-btn__icon--lead {
+  display: none;
+}
+
+.arkem-btn[data-has-trailing="false"] .arkem-btn__icon--trail {
+  display: none;
+}
+
+/* Remove label for icon-only */
+.arkem-btn[data-icon-only="true"] .arkem-btn__label {
+  display: none;
+}
+
+/* Sizes */
+[data-size="sm"] {
+  height: 32px;
+  padding-top: var(--spacing-style-spacing-4px-1-5-6px, 6px);
+  padding-bottom: var(--spacing-style-spacing-4px-1-5-6px, 6px);
+  padding-left: var(--spacing-style-spacing-4px-1-5-6px, 6px);
+  padding-right: var(--spacing-style-spacing-4px-1-5-6px, 6px);
+}
+
+[data-size="md"] {
+  height: 40px;
+  padding-top: var(--spacing-8);
+  padding-bottom: var(--spacing-8);
+  padding-left: var(--spacing-8);
+  padding-right: var(--spacing-8);
+}
+
+[data-size="lg"] {
+  height: 48px;
+  padding-top: var(--spacing-12);
+  padding-bottom: var(--spacing-12);
+  padding-left: var(--spacing-12);
+  padding-right: var(--spacing-12);
+  border-radius: var(--radius-md);
+  font-size: var(--fonts-semantic-lg);
+  line-height: var(--fonts-semantic-lg-line-height);
+}
+
+/* Icon sizes per button size */
+.arkem-btn[data-size="sm"] .arkem-btn__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.arkem-btn[data-size="md"] .arkem-btn__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.arkem-btn[data-size="lg"] .arkem-btn__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Secondary (sm, md) */
+[data-hierarchy="secondary"] {
+  background: transparent;
+  color: var(--semantic-text-primary);
+  border: var(--border-width-thin) solid var(--border-text-subtle);
+  border-radius: var(--radius-sm);
+}
+
+[data-hierarchy="secondary"]:hover,
+[data-forced-state="hover"][data-hierarchy="secondary"] {
+  background: var(--semantic-background-interactive);
+  color: var(--semantic-text-hover);
+  border-color: var(--border-text-hover);
+}
+
+[data-hierarchy="secondary"]:focus-visible,
+[data-forced-state="focused"][data-hierarchy="secondary"] {
+  border-radius: var(--radius-xs);
+  border-color: var(--border-text-strong);
+  box-shadow: var(--shadow-xs),
+    0 0 0 3px
+      var(
+        --semantic-focus-ring,
+        color-mix(in srgb, var(--semantic-brand-base) 60%, transparent)
+      );
+}
+
+[data-hierarchy="secondary"]:disabled,
+[data-hierarchy="secondary"][data-disabled="true"],
+[data-forced-state="disabled"][data-hierarchy="secondary"] {
+  border-radius: var(--radius-xs);
+  border-color: var(--border-text-muted);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Secondary / md - Figma specs */
+[data-hierarchy="secondary"][data-size="md"] {
+  padding-top: var(--spacing-8);
+  padding-bottom: var(--spacing-8);
+  padding-left: var(--spacing-8);
+  padding-right: var(--spacing-8);
+  border-radius: var(--radius-sm);
+}
+
+/* Secondary / md - tone=black */
+[data-hierarchy="secondary"][data-size="md"][data-tone="black"] {
+  background: var(--semantic-background-surface);
+  color: var(--semantic-text-primary);
+  border: 0.5px solid var(--semantic-text-subtle);
+  box-shadow: var(--shadow-xs);
+}
+
+[data-hierarchy="secondary"][data-size="md"][data-tone="black"]:hover,
+[data-forced-state="hover"][data-hierarchy="secondary"][data-size="md"][data-tone="black"] {
+  background: var(--semantic-background-interactive);
+  color: var(--semantic-text-hover);
+  border-width: 1px;
+  border-color: var(--border-text-hover);
+  box-shadow: var(--shadow-skeuomorphic);
+}
+
+[data-hierarchy="secondary"][data-size="md"][data-tone="black"]:focus-visible,
+[data-forced-state="focused"][data-hierarchy="secondary"][data-size="md"][data-tone="black"] {
+  border-radius: var(--radius-xs);
+  border-width: 1px;
+  border-color: var(--border-text-strong);
+  box-shadow: var(--shadow-xs),
+    0 0 0 3px var(--semantic-focus-ring);
+}
+
+[data-hierarchy="secondary"][data-size="md"][data-tone="black"]:disabled,
+[data-hierarchy="secondary"][data-size="md"][data-tone="black"][data-disabled="true"],
+[data-forced-state="disabled"][data-hierarchy="secondary"][data-size="md"][data-tone="black"] {
+  border-radius: var(--radius-xs);
+  border-color: var(--border-text-muted);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Secondary / md - tone=color */
+[data-hierarchy="secondary"][data-size="md"][data-tone="color"] {
+  background: var(--semantic-brand-base);
+  color: var(--semantic-text-inverse);
+  border: var(--border-width-thin) solid var(--semantic-brand-base);
+  box-shadow: var(--shadow-xs);
+}
+
+[data-hierarchy="secondary"][data-size="md"][data-tone="color"]:hover,
+[data-forced-state="hover"][data-hierarchy="secondary"][data-size="md"][data-tone="color"] {
+  background: var(--semantic-brand-hover);
+  border-color: var(--semantic-brand-hover);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-skeuomorphic);
+}
+
+[data-hierarchy="secondary"][data-size="md"][data-tone="color"]:focus-visible,
+[data-forced-state="focused"][data-hierarchy="secondary"][data-size="md"][data-tone="color"] {
+  border-radius: var(--radius-xs);
+  border-color: var(--semantic-brand-base);
+  box-shadow: var(--shadow-xs),
+    0 0 0 3px var(--semantic-focus-ring, var(--semantic-brand-base));
+}
+
+[data-hierarchy="secondary"][data-size="md"][data-tone="color"]:disabled,
+[data-hierarchy="secondary"][data-size="md"][data-tone="color"][data-disabled="true"],
+[data-forced-state="disabled"][data-hierarchy="secondary"][data-size="md"][data-tone="color"] {
+  border-radius: var(--radius-xs);
+  border-color: var(--border-text-muted);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Primary (lg) - tone=color */
+[data-size="lg"][data-tone="color"] {
+  background: var(--semantic-brand-base);
+  color: var(--semantic-text-inverse);
+  border: var(--border-width-thin) solid transparent;
+}
+
+[data-forced-state="hover"][data-size="lg"][data-tone="color"],
+[data-size="lg"][data-tone="color"]:hover {
+  background: var(--semantic-brand-hover);
+  border-color: transparent;
+}
+
+[data-size="lg"][data-tone="color"]:focus-visible,
+[data-forced-state="focused"][data-size="lg"][data-tone="color"] {
+  box-shadow: 0 0 0 3px
+    var(
+      --semantic-focus-ring,
+      color-mix(in srgb, var(--semantic-brand-base) 60%, transparent)
+    );
+}
+
+/* Primary (lg) - tone=black (transparent mode look) */
+[data-size="lg"][data-tone="black"] {
+  background: transparent;
+  color: var(--semantic-text-primary);
+  border: 0.5px solid var(--semantic-text-subtle);
+}
+
+[data-forced-state="hover"][data-size="lg"][data-tone="black"],
+[data-size="lg"][data-tone="black"]:hover {
+  border-width: 1px;
+  border-color: var(--semantic-border-stroke);
+  outline: 2px solid
+    var(--semantic-focus-ring, var(--semantic-brand-base));
+  outline-offset: 0;
+  background: color-mix(
+    in srgb,
+    var(--semantic-focus-ring, var(--semantic-brand-base)) 12%,
+    transparent
+  );
+}
+
+[data-size="lg"][data-tone="black"]:focus-visible,
+[data-forced-state="focused"][data-size="lg"][data-tone="black"] {
+  border-width: 1px;
+  border-color: var(--semantic-border-stroke);
+  box-shadow: 0 0 0 3px
+    var(
+      --semantic-focus-ring,
+      color-mix(in srgb, var(--semantic-brand-base) 60%, transparent)
+    );
+}
+
+/* Disabled (any) */
+.arkem-btn:disabled,
+[data-disabled="true"],
+[data-forced-state="disabled"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* === Tone overrides (secondary only) === */
+
+/* COLOR tone — brand look (secondary) */
+[data-hierarchy="secondary"][data-tone="color"] {
+  color: var(--semantic-text-inverse);
+  background: var(--semantic-brand-base);
+  border-color: var(--semantic-brand-base);
+}
+
+[data-hierarchy="secondary"][data-tone="color"]:hover,
+[data-hierarchy="secondary"][data-tone="color"][data-forced-state="hover"] {
+  background: var(--semantic-brand-hover);
+}
+
+[data-hierarchy="secondary"][data-tone="color"]:focus-visible,
+[data-hierarchy="secondary"][data-tone="color"][data-forced-state="focused"] {
+  box-shadow: var(--shadow-xs),
+    0 0 0 3px var(--semantic-focus-ring, var(--semantic-brand-base));
+}
+
+[data-hierarchy="secondary"][data-tone="color"]:disabled,
+[data-hierarchy="secondary"][data-tone="color"][data-disabled="true"],
+[data-hierarchy="secondary"][data-tone="color"][data-forced-state="disabled"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* BLACK tone — neutral look (secondary) */
+[data-hierarchy="secondary"][data-tone="black"] {
+  color: var(--semantic-text-primary);
+  background: var(--semantic-background-base);
+  border: 0.5px solid var(--semantic-text-subtle);
+}
+
+[data-hierarchy="secondary"][data-tone="black"]:hover,
+[data-hierarchy="secondary"][data-tone="black"][data-forced-state="hover"] {
+  background: var(--semantic-background-interactive);
+  border-width: 1px;
+  border-color: var(--semantic-border-stroke);
+}
+
+[data-hierarchy="secondary"][data-tone="black"]:focus-visible,
+[data-hierarchy="secondary"][data-tone="black"][data-forced-state="focused"] {
+  border-width: 1px;
+  border-color: var(--semantic-border-stroke);
+  box-shadow: var(--shadow-xs),
+    0 0 0 3px var(--semantic-focus-ring);
+}
+
+[data-hierarchy="secondary"][data-tone="black"]:disabled,
+[data-hierarchy="secondary"][data-tone="black"][data-disabled="true"],
+[data-hierarchy="secondary"][data-tone="black"][data-forced-state="disabled"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* ===== GLOBAL GREY TONE (all sizes & hierarchies) ===== */
+.arkem-btn[data-tone="grey"] {
+  background: var(--color-fill-neutral-200) !important;
+}
+
+.arkem-btn[data-tone="grey"]:hover,
+.arkem-btn[data-tone="grey"][data-forced-state="hover"] {
+  background: var(--color-fill-neutral-300) !important;
+}
+
+.arkem-btn[data-tone="grey"]:focus-visible,
+.arkem-btn[data-tone="grey"][data-forced-state="focused"] {
+  background: var(--color-fill-neutral-200) !important;
+  outline: none;
+  box-shadow: 0 0 0 3px var(--semantic-focus-ring);
+}
+
+.arkem-btn[data-tone="grey"]:disabled,
+.arkem-btn[data-tone="grey"][data-disabled="true"],
+.arkem-btn[data-tone="grey"][data-forced-state="disabled"] {
+  background: var(--semantic-background-surface) !important;
+  pointer-events: none;
+}
+
+/* Optional: keep borders neutral & readable */
+.arkem-btn[data-tone="grey"] {
+  border-color: var(--color-stroke-neutral-300);
+}
+
+.arkem-btn[data-tone="grey"]:hover,
+.arkem-btn[data-tone="grey"][data-forced-state="hover"] {
+  border-color: var(--color-stroke-neutral-400);
+}
+
+.arkem-btn[data-tone="grey"]:disabled,
+.arkem-btn[data-tone="grey"][data-disabled="true"],
+.arkem-btn[data-tone="grey"][data-forced-state="disabled"] {
+  border-color: var(--semantic-background-surface);
+}
+
+/* === BLACK BUTTON DEFAULT BORDER === */
+/* Apply 0.5px subtle border to all black buttons in default state (exclude mode hierarchy which has its own rules) */
+.arkem-btn[data-tone="black"]:not([data-hierarchy="mode"]) {
+  border: 0.5px solid var(--semantic-text-subtle);
+}
+
+/* Reset to 1px on hover/focus for all black buttons (except mode which maintains its own border) */
+.arkem-btn[data-tone="black"]:not([data-hierarchy="mode"]):hover,
+.arkem-btn[data-tone="black"]:not([data-hierarchy="mode"])[data-forced-state="hover"],
+.arkem-btn[data-tone="black"]:not([data-hierarchy="mode"]):focus-visible,
+.arkem-btn[data-tone="black"]:not([data-hierarchy="mode"])[data-forced-state="focused"] {
+  border-width: 1px;
+  border-color: var(--semantic-border-stroke);
+}
+
+/* === TYPOGRAPHY WEIGHT INTERACTION STATES === */
+.arkem-btn:hover,
+.arkem-btn[data-forced-state="hover"],
+.arkem-btn:focus-visible,
+.arkem-btn[data-forced-state="focused"] {
+  font-weight: var(--font-weight-medium, 500) !important;
+  transition: font-weight 0.15s ease;
+}
+
+/* === OFFSET BORDER FOR FOCUSED BUTTONS === */
+.arkem-btn:focus-visible,
+.arkem-btn[data-forced-state="focused"] {
+  position: relative;
+  outline: none;
+}
+
+.arkem-btn:focus-visible::after,
+.arkem-btn[data-forced-state="focused"]::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+  border: 1px solid var(--semantic-brand-base);
+}
+
+/* Tone variations */
+.arkem-btn[data-tone="grey"]:focus-visible::after,
+.arkem-btn[data-tone="grey"][data-forced-state="focused"]::after {
+  border-color: var(--color-stroke-neutral-300);
+}
+
+.arkem-btn[data-tone="black"]:focus-visible::after,
+.arkem-btn[data-tone="black"][data-forced-state="focused"]::after {
+  border-color: var(--semantic-border-stroke);
+}
+
+.arkem-btn[data-tone="color"]:focus-visible::after,
+.arkem-btn[data-tone="color"][data-forced-state="focused"]::after {
+  border-color: var(--semantic-brand-base);
+}
+
+/* === MODE HIERARCHY (Black Tone Only) === */
+.arkem-btn[data-hierarchy="mode"][data-tone="black"] {
+  background: var(--semantic-background-surface);
+  color: var(--semantic-text-subtle);
+  border: 1px solid var(--semantic-text-subtle);
+  transition: all 0.15s ease;
+}
+
+/* Hover: maintain dark surface, reinforce border visibility */
+.arkem-btn[data-hierarchy="mode"][data-tone="black"]:hover,
+.arkem-btn[data-hierarchy="mode"][data-tone="black"][data-forced-state="hover"] {
+  background: var(--semantic-background-overlay);
+  color: var(--semantic-text-subtle);
+  border-color: var(--semantic-text-subtle);
+}
+
+/* Focused: add 1px offset border around button */
+.arkem-btn[data-hierarchy="mode"][data-tone="black"]:focus-visible,
+.arkem-btn[data-hierarchy="mode"][data-tone="black"][data-forced-state="focused"] {
+  position: relative;
+  outline: none;
+}
+
+.arkem-btn[data-hierarchy="mode"][data-tone="black"]:focus-visible::after,
+.arkem-btn[data-hierarchy="mode"][data-tone="black"][data-forced-state="focused"]::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  bottom: -1px;
+  left: -1px;
+  border-radius: inherit;
+  border: 1px solid var(--semantic-text-subtle);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Disabled state */
+.arkem-btn[data-hierarchy="mode"][data-tone="black"]:disabled,
+.arkem-btn[data-hierarchy="mode"][data-tone="black"][data-disabled="true"],
+.arkem-btn[data-hierarchy="mode"][data-tone="black"][data-forced-state="disabled"] {
+  background: var(--semantic-background-surface);
+  border-color: var(--semantic-border-muted);
+  color: var(--semantic-text-muted);
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* === ACTION BUTTON FUNCTION VARIANTS === */
+
+/* Feature function: Brand/500 icon color, Semantic/Border/Subtle border */
+.arkem-btn[data-function="feature"] {
+  border: var(--border-width-thin) solid var(--semantic-border-subtle);
+}
+
+.arkem-btn[data-function="feature"] .arkem-btn__icon svg {
+  color: var(--semantic-brand-base);
+}
+
+/* Maintain subtle border in all states for Feature buttons (higher specificity to override tone/hierarchy rules) */
+.arkem-btn[data-function="feature"]:hover,
+.arkem-btn[data-function="feature"][data-forced-state="hover"],
+.arkem-btn[data-function="feature"][data-hierarchy="secondary"][data-tone="black"]:hover,
+.arkem-btn[data-function="feature"][data-hierarchy="secondary"][data-tone="black"][data-forced-state="hover"],
+.arkem-btn[data-function="feature"]:focus-visible,
+.arkem-btn[data-function="feature"][data-forced-state="focused"],
+.arkem-btn[data-function="feature"][data-hierarchy="secondary"][data-tone="black"]:focus-visible,
+.arkem-btn[data-function="feature"][data-hierarchy="secondary"][data-tone="black"][data-forced-state="focused"],
+.arkem-btn[data-function="feature"]:disabled,
+.arkem-btn[data-function="feature"][data-disabled="true"],
+.arkem-btn[data-function="feature"][data-forced-state="disabled"],
+.arkem-btn[data-function="feature"][data-hierarchy="secondary"][data-tone="black"]:disabled,
+.arkem-btn[data-function="feature"][data-hierarchy="secondary"][data-tone="black"][data-disabled="true"],
+.arkem-btn[data-function="feature"][data-hierarchy="secondary"][data-tone="black"][data-forced-state="disabled"] {
+  border-color: var(--semantic-border-subtle) !important;
+}
+
+.arkem-btn[data-function="feature"]:hover .arkem-btn__icon svg,
+.arkem-btn[data-function="feature"][data-forced-state="hover"] .arkem-btn__icon svg {
+  color: var(--semantic-brand-base);
+}
+
+.arkem-btn[data-function="feature"]:focus-visible .arkem-btn__icon svg,
+.arkem-btn[data-function="feature"][data-forced-state="focused"] .arkem-btn__icon svg {
+  color: var(--semantic-brand-base);
+}
+
+/* Action function: More subtle - no border, muted icon color, subtle hover background */
+.arkem-btn[data-function="action"] {
+  border: none;
+  background: transparent;
+  color: var(--semantic-text-subtle);
+}
+
+.arkem-btn[data-function="action"] .arkem-btn__icon svg {
+  color: var(--semantic-text-subtle);
+}
+
+.arkem-btn[data-function="action"]:hover,
+.arkem-btn[data-function="action"][data-forced-state="hover"] {
+  background: var(--color-fill-neutral-800);
+  color: var(--semantic-text-secondary);
+  border: none;
+}
+
+.arkem-btn[data-function="action"]:hover .arkem-btn__icon svg,
+.arkem-btn[data-function="action"][data-forced-state="hover"] .arkem-btn__icon svg {
+  color: var(--semantic-text-secondary);
+}
+
+.arkem-btn[data-function="action"]:focus-visible,
+.arkem-btn[data-function="action"][data-forced-state="focused"] {
+  background: transparent;
+  border: none;
+  box-shadow: 0 0 0 3px var(--semantic-focus-ring, color-mix(in srgb, var(--semantic-brand-base) 60%, transparent));
+}
+
+.arkem-btn[data-function="action"]:focus-visible .arkem-btn__icon svg,
+.arkem-btn[data-function="action"][data-forced-state="focused"] .arkem-btn__icon svg {
+  color: var(--semantic-text-secondary);
+}
+
+.arkem-btn[data-function="action"]:disabled,
+.arkem-btn[data-function="action"][data-disabled="true"],
+.arkem-btn[data-function="action"][data-forced-state="disabled"] {
+  background: transparent;
+  border: none;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Table Action function: Even more subtle - no border, very subtle hover, muted icon color */
+.arkem-btn[data-function="table-action"] {
+  border: none;
+  background: transparent;
+  color: var(--semantic-text-subtle);
+}
+
+.arkem-btn[data-function="table-action"] .arkem-btn__icon svg {
+  color: var(--semantic-text-subtle);
+}
+
+.arkem-btn[data-function="table-action"]:hover,
+.arkem-btn[data-function="table-action"][data-forced-state="hover"] {
+  background: var(--color-fill-neutral-800);
+  color: var(--semantic-text-secondary);
+  border: none;
+}
+
+.arkem-btn[data-function="table-action"]:hover .arkem-btn__icon svg,
+.arkem-btn[data-function="table-action"][data-forced-state="hover"] .arkem-btn__icon svg {
+  color: var(--semantic-text-secondary);
+}
+
+.arkem-btn[data-function="table-action"]:focus-visible,
+.arkem-btn[data-function="table-action"][data-forced-state="focused"] {
+  background: transparent;
+  border: none;
+  box-shadow: 0 0 0 3px var(--semantic-focus-ring, color-mix(in srgb, var(--semantic-brand-base) 60%, transparent));
+}
+
+.arkem-btn[data-function="table-action"]:focus-visible .arkem-btn__icon svg,
+.arkem-btn[data-function="table-action"][data-forced-state="focused"] .arkem-btn__icon svg {
+  color: var(--semantic-text-secondary);
+}
+
+.arkem-btn[data-function="table-action"]:disabled,
+.arkem-btn[data-function="table-action"][data-disabled="true"],
+.arkem-btn[data-function="table-action"][data-forced-state="disabled"] {
+  background: transparent;
+  border: none;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Borderless function: No border, transparent background, standard icon color */
+.arkem-btn[data-function="borderless"],
+.arkem-btn[data-function="borderless"][data-hierarchy="secondary"],
+.arkem-btn[data-function="borderless"][data-hierarchy="secondary"][data-tone="black"] {
+  border: none !important;
+  background: transparent;
+  color: var(--semantic-text-primary);
+}
+
+.arkem-btn[data-function="borderless"] .arkem-btn__icon svg {
+  color: var(--semantic-text-primary);
+}
+
+.arkem-btn[data-function="borderless"]:hover,
+.arkem-btn[data-function="borderless"][data-forced-state="hover"],
+.arkem-btn[data-function="borderless"][data-hierarchy="secondary"]:hover,
+.arkem-btn[data-function="borderless"][data-hierarchy="secondary"][data-forced-state="hover"] {
+  border: none !important;
+  background: var(--semantic-background-interactive);
+  color: var(--semantic-text-hover);
+}
+
+.arkem-btn[data-function="borderless"]:hover .arkem-btn__icon svg,
+.arkem-btn[data-function="borderless"][data-forced-state="hover"] .arkem-btn__icon svg {
+  color: var(--semantic-text-hover);
+}
+
+.arkem-btn[data-function="borderless"]:focus-visible,
+.arkem-btn[data-function="borderless"][data-forced-state="focused"],
+.arkem-btn[data-function="borderless"][data-hierarchy="secondary"]:focus-visible,
+.arkem-btn[data-function="borderless"][data-hierarchy="secondary"][data-forced-state="focused"] {
+  border: none !important;
+  background: transparent;
+  box-shadow: 0 0 0 3px var(--semantic-focus-ring, color-mix(in srgb, var(--semantic-brand-base) 60%, transparent));
+}
+
+.arkem-btn[data-function="borderless"]:focus-visible .arkem-btn__icon svg,
+.arkem-btn[data-function="borderless"][data-forced-state="focused"] .arkem-btn__icon svg {
+  color: var(--semantic-text-primary);
+}
+
+.arkem-btn[data-function="borderless"]:disabled,
+.arkem-btn[data-function="borderless"][data-disabled="true"],
+.arkem-btn[data-function="borderless"][data-forced-state="disabled"],
+.arkem-btn[data-function="borderless"][data-hierarchy="secondary"]:disabled,
+.arkem-btn[data-function="borderless"][data-hierarchy="secondary"][data-disabled="true"],
+.arkem-btn[data-function="borderless"][data-hierarchy="secondary"][data-forced-state="disabled"] {
+  border: none !important;
+  background: transparent;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Close function: No border, X icon default, standard icon color */
+.arkem-btn[data-function="close"],
+.arkem-btn[data-function="close"][data-hierarchy="secondary"],
+.arkem-btn[data-function="close"][data-hierarchy="secondary"][data-tone="black"] {
+  border: none !important;
+}
+
+.arkem-btn[data-function="close"]:hover,
+.arkem-btn[data-function="close"][data-forced-state="hover"],
+.arkem-btn[data-function="close"][data-hierarchy="secondary"]:hover,
+.arkem-btn[data-function="close"][data-hierarchy="secondary"][data-forced-state="hover"] {
+  border: none !important;
+}
+
+.arkem-btn[data-function="close"]:focus-visible,
+.arkem-btn[data-function="close"][data-forced-state="focused"],
+.arkem-btn[data-function="close"][data-hierarchy="secondary"]:focus-visible,
+.arkem-btn[data-function="close"][data-hierarchy="secondary"][data-forced-state="focused"] {
+  border: none !important;
+}
+
+.arkem-btn[data-function="close"]:disabled,
+.arkem-btn[data-function="close"][data-disabled="true"],
+.arkem-btn[data-function="close"][data-forced-state="disabled"],
+.arkem-btn[data-function="close"][data-hierarchy="secondary"]:disabled,
+.arkem-btn[data-function="close"][data-hierarchy="secondary"][data-disabled="true"],
+.arkem-btn[data-function="close"][data-hierarchy="secondary"][data-forced-state="disabled"] {
+  border: none !important;
+}
+

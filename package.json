@@ -1,0 +1,46 @@
+{
+  "name": "arkem-design-system",
+  "version": "1.0.0",
+  "main": "index.js",
+  "homepage": "https://marcohckd.github.io/arkem-design-system",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "storybook dev -p 6006",
+    "storybook:clean": "rm -rf node_modules/.vite node_modules/.storybook .storybook-static && STORYBOOK_FORCE_OPTIMIZE=true storybook dev -p 6006",
+    "storybook:clear-cache": "rm -rf node_modules/.vite node_modules/.storybook node_modules/.cache/storybook",
+    "build-storybook": "storybook build",
+    "deploy-storybook": "storybook build && npx gh-pages -d storybook-static"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@radix-ui/react-slider": "^1.3.6",
+    "@radix-ui/react-switch": "^1.2.6",
+    "@radix-ui/react-tabs": "^1.1.13",
+    "@radix-ui/react-visually-hidden": "^1.2.4",
+    "lucide-react": "^0.548.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^4.1.2",
+    "@storybook/addon-a11y": "^10.0.6",
+    "@storybook/addon-docs": "^10.0.2",
+    "@storybook/addon-onboarding": "^10.0.2",
+    "@storybook/addon-vitest": "^10.0.6",
+    "@storybook/react-vite": "^10.0.2",
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "@vitest/browser-playwright": "^4.0.5",
+    "@vitest/coverage-v8": "^4.0.5",
+    "eslint-plugin-storybook": "^10.0.6",
+    "playwright": "^1.56.1",
+    "prop-types": "^15.8.1",
+    "storybook": "^10.0.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.0.0",
+    "vitest": "^4.0.5"
+  }
+}

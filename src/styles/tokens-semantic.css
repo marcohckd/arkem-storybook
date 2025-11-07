@@ -1,0 +1,193 @@
+:root {
+  --semantic-background-base: #080808;
+  --semantic-background-raised: #8a8a8a;
+  --semantic-background-interactive: #5a5a5a;
+  --semantic-background-overlay: #3a3a3a;
+  --semantic-background-backdrop: #00000080;
+  --semantic-background-muted: #2d2d2d;
+  --semantic-background-surface: var(--semantic-background-base);
+  --semantic-border-subtle: #2d2d2d;
+  --semantic-border-muted: #212121;
+  --semantic-border-ghosted: #1e1e1e;
+  --semantic-border-strong: #e5e5e5;
+  --semantic-border-stroke: var(--semantic-border-strong);
+  --semantic-brand-base: #e0dd5b;
+  --semantic-brand-hover: #e3df5f;
+  --semantic-brand-active: #c9c652;
+  --semantic-brand-pressed: #b1ae48;
+  --semantic-brand-muted: #1b1a05;
+  --semantic-brand-mode: #49482c;
+  --semantic-text-primary: var(--color-text-primary);
+  --semantic-text-secondary: var(--color-text-secondary);
+  --semantic-text-subtle: var(--semantic-text-secondary);
+  --semantic-text-muted: var(--color-text-muted);
+  --semantic-text-inverse: var(--color-text-inverse);
+  --semantic-text-hover: var(--color-text-hover);
+  --semantic-feedback-success-base: #5f7b52;
+  --semantic-feedback-success-surface: #5f7b5224;
+  --semantic-feedback-success-texton: #080808;
+  --semantic-feedback-warning-base: #a88940;
+  --semantic-feedback-warning-surface: #a8894024;
+  --semantic-feedback-warning-texton: #080808;
+  --semantic-feedback-error-base: #9e4b4b;
+  --semantic-feedback-error-surface: #9e4b4b24;
+  --semantic-feedback-error-texton: #080808;
+  --semantic-focus-ring: #e0dd5b59;
+  --poi-prison: #f25f5c;
+  --poi-police: #f25f5c;
+  --poi-courthouse: #f25f5c;
+  --poi-stripclub: #f2a65a;
+  --poi-nightclub: #f2a65a;
+  --poi-bar: #f2a65a;
+  --poi-marketplace: #8bd17c;
+  --poi-casino: #8bd17c;
+  --poi-bus-station: #8bd17c;
+  --poi-shelter: #aeb9c9;
+  --poi-community-centre: #aeb9c9;
+  --poi-place-of-worship: #aeb9c9;
+  --poi-point-generic: #c3a5df;
+  --connections-cluster-1: #8a38f5;
+  --connections-cluster-2: #3b82f6;
+  --connections-color: #fb923c;
+  --tone-grey-default: var(--color-fill-neutral-200);
+  --tone-grey-focused: var(--color-fill-neutral-200);
+  --tone-grey-hover: var(--color-fill-neutral-300);
+  --tone-grey-disabled: var(--color-fill-neutral-900);
+  --font-family-base: var(--typography-mode-1-font-family-ibm-plex-sans);
+  
+  /* Display Scale - based on height */
+  --fonts-display-2xl: var(--typography-mode-1-font-size-72); /* 72px */
+  --fonts-display-xl: var(--typography-mode-1-font-size-60); /* 60px */
+  --fonts-display-lg: var(--typography-mode-1-font-size-48); /* 48px */
+  --fonts-display-md: var(--typography-mode-1-font-size-36); /* 36px */
+  --fonts-display-sm: var(--typography-mode-1-font-size-30); /* 30px */
+  --fonts-display-xs: var(--typography-mode-1-font-size-24); /* 24px */
+  --fonts-display-2xl-line-height: var(--typography-mode-1-line-height-90);
+  --fonts-display-xl-line-height: var(--typography-mode-1-line-height-72);
+  --fonts-display-lg-line-height: var(--typography-mode-1-line-height-60);
+  --fonts-display-md-line-height: var(--typography-mode-1-line-height-44);
+  --fonts-display-sm-line-height: var(--typography-mode-1-line-height-38);
+  --fonts-display-xs-line-height: var(--typography-mode-1-line-height-32);
+  
+  /* Semantic Scale - UI text */
+  /* Redefined hierarchy for better vertical rhythm, accessibility, and scannability */
+  --fonts-semantic-2xl: var(--typography-mode-1-font-size-24); /* 24px - Page titles, modal titles */
+  --fonts-semantic-xl: var(--typography-mode-1-font-size-20); /* 20px - Section headers */
+  --fonts-semantic-lg: var(--typography-mode-1-font-size-18); /* 18px - Subsection headers, lead paragraphs */
+  --fonts-semantic-md: var(--typography-mode-1-font-size-16); /* 16px - Body text (default for most UI) */
+  --fonts-semantic-sm: var(--typography-mode-1-font-size-14); /* 14px - Secondary content, input labels */
+  --fonts-semantic-xs: var(--typography-mode-1-font-size-12); /* 12px - Metadata, captions, helper text */
+  --fonts-semantic-xxs: var(--typography-mode-1-font-size-10); /* 10px - Legacy support */
+  --fonts-semantic-2xl-line-height: var(--typography-mode-1-line-height-32); /* 32px */
+  --fonts-semantic-xl-line-height: var(--typography-mode-1-line-height-28); /* 28px */
+  --fonts-semantic-lg-line-height: var(--typography-mode-1-line-height-26); /* 26px */
+  --fonts-semantic-md-line-height: var(--typography-mode-1-line-height-24); /* 24px */
+  --fonts-semantic-sm-line-height: var(--typography-mode-1-line-height-20); /* 20px */
+  --fonts-semantic-xs-line-height: var(--typography-mode-1-line-height-16); /* 16px */
+  --fonts-semantic-xxs-line-height: var(--typography-mode-1-line-height-14); /* 14px */
+  
+  /* Legacy aliases for backward compatibility during migration */
+  --font-size-10: var(--fonts-semantic-xxs);
+  --font-size-12: var(--fonts-semantic-xs);
+  --font-size-14: var(--fonts-semantic-sm);
+  --font-size-16: var(--fonts-semantic-md);
+  --font-size-18: var(--fonts-semantic-lg);
+  --font-size-20: var(--fonts-semantic-xl);
+  --font-size-24: var(--fonts-semantic-2xl);
+  --font-size-30: var(--fonts-display-sm);
+  --font-size-36: var(--fonts-display-md);
+  --font-size-48: var(--fonts-display-lg);
+  --font-size-60: var(--fonts-display-xl);
+  --font-size-72: var(--fonts-display-2xl);
+  --line-14: var(--fonts-semantic-xxs-line-height);
+  --line-16: var(--fonts-semantic-xs-line-height);
+  --line-20: var(--fonts-semantic-sm-line-height);
+  --line-24: var(--fonts-semantic-md-line-height);
+  --line-26: var(--fonts-semantic-lg-line-height);
+  --line-28: var(--fonts-semantic-xl-line-height);
+  --line-30: var(--typography-mode-1-line-height-30);
+  --line-32: var(--fonts-semantic-2xl-line-height);
+  --line-38: var(--fonts-display-sm-line-height);
+  --line-44: var(--fonts-display-md-line-height);
+  --line-60: var(--fonts-display-lg-line-height);
+  --line-72: var(--fonts-display-xl-line-height);
+  --line-90: var(--fonts-display-2xl-line-height);
+  --font-weight-regular: var(--typography-mode-1-font-weight-regular);
+  --font-weight-medium: var(--typography-mode-1-font-weight-medium);
+  --font-weight-semibold: var(--typography-mode-1-font-weight-semibold);
+  --font-weight-bold: var(--typography-mode-1-font-weight-bold);
+  --spacing-8: var(--spacing-style-spacing-4px-2-8px);
+  --spacing-12: var(--spacing-style-spacing-4px-3-12px);
+  --radius-xs: var(--radius-mode-1-radius-xs);
+  --radius-sm: var(--radius-mode-1-radius-sm);
+  --radius-md: var(--radius-mode-1-radius-md);
+  --border-width-thin: var(--border-widths-mode-1-border-width-thin);
+  --border-text-hover: var(--semantic-text-hover);
+  --border-text-subtle: var(--semantic-border-subtle);
+  --border-text-strong: var(--semantic-border-strong);
+  --border-text-muted: var(--semantic-border-muted);
+  --border-text-ghosted: var(--semantic-border-ghosted);
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-skeuomorphic: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  --shadow-inner-panel: inset 4px 4px 28px 1px rgba(224, 221, 91, 0.29);
+  
+  /* Table Colors */
+  --semantic-table-border: var(--semantic-border-subtle);
+  --semantic-table-header-bg: var(--color-fill-neutral-600);
+  --semantic-table-header-text: var(--semantic-text-primary);
+  --semantic-table-label-text: var(--semantic-text-secondary);
+  --semantic-table-row-even: var(--color-fill-neutral-800); /* #0d0d0d */
+  --semantic-table-row-odd: var(--color-fill-neutral-850); /* #0c0c0c */
+  --semantic-table-row-hover: var(--color-fill-neutral-600);
+  --semantic-table-row-selected: color-mix(in srgb, var(--semantic-brand-base) 10%, var(--semantic-background-base));
+  --semantic-table-body-text: var(--semantic-text-primary);
+  --semantic-table-icon-active: var(--semantic-brand-base);
+  --semantic-table-icon-inactive: #5C5C5C;
+  --semantic-table-icon-hover: #F3F29E;
+  --semantic-table-tooltip-bg: var(--color-fill-neutral-500); /* #1E1E1E */
+  --semantic-table-batch-toolbar-bg: color-mix(in srgb, var(--semantic-brand-base) 5%, var(--semantic-background-base));
+  --semantic-table-batch-toolbar-border: color-mix(in srgb, var(--semantic-brand-base) 20%, var(--semantic-border-subtle));
+  --semantic-table-sticky-column-bg: var(--color-fill-neutral-900); /* #0a0a0a for sticky columns */
+  
+  /* Header Group Backgrounds */
+  --semantic-table-header-group-bg: var(--color-fill-neutral-600); /* for "USERS", "MODULE ACCESS", etc. */
+  --semantic-table-header-subheader-bg: var(--color-fill-neutral-600); /* for "User", "Role", etc. */
+  
+  /* Divider Colors */
+  --semantic-table-divider-subtle: var(--semantic-table-border); /* for external borders, borders between groups, borders between headers and rows */
+  --semantic-table-divider-muted: var(--semantic-border-ghosted); /* for between columns of the same group */
+  
+  /* Checkbox Tokens */
+  --semantic-checkbox-border: var(--semantic-border-subtle);
+  --semantic-checkbox-border-checked: var(--color-fill-neutral-600);
+  --semantic-checkbox-bg-checked: var(--color-fill-neutral-600);
+  --semantic-checkbox-checkmark: var(--semantic-text-primary);
+  --semantic-checkbox-hover-bg: var(--color-fill-neutral-800);
+  
+  /* Badge Tokens */
+  --semantic-badge-default-bg: var(--color-fill-neutral-600);
+  --semantic-badge-default-text: var(--semantic-text-secondary);
+  --semantic-badge-secondary-bg: var(--color-fill-neutral-800);
+  --semantic-badge-secondary-text: var(--semantic-text-secondary);
+  --semantic-badge-secondary-border: var(--semantic-border-muted);
+  
+  /* Table Dimensions */
+  --component-table-header-row-height: 40px;
+  --component-table-body-row-height: 48px;
+  --component-table-module-column-width: 68px;
+  --component-table-data-column-width: 120px;
+  --component-table-sticky-column-width: 280px;
+  --component-table-checkbox-column-width: 48px;
+  
+  /* Input Tokens */
+  --semantic-input-border-error: var(--semantic-feedback-error-base);
+  --semantic-input-border-success: var(--semantic-feedback-success-base);
+  --semantic-input-text-error: var(--semantic-feedback-error-base);
+  --semantic-input-text-success: var(--semantic-feedback-success-base);
+  --semantic-input-label-text: var(--semantic-text-muted);
+  --semantic-input-label-text-error: var(--semantic-feedback-error-base);
+  --semantic-input-label-text-success: var(--semantic-feedback-success-base);
+  --semantic-input-icon-error: var(--semantic-feedback-error-base);
+  --semantic-input-icon-success: var(--semantic-feedback-success-base);
+  --semantic-input-placeholder: var(--semantic-text-muted);
+}

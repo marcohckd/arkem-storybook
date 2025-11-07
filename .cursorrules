@@ -1,0 +1,45 @@
+# 🪄 ARKEM Design System — Cursor Project Context
+
+## Mission
+Turn our ARKEM Figma system into a React + Storybook library using ONLY tokens (no raw values). Components mirror Figma variants/sizes/states, are accessible, and ship with well-documented stories.
+
+## Tech
+- React 18, TypeScript strict
+- Storybook (Vite)
+- Tokens as CSS variables
+- Icons: lucide-react
+- Optional: Tailwind (design authoring only)
+
+## Folders
+src/
+  styles/                 # tokens.css + tokens-semantic.css
+  components/             # <Name>/<Name>.tsx + <Name>.stories.tsx
+  kepler/                 # Kepler shells & stories (mocked)
+.storybook/
+
+## Ground Rules
+1) Never hardcode visual values. Use variables from:
+   - /src/styles/tokens.css
+   - /src/styles/tokens-semantic.css
+2) Each component:
+   - lives in `src/components/<Name>/`
+   - has typed props mapped to Figma variants
+   - includes focus-visible and ARIA
+   - ships `*.stories.tsx` with Controls for all props
+3) Storybook:
+   - `title: "Components/<Name>"`
+   - layout centered unless the pattern needs full width
+4) New visuals → propose a semantic token and add it to tokens-semantic.css, then refactor usage.
+
+## Atomic Discipline
+Atoms (Button, Input, Badge) → Molecules (Card, Modal) → Organisms (Table, Toolbar).
+
+## Cursor Prompt Pattern
+/vibe Create `src/components/<Name>/<Name>.tsx` implementing tokens-only styles, ARIA/focus-visible, typed props (match Figma), and `*.stories.tsx` with Controls and 3–5 example stories.
+
+## Acceptance Checklist
+- [ ] Tokens only (no hex, px literals if a token exists)
+- [ ] Variants & sizes match Figma names
+- [ ] Accessible focus, keyboard support
+- [ ] Stories render in isolation; Docs tab usable
+- [ ] Props typed, defaults sensible
