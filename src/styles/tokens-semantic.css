@@ -172,15 +172,15 @@
   
   /* Checkbox Tokens */
   --semantic-checkbox-border: var(--semantic-border-subtle);
-  --semantic-checkbox-border-checked: var(--color-fill-neutral-600);
-  --semantic-checkbox-bg-checked: var(--color-fill-neutral-600);
+  --semantic-checkbox-border-checked: var(--semantic-background-muted);
+  --semantic-checkbox-bg-checked: var(--semantic-background-muted);
   --semantic-checkbox-checkmark: var(--semantic-text-primary);
-  --semantic-checkbox-hover-bg: var(--color-fill-neutral-800);
+  --semantic-checkbox-hover-bg: var(--semantic-background-interactive);
   
   /* Badge Tokens */
-  --semantic-badge-default-bg: var(--color-fill-neutral-600);
+  --semantic-badge-default-bg: var(--semantic-background-muted);
   --semantic-badge-default-text: var(--semantic-text-secondary);
-  --semantic-badge-secondary-bg: var(--color-fill-neutral-800);
+  --semantic-badge-secondary-bg: var(--semantic-background-base);
   --semantic-badge-secondary-text: var(--semantic-text-secondary);
   --semantic-badge-secondary-border: var(--semantic-border-muted);
   

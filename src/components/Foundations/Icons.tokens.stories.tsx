@@ -70,7 +70,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
         style={{
           marginBottom: "var(--spacing-8)",
           padding: "var(--spacing-16)",
-          background: "var(--color-fill-neutral-700)",
+          background: "var(--semantic-background-muted)",
           borderRadius: "var(--radius-md)",
           border: `0.5px solid var(--semantic-border-subtle)`,
         }}
@@ -124,7 +124,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
             lineHeight: "var(--fonts-semantic-md-line-height)",
             fontWeight: "var(--font-weight-regular)",
             color: "var(--semantic-text-primary)",
-            background: "var(--color-fill-neutral-700)",
+            background: "var(--semantic-background-muted)",
             border: `0.5px solid var(--semantic-border-subtle)`,
             borderRadius: "var(--radius-sm)",
             fontFamily: "var(--font-family-base)",
@@ -140,7 +140,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
           }}
           onMouseEnter={(e) => {
             if (document.activeElement !== e.currentTarget) {
-              e.currentTarget.style.background = "var(--color-fill-neutral-600)";
+              e.currentTarget.style.background = "var(--semantic-background-interactive)";
             }
           }}
           onMouseLeave={(e) => {
@@ -181,7 +181,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
             alignItems: "center",
             marginBottom: "var(--spacing-8)",
             padding: "var(--spacing-12)",
-            background: "var(--color-fill-neutral-700)",
+            background: "var(--semantic-background-muted)",
             borderRadius: "var(--radius-sm)",
             border: `0.5px solid var(--semantic-border-subtle)`,
           }}
@@ -204,7 +204,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
             }}
             onMouseEnter={(e) => {
               if (!e.currentTarget.disabled) {
-                e.currentTarget.style.background = "var(--color-fill-neutral-600)";
+                e.currentTarget.style.background = "var(--semantic-background-interactive)";
               }
             }}
             onMouseLeave={(e) => {
@@ -249,7 +249,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
             }}
             onMouseEnter={(e) => {
               if (!e.currentTarget.disabled) {
-                e.currentTarget.style.background = "var(--color-fill-neutral-600)";
+                e.currentTarget.style.background = "var(--semantic-background-interactive)";
               }
             }}
             onMouseLeave={(e) => {
@@ -358,7 +358,7 @@ const meta: Meta<IconsGalleryProps> = {
   title: "Foundations/Icons",
   decorators: [
     (Story) => (
-      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: 'var(--spacing-20)' }}>
+      <div style={{ backgroundColor: 'var(--semantic-background-base)', minHeight: '100vh', padding: 'var(--spacing-20)' }}>
         <Story />
       </div>
     ),

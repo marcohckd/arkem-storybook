@@ -25,18 +25,18 @@
 }
 
 .arkem-checkbox:hover {
-  background: var(--semantic-checkbox-hover-bg, var(--color-fill-neutral-800));
-  border-color: var(--semantic-checkbox-border, var(--semantic-border-subtle));
+  background: var(--semantic-checkbox-hover-bg);
+  border-color: var(--semantic-checkbox-border);
 }
 
 .arkem-checkbox:checked {
-  background: var(--semantic-checkbox-bg-checked, var(--color-fill-neutral-600));
-  border-color: var(--semantic-checkbox-border-checked, var(--color-fill-neutral-600));
+  background: var(--semantic-checkbox-bg-checked);
+  border-color: var(--semantic-checkbox-border-checked);
 }
 
 .arkem-checkbox:checked:hover {
-  background: var(--semantic-checkbox-bg-checked, var(--color-fill-neutral-600));
-  border-color: var(--semantic-checkbox-border-checked, var(--color-fill-neutral-600));
+  background: var(--semantic-checkbox-bg-checked);
+  border-color: var(--semantic-checkbox-border-checked);
 }
 
 .arkem-checkbox:focus-visible {

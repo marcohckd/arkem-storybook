@@ -44,16 +44,16 @@ export const NavMenu: React.FC<NavMenuProps> = ({
                 padding: "var(--spacing-8) var(--spacing-12)",
                 borderRadius: "var(--radius-md)",
                 border: "none",
-                backgroundColor: "var(--color-fill-neutral-200)",
+                backgroundColor: "var(--semantic-background-muted)",
                 color: "var(--color-text-primary)",
                 cursor: "pointer",
                 transition: "background-color var(--transition-base)",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.backgroundColor = "var(--color-fill-neutral-100)";
+                e.currentTarget.style.backgroundColor = "var(--semantic-background-interactive)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.backgroundColor = "var(--color-fill-neutral-200)";
+                e.currentTarget.style.backgroundColor = "var(--semantic-background-muted)";
               }}
             >
               <div
@@ -67,7 +67,7 @@ export const NavMenu: React.FC<NavMenuProps> = ({
                     width: "32px",
                     height: "32px",
                     borderRadius: "50%",
-                    backgroundColor: "var(--color-fill-neutral-100)",
+                    backgroundColor: "var(--semantic-background-interactive)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
@@ -112,7 +112,7 @@ export const NavMenu: React.FC<NavMenuProps> = ({
                       height: "12px",
                       backgroundColor: "#10b981",
                       borderRadius: "50%",
-                      border: "2px solid var(--color-fill-neutral-400)",
+                      border: "2px solid var(--semantic-border-subtle)",
                     }}
                   />
                 )}
@@ -167,7 +167,7 @@ export const NavMenu: React.FC<NavMenuProps> = ({
               borderRadius: "var(--radius-md)",
               border: "none",
               backgroundColor: item.isActive
-                ? "var(--color-fill-neutral-200)"
+                ? "var(--semantic-background-muted)"
                 : "transparent",
               color: item.isActive
                 ? "var(--color-text-primary)"
@@ -177,7 +177,7 @@ export const NavMenu: React.FC<NavMenuProps> = ({
             }}
             onMouseEnter={(e) => {
               if (!item.isActive) {
-                e.currentTarget.style.backgroundColor = "var(--color-fill-neutral-300)";
+                e.currentTarget.style.backgroundColor = "var(--semantic-background-interactive)";
                 e.currentTarget.style.color = "var(--color-text-primary)";
               }
             }}

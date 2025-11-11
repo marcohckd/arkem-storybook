@@ -29,13 +29,13 @@ export const Badge: React.FC<BadgeProps> = ({
 
   const variantStyles: Record<"default" | "secondary", React.CSSProperties> = {
     default: {
-      background: "var(--semantic-badge-default-bg, var(--color-fill-neutral-600))",
-      color: "var(--semantic-badge-default-text, var(--semantic-text-secondary))",
+      background: "var(--semantic-badge-default-bg)",
+      color: "var(--semantic-badge-default-text)",
     },
     secondary: {
-      background: "var(--semantic-badge-secondary-bg, var(--color-fill-neutral-800))",
-      color: "var(--semantic-badge-secondary-text, var(--semantic-text-secondary))",
-      border: "var(--border-width-thin) solid var(--semantic-badge-secondary-border, var(--semantic-border-muted))",
+      background: "var(--semantic-badge-secondary-bg)",
+      color: "var(--semantic-badge-secondary-text)",
+      border: "var(--border-width-thin) solid var(--semantic-badge-secondary-border)",
     },
   };
 

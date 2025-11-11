@@ -25,16 +25,16 @@
 }
 
 .arkem-radio:hover:not(:disabled) {
-  background: var(--semantic-checkbox-hover-bg, var(--color-fill-neutral-800));
-  border-color: var(--semantic-checkbox-border, var(--semantic-border-subtle));
+  background: var(--semantic-checkbox-hover-bg);
+  border-color: var(--semantic-checkbox-border);
 }
 
 .arkem-radio:checked {
-  border-color: var(--semantic-checkbox-border-checked, var(--color-fill-neutral-600));
+  border-color: var(--semantic-checkbox-border-checked);
 }
 
 .arkem-radio:checked:hover:not(:disabled) {
-  border-color: var(--semantic-checkbox-border-checked, var(--color-fill-neutral-600));
+  border-color: var(--semantic-checkbox-border-checked);
 }
 
 .arkem-radio:focus-visible {

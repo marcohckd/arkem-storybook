@@ -33,7 +33,7 @@ const meta: Meta<typeof UserManagementTable> = {
   component: UserManagementTable,
   decorators: [
     (Story) => (
-      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: 'var(--spacing-20)' }}>
+      <div style={{ backgroundColor: 'var(--semantic-background-base)', minHeight: '100vh', padding: 'var(--spacing-20)' }}>
         <Story />
       </div>
     ),

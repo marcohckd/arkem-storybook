@@ -283,3 +283,16 @@ Create `src/components/<Category>/<Name>/<Name>.tsx` implementing:
 ❌ `transition: 0.15s ease` → ✅ `transition: var(--transition-base)`  
 ❌ Hardcoded typography in story files → ✅ Use semantic tokens  
 ❌ Using classes for state → ✅ Use data attributes  
+❌ `background: var(--color-fill-neutral-200)` → ✅ `background: var(--semantic-background-muted)`  
+
+### 11. Avoid Grey Backgrounds
+
+**Never use grey/neutral backgrounds in components** (except buttons which have a grey tone option). Always use semantic background tokens instead of `--color-fill-neutral-*` tokens for component backgrounds.
+
+**Use semantic tokens:**
+- `--semantic-background-base` - Base background
+- `--semantic-background-muted` - Muted/secondary backgrounds
+- `--semantic-background-interactive` - Interactive/hover states
+- `--semantic-background-raised` - Elevated surfaces
+
+**Exception:** Buttons have a `tone="grey"` option which is acceptable as it's a design system feature.  

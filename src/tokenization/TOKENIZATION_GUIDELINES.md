@@ -372,6 +372,39 @@ For consistent typography in story files, use these standardized font size token
 - `--fonts-semantic-lg`: 18px - Reserved for component content, not story UI
 - `--fonts-semantic-xl`: 20px - Reserved for component content, not story UI
 
+## Avoid Grey Backgrounds
+
+**Never use grey/neutral backgrounds in components** (except buttons which have a grey tone option). Always use semantic background tokens instead of `--color-fill-neutral-*` tokens for component backgrounds.
+
+### When to Use Semantic Background Tokens
+
+- **Base backgrounds**: Use `--semantic-background-base` for default component backgrounds
+- **Muted backgrounds**: Use `--semantic-background-muted` for secondary/subtle backgrounds
+- **Interactive backgrounds**: Use `--semantic-background-interactive` for hover/active states
+- **Raised surfaces**: Use `--semantic-background-raised` for elevated surfaces
+
+### Anti-Patterns
+
+```css
+/* ❌ Bad - Using neutral color tokens for backgrounds */
+.component {
+  background: var(--color-fill-neutral-200);
+  background: var(--color-fill-neutral-600);
+  background: var(--color-fill-neutral-800);
+}
+
+/* ✅ Good - Using semantic background tokens */
+.component {
+  background: var(--semantic-background-muted);
+  background: var(--semantic-background-interactive);
+  background: var(--semantic-background-base);
+}
+```
+
+### Exception
+
+Buttons are an exception - they have a `tone="grey"` option which uses `--semantic-background-grey-*` tokens. This is acceptable as it's a design system feature.
+
 ## Questions?
 
 If you're unsure whether a value should be tokenized:

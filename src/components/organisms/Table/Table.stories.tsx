@@ -58,7 +58,7 @@ Tokens follow a three-tier hierarchy:
 - **Font Size**: \`var(--fonts-semantic-md)\` -> \`var(--typography-mode-1-font-size-16)\` -> 16px
 - **Font Weight**: \`var(--font-weight-regular)\` -> \`var(--typography-mode-1-font-weight-regular)\` -> 400 (body), \`var(--font-weight-medium)\` -> \`var(--typography-mode-1-font-weight-medium)\` -> 500 (headers)
 - **Text Color**: \`var(--semantic-text-primary)\` -> \`var(--color-text-primary)\` -> #E5E5E5
-- **Header Background**: \`var(--semantic-background-raised)\` -> #8A8A8A
+- **Header Background**: \`var(--semantic-background-raised)\` -> #121212
 - **Even Row Background**: \`var(--semantic-background-base)\` -> #080808
 - **Odd Row Background**: \`var(--semantic-background-muted)\` -> #2D2D2D
 - **Selected Row**: \`var(--semantic-background-interactive)\` -> #5A5A5A
@@ -101,7 +101,7 @@ Tokens follow a three-tier hierarchy:
 | Font Weight (body) | \`--font-weight-regular\` | \`--typography-mode-1-font-weight-regular\` | 400 |
 | Font Weight (header) | \`--font-weight-medium\` | \`--typography-mode-1-font-weight-medium\` | 500 |
 | Text | \`--semantic-text-primary\` | \`--color-text-primary\` | #E5E5E5 |
-| Header Background | \`--semantic-background-raised\` | — | #8A8A8A |
+| Header Background | \`--semantic-background-raised\` | — | #121212 |
 | Even Row Background | \`--semantic-background-base\` | — | #080808 |
 | Odd Row Background | \`--semantic-background-muted\` | — | #2D2D2D |
 | Selected Row Background | \`--semantic-background-interactive\` | — | #5A5A5A |
