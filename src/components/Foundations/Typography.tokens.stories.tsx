@@ -7,9 +7,82 @@ import "../../styles/tokens-semantic.css";
 
 const meta = {
   title: "Foundations/Typography",
+  decorators: [
+    (Story) => (
+      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: '20px' }}>
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     layout: "fullscreen",
+    backgrounds: { default: "arkem-base" },
+    docs: {
+      description: {
+        component: `ARKEM Design System uses a comprehensive typography system with two scales: Display (for headings and hero text) and Semantic (for UI components and body text).
+
+## Typography Scales
+
+- **Display Scale**: Large typography for headings and hero text (24px-72px)
+  - Use for: Page titles, section headings, hero text, large displays
+  - Range: Display XS (24px) to Display 2XL (72px)
+  
+- **Semantic Scale**: Medium typography for UI components and body text (10px-20px)
+  - Use for: Button labels, input text, body content, UI component text
+  - Range: Semantic XXS (10px) to Semantic 2XL (20px)
+
+## Font Weights
+
+- **Regular (400)**: Default body text and UI components
+- **Medium (500)**: Emphasis, labels, and interactive elements
+- **Semibold (600)**: Headings and important text
+- **Bold (700)**: Strong emphasis and critical information
+
+## Font Family
+
+- **IBM Plex Sans**: Primary font family for all UI components and text
+- Token: \`--font-family-base\`
+
+## Usage Guidelines
+
+Always use semantic tokens for UI components. Use display tokens for headings and hero sections.
+
+\`\`\`css
+/* Display scale for headings */
+.heading {
+  font-size: var(--fonts-display-lg);
+  line-height: var(--fonts-display-lg-line-height);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Semantic scale for body text */
+.body {
+  font-size: var(--fonts-semantic-md);
+  line-height: var(--fonts-semantic-md-line-height);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Button text (semantic scale) */
+.button {
+  font-size: var(--fonts-semantic-sm);
+  line-height: var(--fonts-semantic-sm-line-height);
+  font-weight: var(--font-weight-medium);
+}
+\`\`\`
+
+## Design Tokens
+
+Key typography tokens:
+- \`--fonts-display-*\`: Display scale font sizes
+- \`--fonts-display-*-line-height\`: Display scale line heights
+- \`--fonts-semantic-*\`: Semantic scale font sizes
+- \`--fonts-semantic-*-line-height\`: Semantic scale line heights
+- \`--font-weight-regular/medium/semibold/bold\`: Font weights
+- \`--font-family-base\`: Primary font family (IBM Plex Sans)`,
+      },
+    },
   },
+  tags: ["autodocs"],
 } satisfies Meta;
 
 export default meta;

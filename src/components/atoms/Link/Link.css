@@ -1,0 +1,56 @@
+.arkem-link {
+  font-family: var(--font-family-base);
+  color: var(--semantic-link-color, var(--semantic-brand-base));
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--transition-base), text-decoration var(--transition-base);
+}
+
+.arkem-link:hover:not(.arkem-link--disabled) {
+  color: var(--semantic-link-color-hover, var(--semantic-brand-base));
+  text-decoration: underline;
+}
+
+.arkem-link:focus-visible {
+  outline: 2px solid var(--semantic-focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+.arkem-link--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.arkem-link--subtle {
+  color: var(--semantic-text-secondary);
+}
+
+.arkem-link--subtle:hover:not(.arkem-link--disabled) {
+  color: var(--semantic-text-primary);
+}
+
+.arkem-link--underline {
+  text-decoration: underline;
+}
+
+.arkem-link--underline:hover:not(.arkem-link--disabled) {
+  text-decoration-thickness: 2px;
+}
+
+.arkem-link--sm {
+  font-size: var(--fonts-semantic-sm);
+  line-height: var(--fonts-semantic-sm-line-height);
+}
+
+.arkem-link--md {
+  font-size: var(--fonts-semantic-md);
+  line-height: var(--fonts-semantic-md-line-height);
+}
+
+.arkem-link--lg {
+  font-size: var(--fonts-semantic-lg);
+  line-height: var(--fonts-semantic-lg-line-height);
+}
+

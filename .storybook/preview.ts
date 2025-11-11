@@ -18,7 +18,7 @@ const preview: Preview = {
       values: [
         {
           name: "arkem",
-          value: "var(--semantic-background-base)",
+          value: "#080808", /* --semantic-background-base */
         },
         {
           name: "light",
@@ -34,17 +34,17 @@ const preview: Preview = {
     docs: {
       theme: {
         ...themes.dark,
-        appBg: "var(--semantic-background-base)",
-        appContentBg: "var(--semantic-background-base)",
-        textColor: "var(--semantic-text-primary)",
-        textInverseColor: "var(--semantic-text-inverse)",
-        barTextColor: "var(--semantic-text-primary)",
-        barSelectedColor: "var(--semantic-brand-base)",
-        barBg: "var(--semantic-background-raised)",
-        inputBg: "var(--semantic-background-interactive)",
-        inputBorder: "var(--semantic-border-subtle)",
-        inputTextColor: "var(--semantic-text-primary)",
-        textMutedColor: "var(--semantic-text-secondary)",
+        appBg: "#080808", /* --semantic-background-base */
+        appContentBg: "#080808", /* --semantic-background-base */
+        textColor: "#e5e5e5", /* --semantic-text-primary */
+        textInverseColor: "#080808", /* --semantic-text-inverse */
+        barTextColor: "#e5e5e5", /* --semantic-text-primary */
+        barSelectedColor: "#e0dd5b", /* --semantic-brand-base */
+        barBg: "#8a8a8a", /* --semantic-background-raised */
+        inputBg: "#5a5a5a", /* --semantic-background-interactive */
+        inputBorder: "#2d2d2d", /* --semantic-border-subtle */
+        inputTextColor: "#e5e5e5", /* --semantic-text-primary */
+        textMutedColor: "#838383", /* --semantic-text-secondary */
         fontBase: "var(--font-family-base)",
         fontCode: "monospace",
       },

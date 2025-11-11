@@ -7,29 +7,90 @@ import "../../styles/tokens-semantic.css";
 
 const meta: Meta = {
   title: "Foundations/Spacing & Layout Tokens",
+  decorators: [
+    (Story) => (
+      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: '20px' }}>
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     layout: "padded",
     backgrounds: { default: "arkem-base" },
     docs: {
       description: {
-        component: `# Spacing & Layout Tokens
-
-ARKEM Design System uses a 4px-based spacing scale for consistent layout and spacing throughout the design system.
+        component: `ARKEM Design System uses a 4px-based spacing scale for consistent layout and spacing throughout the design system.
 
 ## Spacing Scale
 
-All spacing values are multiples of 4px, ranging from 2px to 128px.
+All spacing values are multiples of 4px, ranging from 2px to 128px. This creates a harmonious rhythm throughout the interface and ensures consistent spacing relationships.
+
+### Common Spacing Values
+
+- **2px, 4px**: Tight spacing for icons, badges, small elements
+- **8px, 12px**: Standard spacing for form elements, buttons, compact layouts
+- **16px, 20px, 24px**: Medium spacing for sections, cards, content blocks
+- **32px, 40px, 48px**: Large spacing for major sections, page layouts
+- **64px, 80px, 96px, 128px**: Extra large spacing for hero sections, page margins
 
 ## Corner Radius
 
-Border radius tokens for rounded corners, ranging from 2px (xss) to 999px (max/pill).
+Border radius tokens for rounded corners, ranging from 2px (xss) to 999px (max/pill). Used for buttons, cards, inputs, and other rounded elements.
+
+### Common Radius Values
+
+- **2px (xss)**: Very subtle rounding
+- **4px (xs)**: Small elements, badges
+- **6px (sm)**: Buttons, small cards
+- **8px (md)**: Standard cards, panels, modals
+- **10px (lg)**: Large cards, prominent elements
+- **16px (xl)**: Extra large cards
+- **999px (max)**: Pill-shaped elements, fully rounded
 
 ## Border Widths
 
-Border width tokens for consistent stroke weights.`,
+Border width tokens for consistent stroke weights across all components.
+
+### Border Width Values
+
+- **0.5px (hairline)**: Subtle borders, dividers
+- **1px (thin)**: Standard borders for most components
+- **2px (medium)**: Emphasized borders
+- **4px (thick)**: Heavy borders for strong separation
+
+## Usage
+
+Always use spacing tokens instead of hardcoded pixel values to maintain consistency.
+
+\`\`\`css
+/* Spacing between elements */
+.container {
+  padding: var(--spacing-16);
+  gap: var(--spacing-12);
+}
+
+/* Border radius */
+.card {
+  border-radius: var(--radius-md);
+}
+
+/* Border width */
+.bordered {
+  border-width: var(--border-width-thin);
+}
+\`\`\`
+
+## Design Tokens
+
+Key spacing and layout tokens:
+- \`--spacing-*\`: Spacing values (2px to 128px)
+- \`--spacing-style-spacing-4px-*\`: Alternative spacing tokens
+- \`--radius-*\`: Border radius values (xs, sm, md, lg, xl, max)
+- \`--border-width-*\`: Border width values (hairline, thin, medium, thick)`,
       },
     },
   },
+  tags: ["autodocs"],
 };
 
 export default meta;

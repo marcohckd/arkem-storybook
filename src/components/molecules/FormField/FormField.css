@@ -1,0 +1,39 @@
+.arkem-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.arkem-form-field__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arkem-form-field__label {
+  font-size: var(--fonts-semantic-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--semantic-text-secondary);
+}
+
+.arkem-form-field__count {
+  font-size: var(--fonts-semantic-xs);
+  color: var(--semantic-text-secondary);
+}
+
+.arkem-form-field__count--error {
+  color: var(--semantic-text-error, var(--color-text-error));
+}
+
+.arkem-form-field__error {
+  font-size: var(--fonts-semantic-sm);
+  color: var(--semantic-text-error, var(--color-text-error));
+  margin-top: var(--spacing-4);
+}
+
+.arkem-form-field__help {
+  font-size: var(--fonts-semantic-sm);
+  color: var(--semantic-text-secondary);
+  margin-top: var(--spacing-4);
+}
+

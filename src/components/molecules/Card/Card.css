@@ -1,0 +1,24 @@
+.arkem-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--semantic-background-raised);
+  border: var(--border-width-thin) solid var(--semantic-border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.arkem-card__header {
+  padding: var(--spacing-16);
+  border-bottom: var(--border-width-thin) solid var(--semantic-border-subtle);
+}
+
+.arkem-card__body {
+  padding: var(--spacing-16);
+  flex: 1;
+}
+
+.arkem-card__footer {
+  padding: var(--spacing-16);
+  border-top: var(--border-width-thin) solid var(--semantic-border-subtle);
+}
+

@@ -356,16 +356,21 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
 
 const meta: Meta<IconsGalleryProps> = {
   title: "Foundations/Icons",
+  decorators: [
+    (Story) => (
+      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: '20px' }}>
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     layout: "fullscreen",
     backgrounds: { default: "arkem-base" },
     docs: {
       description: {
-        component: `# Icons
+        component: `ARKEM Design System uses **Lucide React** for all iconography. Lucide provides a comprehensive set of beautiful, consistent icons with over ${ALL_ICON_NAMES.length} icons available.
 
-ARKEM Design System uses **Lucide React** for all iconography. Lucide provides a comprehensive set of beautiful, consistent icons.
-
-**Total icons available: ${ALL_ICON_NAMES.length}**
+## Icon Library
 
 Icons are loaded via \`lucide-react/dynamicIconImports\` to prevent tree-shaking in Storybook/Vite builds. Each icon is lazy-loaded for optimal performance.
 
@@ -373,7 +378,7 @@ Icons are loaded via \`lucide-react/dynamicIconImports\` to prevent tree-shaking
 
 Icons are imported from lucide-react and can be used directly in components or passed as props to the Button component.
 
-\\\`\\\`\\\`tsx
+\`\`\`tsx
 import { Settings, X, ArrowRight } from "lucide-react";
 
 // Direct usage
@@ -381,17 +386,49 @@ import { Settings, X, ArrowRight } from "lucide-react";
 
 // With Button component
 <Button trailingIconName="Settings" />
-\\\`\\\`\\\`
+
+// With semantic color tokens
+<Settings 
+  size={16} 
+  style={{ color: "var(--semantic-text-primary)" }} 
+/>
+\`\`\`
 
 ## Icon Sizing
 
 Icons automatically scale with their container. Button components handle icon sizing automatically:
-- Small buttons (sm): 16px icons
-- Medium buttons (md): 20px icons  
-- Large buttons (lg): 24px icons`,
+- **Small buttons (sm)**: 16px icons
+- **Medium buttons (md)**: 20px icons  
+- **Large buttons (lg)**: 24px icons
+
+For standalone icons, use sizes that match your typography scale (12px, 16px, 20px, 24px).
+
+## Icon Colors
+
+Icons use semantic color tokens for consistent theming:
+- \`--semantic-text-primary\`: Default icon color
+- \`--semantic-text-secondary\`: Secondary icon color
+- \`--semantic-text-muted\`: Muted icon color
+- \`--semantic-brand-base\`: Brand-colored icons
+- \`currentColor\`: Inherits text color from parent
+
+## Accessibility
+
+Always provide meaningful labels for icon-only buttons:
+- Use \`aria-label\` for icon buttons
+- Use \`aria-hidden="true"\` for decorative icons
+- Ensure sufficient color contrast
+
+## Design Tokens
+
+Icon-related tokens:
+- Icon colors use semantic text tokens: \`--semantic-text-*\`
+- Icon sizes typically match button sizes or semantic font sizes
+- Stroke width: 2px default (adjustable via \`strokeWidth\` prop)`,
       },
     },
   },
+  tags: ["autodocs"],
   argTypes: {
     size: {
       control: { type: "range", min: 12, max: 64, step: 1 },

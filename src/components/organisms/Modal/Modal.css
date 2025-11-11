@@ -1,0 +1,147 @@
+/* === MODAL OVERLAY/BACKDROP === */
+.arkem-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--semantic-background-backdrop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-index-modal);
+  padding: var(--spacing-12, 12px);
+  box-sizing: border-box;
+}
+
+/* === MODAL CONTAINER === */
+.arkem-modal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1000px;
+  height: 700px;
+  background: var(--semantic-background-base);
+  border: var(--border-width-thin, 1px) solid var(--semantic-border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-skeuomorphic);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* === PREVENT AUTO-FOCUS ON HEADER BUTTONS === */
+/* Ensure header buttons start in default state, not focused or hovered */
+.arkem-modal .arkem-header button {
+  /* Remove outline from programmatic focus (browser default) */
+  outline: none;
+}
+
+/* Only show focus styles when user actually interacts via keyboard (:focus-visible) */
+/* The Button component's CSS already handles :focus-visible properly */
+/* This ensures no visible focus ring appears on mount */
+
+/* === SUBHEADER === */
+.arkem-modal__subheader {
+  padding: var(--spacing-12, 12px);
+  border-bottom: var(--border-width-thin, 1px) solid var(--semantic-border-subtle);
+  box-sizing: border-box;
+}
+
+/* === BODY (SCROLLABLE) === */
+.arkem-modal__body {
+  flex: 1;
+  overflow: hidden; /* Body doesn't scroll, panes do */
+  padding: var(--spacing-12, 12px);
+  box-sizing: border-box;
+  min-height: 0; /* Allows flex shrinking */
+  display: grid;
+  height: 100%;
+  contain: content;
+}
+
+/* === PANE (BASE STYLING) === */
+.arkem-modal__pane {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: var(--spacing-12, 12px);
+  border: 0.5px solid var(--semantic-border-subtle);
+  background: var(--semantic-background-base);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* === PLACEHOLDER PANE (HIDDEN BUT OCCUPIES GRID CELL) === */
+.arkem-modal__pane--placeholder {
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* === FORMAT: SINGLE === */
+.arkem-modal__body--format-single {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+/* === FORMAT: 1+1-VERTICAL (TWO STACKED VERTICAL PANES) === */
+.arkem-modal__body--format-1-plus-1-vertical {
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  row-gap: var(--spacing-8, 8px);
+  column-gap: 0;
+}
+
+/* === FORMAT: 1+1-HORIZONTAL (TWO SIDE-BY-SIDE PANES) === */
+.arkem-modal__body--format-1-plus-1-horizontal {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: 1fr;
+  column-gap: var(--spacing-8, 8px);
+  row-gap: 0;
+}
+
+/* === FORMAT: 2+1 (LEFT: TWO PANES, RIGHT: ONE PANE) === */
+.arkem-modal__body--format-2-plus-1 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: 1fr;
+  column-gap: var(--spacing-8, 8px);
+  row-gap: 0;
+}
+
+.arkem-modal__left-panes {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  row-gap: var(--spacing-8, 8px);
+  column-gap: 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* === FORMAT: 1+2 (LEFT: ONE PANE, RIGHT: TWO PANES) === */
+.arkem-modal__body--format-1-plus-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: 1fr;
+  column-gap: var(--spacing-8, 8px);
+  row-gap: 0;
+}
+
+.arkem-modal__right-panes {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  row-gap: var(--spacing-8, 8px);
+  column-gap: 0;
+  min-width: 0;
+  min-height: 0;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: var(--breakpoint-md)) {
+  .arkem-modal {
+    max-width: calc(100vw - var(--spacing-12, 12px) * 2);
+  }
+}
+

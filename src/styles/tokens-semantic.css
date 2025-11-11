@@ -118,10 +118,12 @@
   --font-weight-bold: var(--typography-mode-1-font-weight-bold);
   --spacing-8: var(--spacing-style-spacing-4px-2-8px);
   --spacing-12: var(--spacing-style-spacing-4px-3-12px);
+  --spacing-24: var(--spacing-style-spacing-4px-6-24px);
   --radius-xs: var(--radius-mode-1-radius-xs);
   --radius-sm: var(--radius-mode-1-radius-sm);
   --radius-md: var(--radius-mode-1-radius-md);
   --border-width-thin: var(--border-widths-mode-1-border-width-thin);
+  --border-width-medium: var(--border-widths-mode-1-border-width-medium);
   --border-text-hover: var(--semantic-text-hover);
   --border-text-subtle: var(--semantic-border-subtle);
   --border-text-strong: var(--semantic-border-strong);
@@ -139,14 +141,14 @@
   --semantic-table-row-even: var(--color-fill-neutral-800); /* #0d0d0d */
   --semantic-table-row-odd: var(--color-fill-neutral-850); /* #0c0c0c */
   --semantic-table-row-hover: var(--color-fill-neutral-600);
-  --semantic-table-row-selected: color-mix(in srgb, var(--semantic-brand-base) 10%, var(--semantic-background-base));
+  --semantic-table-row-selected: #1e1d10; /* color-mix(in srgb, var(--semantic-brand-base) 10%, var(--semantic-background-base)) */
   --semantic-table-body-text: var(--semantic-text-primary);
   --semantic-table-icon-active: var(--semantic-brand-base);
   --semantic-table-icon-inactive: #5C5C5C;
   --semantic-table-icon-hover: #F3F29E;
   --semantic-table-tooltip-bg: var(--color-fill-neutral-500); /* #1E1E1E */
-  --semantic-table-batch-toolbar-bg: color-mix(in srgb, var(--semantic-brand-base) 5%, var(--semantic-background-base));
-  --semantic-table-batch-toolbar-border: color-mix(in srgb, var(--semantic-brand-base) 20%, var(--semantic-border-subtle));
+  --semantic-table-batch-toolbar-bg: #13130c; /* color-mix(in srgb, var(--semantic-brand-base) 5%, var(--semantic-background-base)) */
+  --semantic-table-batch-toolbar-border: #515036; /* color-mix(in srgb, var(--semantic-brand-base) 20%, var(--semantic-border-subtle)) */
   --semantic-table-sticky-column-bg: var(--color-fill-neutral-900); /* #0a0a0a for sticky columns */
   
   /* Header Group Backgrounds */
@@ -190,4 +192,24 @@
   --semantic-input-icon-error: var(--semantic-feedback-error-base);
   --semantic-input-icon-success: var(--semantic-feedback-success-base);
   --semantic-input-placeholder: var(--semantic-text-muted);
+  
+  /* Z-Index Tokens */
+  --z-index-base: 1;
+  --z-index-sticky: 10;
+  --z-index-dropdown: 100;
+  --z-index-modal: 1000;
+  
+  /* Animation Tokens */
+  --transition-fast: 0.1s ease;
+  --transition-base: 0.15s ease;
+  --transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-base: ease;
+  --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Typography Tokens - Letter Spacing */
+  --letter-spacing-tight: 0.2%;
+  --letter-spacing-normal: 0.5px;
+  
+  /* Breakpoint Tokens */
+  --breakpoint-md: 1024px;
 }

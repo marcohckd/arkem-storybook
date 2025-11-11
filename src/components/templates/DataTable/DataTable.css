@@ -1,0 +1,48 @@
+.arkem-data-table {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-12);
+}
+
+.arkem-data-table__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-12) var(--spacing-16);
+  background: var(--semantic-background-muted);
+  border-radius: var(--radius-md);
+}
+
+.arkem-data-table__toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.arkem-data-table__toolbar-text {
+  font-size: var(--fonts-semantic-sm);
+  color: var(--semantic-text-secondary);
+}
+
+.arkem-data-table__toolbar-actions {
+  display: flex;
+  gap: var(--spacing-8);
+}
+
+.arkem-data-table__container {
+  overflow-x: auto;
+}
+
+.arkem-data-table__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-16);
+  padding: var(--spacing-12);
+}
+
+.arkem-data-table__pagination-info {
+  font-size: var(--fonts-semantic-sm);
+  color: var(--semantic-text-secondary);
+}
+

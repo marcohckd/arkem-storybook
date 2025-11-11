@@ -1,0 +1,675 @@
+Apply TOKENIZATION_GUIDELINES.md standards with documentation best practices to all Storybook documentation pages (.stories.tsx):
+
+CONTEXT:
+Reference the project's TOKENIZATION_GUIDELINES.md file and apply professional documentation structure with clear hierarchy, readability, and consistent tokenization across all component documentation.
+
+═══════════════════════════════════════════════════════════════════════════════
+PART 1: DOCUMENTATION STRUCTURE & HIERARCHY
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Document Structure Template:
+   Apply this consistent structure to all component documentation:
+
+   # [Component Name]
+   
+   > **Brief one-line description of the component's primary purpose**
+   
+   ---
+   
+   ## Overview
+   
+   [2-3 sentences describing what the component does, when to use it, and key benefits.
+   Write in clear, concise prose. Avoid bullet points in overview sections.]
+   
+   ---
+   
+   ## Design Tokens
+   
+   ### Colors
+   [Token hierarchy for all color properties]
+   
+   ### Typography
+   [Token hierarchy for all typography properties]
+   
+   ### Spacing
+   [Token hierarchy for all spacing properties]
+   
+   ### Borders & Radius
+   [Token hierarchy for border properties]
+   
+   ### Shadows & Effects
+   [Token hierarchy for shadow properties]
+   
+   ### Animations
+   [Token hierarchy for animation properties]
+   
+   ### Z-Index
+   [Token hierarchy for layering]
+   
+   ---
+   
+   ## Props
+   
+   [Comprehensive props documentation with types and descriptions]
+   
+   ---
+   
+   ## Usage
+   
+   ### Basic Usage
+   [Simple, clear code example]
+   
+   ### Advanced Examples
+   [More complex scenarios]
+   
+   ### State Variations
+   [Different states: default, hover, focus, disabled, error]
+   
+   ---
+   
+   ## Accessibility
+   
+   [Accessibility features, ARIA attributes, keyboard navigation]
+   
+   ---
+   
+   ## Best Practices
+   
+   **Do's**
+   - ✅ [Good practice]
+   - ✅ [Good practice]
+   
+   **Don'ts**
+   - ❌ [Bad practice]
+   - ❌ [Bad practice]
+
+2. Writing Style Guidelines:
+
+   **Use Clear, Descriptive Prose**
+   - Write in complete sentences for explanations
+   - Avoid bullet points for descriptive content
+   - Use bullet points only for lists of items, features, or specifications
+   
+   ❌ Bad:
+   - Provides structured surface
+   - Has optional shadow
+   - Consistent padding
+   
+   ✅ Good:
+   Panels provide a structured surface for content with consistent padding and styling. 
+   The optional inner shadow variant creates a subtle depth effect using the brand color, 
+   perfect for creating visual hierarchy and emphasis.
+
+   **Progressive Disclosure**
+   - Start with simple concepts, progress to complex
+   - Overview → Basic Usage → Advanced Features → Edge Cases
+   - Don't overwhelm users with all details upfront
+
+   **Consistent Terminology**
+   - Use the same terms throughout documentation
+   - Define technical terms on first use
+   - Maintain consistency with design system vocabulary
+
+3. Visual Hierarchy Guidelines:
+
+   **Heading Levels**
+   - # (H1): Component name only - ONE per document
+   - ## (H2): Major sections (Overview, Design Tokens, Props, Usage)
+   - ### (H3): Subsections (Colors, Typography, Basic Usage)
+   - #### (H4): Rarely used, only for deep nested content
+
+   **Content Density**
+   - Use whitespace generously between sections (--- dividers)
+   - Break long paragraphs into smaller, scannable chunks
+   - Group related information together visually
+   - Keep line length readable (60-80 characters ideal)
+
+   **Emphasis & Formatting**
+   - **Bold** for important terms on first mention
+   - `Code formatting` for token names, prop names, code references
+   - *Italics* sparingly for subtle emphasis
+   - > Blockquotes for important callouts or warnings
+
+   **Avoid Over-Formatting**
+   - Don't bold entire sentences
+   - Don't use ALL CAPS except for abbreviations
+   - Don't mix multiple emphasis styles on same text
+   - Use formatting purposefully, not decoratively
+
+═══════════════════════════════════════════════════════════════════════════════
+PART 2: TOKENIZATION STANDARDS
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Token Hierarchy Documentation:
+   
+   For every CSS property, show the complete token chain in this format:
+   
+   **Property Name:** `semantic-token` → `primitive-token` → Raw Value
+   
+   Examples with proper prose explanation:
+   
+   ### Colors
+   
+   The component uses semantic color tokens that automatically adapt to theme changes.
+   
+   **Text Color:** `var(--semantic-text-primary)` → `var(--color-neutral-100)` → #FFFFFF
+   The primary text color provides optimal contrast against dark backgrounds, ensuring readability and accessibility.
+   
+   **Background:** `var(--semantic-background-base)` → `var(--color-neutral-800)` → #1A1A1A
+   The base background color creates a neutral surface that doesn't compete with content while maintaining visual hierarchy.
+   
+   **Border:** `var(--semantic-border-subtle)` → `var(--color-neutral-600)` → #404040
+   Subtle borders provide gentle definition without creating harsh visual separation.
+
+2. Token Categories with Context:
+   
+   Organize tokens by category with explanatory prose:
+   
+   ### Typography
+   
+   Typography tokens ensure consistent text rendering across all components. The type system uses 
+   a modular scale that maintains proportional relationships between different text sizes.
+   
+   **Font Family:** `var(--semantic-font-family)` → `var(--font-family-base)` → 'IBM Plex Sans', sans-serif
+   IBM Plex Sans provides excellent readability at all sizes with a professional, modern appearance.
+   
+   **Font Size:** `var(--semantic-font-size-md)` → `var(--font-16)` → 16px
+   The medium font size (16px) serves as the base for body text, optimized for comfortable reading.
+   
+   **Font Weight:** `var(--semantic-font-weight-normal)` → `var(--font-weight-400)` → 400
+   Normal weight provides the standard text appearance for body content.
+   
+   **Line Height:** `var(--semantic-line-height-normal)` → `var(--line-height-150)` → 1.5
+   A line height of 1.5 ensures comfortable reading with adequate vertical spacing between lines.
+   
+   **Letter Spacing:** `var(--semantic-letter-spacing-normal)` → `var(--letter-spacing-0)` → 0
+   Default letter spacing maintains the font's intended character relationships.
+
+3. Token Reference Tables:
+   
+   Use tables for comprehensive token listings with descriptions:
+   
+   | Property | Semantic Token | Primitive Token | Value | Purpose |
+   |----------|---------------|-----------------|--------|----------|
+   | Primary Text | `--semantic-text-primary` | `--color-neutral-100` | #FFFFFF | Main content text with maximum contrast |
+   | Secondary Text | `--semantic-text-secondary` | `--color-neutral-400` | #9CA3AF | Supporting text and labels |
+   | Base Background | `--semantic-background-base` | `--color-neutral-800` | #1A1A1A | Default surface backgrounds |
+   | Subtle Border | `--semantic-border-subtle` | `--color-neutral-600` | #404040 | Non-intrusive dividers and outlines |
+   | Inner Shadow | `--semantic-shadow-inner` | `--shadow-inner-panel` | inset 0 2px 4px rgba(224,13,91,0.29) | Depth effect with brand color |
+
+4. Token Usage Guidelines:
+   
+   Add this section with clear explanations:
+   
+   ### Token Usage Guidelines
+   
+   The design system follows a three-tier token hierarchy to ensure consistency and maintainability.
+   
+   **Semantic Tokens (Always Use)**
+   Semantic tokens describe the purpose of a style, not its value. They automatically adapt to 
+   theme changes and ensure consistency across the application.
+   
+   - ✅ **Correct:** `var(--semantic-text-primary)`
+   - ❌ **Avoid:** `var(--color-neutral-100)`
+   - ❌ **Never:** `#FFFFFF`
+   
+   **Primitive Tokens (Referenced by Semantic)**
+   Primitive tokens define actual values and are referenced by semantic tokens. They should not 
+   be used directly in components.
+   
+   **Raw Values (Documentation Only)**
+   Raw CSS values are shown for reference but should never be used directly in production code.
+   
+   **When Hardcoded Values Are Acceptable**
+   
+   Hardcoded values are acceptable only for component-specific measurements that are not reused 
+   elsewhere in the system:
+   
+   - Component-specific dimensions (e.g., button height: 40px, modal max-width: 600px)
+   - Unique measurements tied to a single component
+   - Layout calculations using calc() expressions
+   - Percentages for proportional layouts
+   
+   **Token Priority**
+   1. **Semantic tokens** - Primary usage in all components
+   2. **Primitive tokens** - Referenced by semantic tokens only
+   3. **Raw values** - Documentation and reference only
+
+═══════════════════════════════════════════════════════════════════════════════
+PART 3: CONTENT ORGANIZATION
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Overview Section Best Practices:
+   
+   ❌ Bad - Using bullet points for description:
+   - Container component
+   - Provides structured surface
+   - Optional shadow effects
+   - Consistent padding
+   
+   ✅ Good - Using clear prose:
+   Panels are container components that provide a structured surface for content with optional 
+   inner shadow effects. They offer a clean, bordered container with consistent padding and 
+   styling that creates visual hierarchy within the interface. The inner shadow variant creates 
+   a subtle depth effect using the brand color, perfect for emphasizing important content areas.
+
+2. Design Tokens Section Organization:
+   
+   Group tokens logically with context:
+   
+   ### Design Tokens
+   
+   The Panel component uses a carefully curated set of design tokens to ensure consistency 
+   with the broader design system. All tokens follow the semantic → primitive → value hierarchy.
+   
+   #### Colors
+   
+   Color tokens provide the visual foundation of the component, ensuring proper contrast and 
+   accessibility while maintaining brand consistency.
+   
+   [Token listings with explanations]
+   
+   #### Typography
+   
+   Typography tokens control all text properties, ensuring consistency with the global type 
+   system and optimal readability.
+   
+   [Token listings with explanations]
+   
+   #### Spacing
+   
+   Spacing tokens create consistent rhythm and breathing room throughout the component, 
+   following the 4px base spacing scale.
+   
+   [Token listings with explanations]
+
+3. Usage Section Best Practices:
+   
+   Structure examples progressively:
+   
+   ### Usage
+   
+   #### Basic Usage
+   
+   The simplest implementation requires only wrapping your content in the Panel component:
+```tsx
+   <Panel>
+     <h3>Panel Content</h3>
+     <p>Panel body text</p>
+   </Panel>
+```
+   
+   #### With Inner Shadow
+   
+   Enable the inner shadow effect to create visual depth and emphasis:
+```tsx
+   <Panel withInnerShadow>
+     <h3>Highlighted Content</h3>
+     <p>This panel has a warm inner glow effect</p>
+   </Panel>
+```
+   
+   #### Complex Layouts
+   
+   Panels can contain complex nested structures while maintaining consistent styling:
+```tsx
+   <Panel>
+     <header>
+       <h2>Section Title</h2>
+       <Button>Action</Button>
+     </header>
+     <div>
+       <p>Content with multiple paragraphs...</p>
+     </div>
+     <footer>
+       <Button>Cancel</Button>
+       <Button>Confirm</Button>
+     </footer>
+   </Panel>
+```
+
+4. State Documentation:
+   
+   Document states with context:
+   
+   ### State Variations
+   
+   The component adapts its appearance across different interaction states to provide clear 
+   visual feedback to users.
+   
+   **Default State**
+   The resting state uses subtle styling that doesn't compete with content while maintaining 
+   clear boundaries.
+   
+   **Hover State**
+   - Background: `var(--semantic-background-hover)` → `var(--color-neutral-750)` → #262626
+   - Border: `var(--semantic-border-hover)` → `var(--color-neutral-500)` → #525252
+   
+   On hover, the component subtly brightens to indicate interactivity without dramatic changes.
+   
+   **Focus State**
+   - Border: `var(--semantic-border-focus)` → `var(--color-primary-500)` → #E00D5B
+   - Outline: `var(--semantic-focus-ring)` → 2px solid rgba(224, 13, 91, 0.5)
+   
+   Focus states use the brand color to create a clear, accessible indication of keyboard focus.
+
+═══════════════════════════════════════════════════════════════════════════════
+PART 4: CODE EXAMPLES & TECHNICAL DETAILS
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Code Example Best Practices:
+   
+   **Use Tokens in All Examples**
+   
+   ❌ Bad:
+```tsx
+   <Panel style={{ padding: '16px', backgroundColor: '#1A1A1A' }}>
+```
+   
+   ✅ Good:
+```tsx
+   <Panel style={{ 
+     padding: 'var(--semantic-spacing-md)', 
+     backgroundColor: 'var(--semantic-background-base)' 
+   }}>
+```
+   
+   **Add Explanatory Comments**
+```tsx
+   <Panel 
+     // Enable inner shadow for visual emphasis
+     withInnerShadow
+     // Apply custom styling using design tokens
+     style={{ 
+       padding: 'var(--semantic-spacing-lg)',
+       gap: 'var(--semantic-spacing-md)'
+     }}
+   >
+     <h3>Highlighted Content</h3>
+     <p>Important information that needs emphasis</p>
+   </Panel>
+```
+   
+   **Show Real-World Usage**
+   Provide examples that reflect actual use cases, not just component props:
+```tsx
+   // User profile card example
+   <Panel withInnerShadow>
+     <header style={{ display: 'flex', gap: 'var(--semantic-spacing-md)' }}>
+       <Avatar src={user.avatar} />
+       <div>
+         <h3>{user.name}</h3>
+         <p>{user.role}</p>
+       </div>
+     </header>
+     <div style={{ marginTop: 'var(--semantic-spacing-md)' }}>
+       <p>{user.bio}</p>
+     </div>
+     <footer style={{ 
+       marginTop: 'var(--semantic-spacing-lg)',
+       display: 'flex',
+       gap: 'var(--semantic-spacing-sm)'
+     }}>
+       <Button>Edit Profile</Button>
+       <Button hierarchy="secondary">View Details</Button>
+     </footer>
+   </Panel>
+```
+
+2. Props Documentation Format:
+   
+   ### Props
+   
+   | Prop | Type | Default | Description |
+   |------|------|---------|-------------|
+   | `withInnerShadow` | `boolean` | `false` | Enables the inner shadow effect using the brand color at 29% opacity for subtle depth |
+   | `className` | `string` | `undefined` | Additional CSS classes for custom styling (use tokens for consistency) |
+   | `children` | `ReactNode` | *required* | Content to render inside the panel |
+   | `style` | `CSSProperties` | `undefined` | Inline styles (prefer using tokens: `var(--semantic-*)`) |
+   
+   Add prose explanations below the table:
+   
+   **withInnerShadow**
+   When enabled, applies an inner shadow effect that creates a warm, subtle glow using the brand 
+   color. This is particularly effective for highlighting important content areas or creating 
+   visual hierarchy within a layout.
+   
+   **className**
+   While custom classes can be applied, prefer using design tokens through inline styles to 
+   maintain consistency with the design system. Custom classes should be used primarily for 
+   layout and positioning.
+
+3. Technical Implementation Details:
+   
+   ### Technical Details
+   
+   #### Shadow Implementation
+   
+   The inner shadow effect uses a carefully calibrated combination of offset, blur, and spread 
+   to create depth without overwhelming the content:
+   
+   - **X offset:** 4px - Creates horizontal depth
+   - **Y offset:** 4px - Creates vertical depth
+   - **Blur:** 28px - Produces a soft, diffused glow
+   - **Spread:** 1px - Slightly expands the shadow
+   - **Color:** `rgba(224, 13, 91, 0.29)` - Brand color at 29% opacity
+   
+   This creates a subtle, warm glow effect that adds depth without overwhelming the content 
+   or reducing readability.
+   
+   #### CSS Architecture
+   
+   The component uses CSS custom properties (design tokens) for all styling values, ensuring 
+   consistency with the design system and enabling theme customization. Data attributes 
+   control variant states for clean, declarative styling.
+
+═══════════════════════════════════════════════════════════════════════════════
+PART 5: ACCESSIBILITY & BEST PRACTICES
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Accessibility Documentation:
+   
+   ### Accessibility
+   
+   The component follows WCAG 2.1 Level AA guidelines and includes comprehensive accessibility 
+   features out of the box.
+   
+   **Semantic HTML**
+   Panels use semantic HTML elements to provide proper document structure and improve screen 
+   reader navigation. The container uses a `<div>` by default but can be customized with the 
+   `as` prop to use semantic elements like `<section>` or `<article>`.
+   
+   **Color Contrast**
+   All color combinations meet WCAG AA standards for contrast:
+   - Text on background: 12:1 contrast ratio (exceeds 7:1 requirement)
+   - Border contrast: 3.5:1 against adjacent surfaces
+   
+   **Keyboard Navigation**
+   When used as an interactive container, the panel supports full keyboard navigation:
+   - `Tab` - Navigate to next focusable element
+   - `Shift + Tab` - Navigate to previous focusable element
+   
+   **Screen Reader Support**
+   - Proper semantic structure ensures logical reading order
+   - All interactive elements have accessible labels
+   - State changes are announced appropriately
+
+2. Best Practices Section:
+   
+   ### Best Practices
+   
+   **When to Use Panels**
+   
+   Panels work best for creating distinct content areas that need visual separation from the 
+   surrounding interface. Use panels when you need to:
+   
+   - Group related content together visually
+   - Create hierarchy within a complex layout
+   - Highlight important information (with inner shadow)
+   - Provide a consistent container for similar content types
+   
+   **Do's**
+   
+   - ✅ Use semantic tokens for all styling modifications
+   - ✅ Enable inner shadow sparingly for emphasis on key content
+   - ✅ Maintain consistent padding using spacing tokens
+   - ✅ Nest other components properly within panel structure
+   - ✅ Use appropriate heading levels for content hierarchy
+   
+   **Don'ts**
+   
+   - ❌ Don't use hardcoded values instead of design tokens
+   - ❌ Don't overuse inner shadow - it loses effectiveness when everywhere
+   - ❌ Don't nest panels too deeply (2-3 levels maximum)
+   - ❌ Don't use panels for single-line content (overkill)
+   - ❌ Don't override border radius - maintain consistency
+
+3. Edge Cases & Limitations:
+   
+   ### Edge Cases
+   
+   **Long Content**
+   Panels adapt to content height automatically. For very long content, consider adding scroll 
+   behavior or pagination rather than creating excessively tall panels.
+   
+   **Nested Panels**
+   While panels can be nested, avoid going beyond 2-3 levels as this can create visual clutter. 
+   For deep nesting, consider alternative layout patterns.
+   
+   **Empty State**
+   Panels require content. For loading states, include a skeleton loader or loading indicator 
+   rather than rendering an empty panel.
+
+═══════════════════════════════════════════════════════════════════════════════
+PART 6: VISUAL ENHANCEMENTS
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Token Visualization:
+   
+   Where appropriate, add visual representations:
+   
+   ### Color Tokens Visualization
+```tsx
+   <div style={{ display: 'flex', gap: 'var(--semantic-spacing-md)' }}>
+     <ColorSwatch 
+       token="--semantic-text-primary"
+       value="#FFFFFF"
+       label="Primary Text"
+     />
+     <ColorSwatch 
+       token="--semantic-background-base"
+       value="#1A1A1A"
+       label="Base Background"
+     />
+     <ColorSwatch 
+       token="--semantic-border-subtle"
+       value="#404040"
+       label="Subtle Border"
+     />
+   </div>
+```
+   
+   ### Spacing Scale
+```tsx
+   <SpacingScale
+     tokens={[
+       { name: '--semantic-spacing-xs', value: '4px' },
+       { name: '--semantic-spacing-sm', value: '8px' },
+       { name: '--semantic-spacing-md', value: '16px' },
+       { name: '--semantic-spacing-lg', value: '24px' },
+       { name: '--semantic-spacing-xl', value: '32px' },
+     ]}
+   />
+```
+
+2. Before/After Comparisons:
+   
+   Show the impact of proper tokenization:
+   
+   ### Migration Example
+   
+   **Before (Hardcoded Values)**
+```tsx
+   <Panel style={{ 
+     padding: '16px',
+     backgroundColor: '#1A1A1A',
+     border: '1px solid #404040',
+     borderRadius: '8px'
+   }}>
+```
+   
+   **After (Design Tokens)**
+```tsx
+   <Panel style={{ 
+     padding: 'var(--semantic-spacing-md)',
+     backgroundColor: 'var(--semantic-background-base)',
+     border: '1px solid var(--semantic-border-subtle)',
+     borderRadius: 'var(--semantic-radius-md)'
+   }}>
+```
+   
+   **Benefits:**
+   - ✅ Automatically adapts to theme changes
+   - ✅ Maintains consistency across application
+   - ✅ Single source of truth for design values
+   - ✅ Easier to maintain and update globally
+
+═══════════════════════════════════════════════════════════════════════════════
+PART 7: APPLICATION INSTRUCTIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+APPLY TO:
+- All .stories.tsx files in src/components/
+- All subdirectories and nested components
+- All documentation sections
+
+SPECIFIC SECTIONS TO UPDATE:
+1. Component title and overview
+2. Design Tokens sections
+3. Props documentation
+4. Usage examples and code snippets
+5. State variations
+6. Accessibility documentation
+7. Best practices and guidelines
+8. Technical implementation details
+
+PRESERVE:
+- All existing Storybook stories and demos
+- Interactive controls (argTypes)
+- Component functionality
+- Story structure and organization
+- Existing decorators and parameters
+- All working code examples (update with tokens)
+
+VALIDATION CHECKLIST:
+- [ ] All hardcoded values replaced with appropriate tokens
+- [ ] Token hierarchy properly documented (semantic → primitive → value)
+- [ ] Overview section uses clear prose, not bullet points
+- [ ] Sections are properly organized with clear hierarchy
+- [ ] Code examples use tokens consistently
+- [ ] Tables are formatted correctly with all required columns
+- [ ] Accessibility section is comprehensive
+- [ ] Best practices include do's and don'ts
+- [ ] No duplicate titles (remove from content if in metadata)
+- [ ] Proper heading levels (only one H1 per document)
+- [ ] Visual hierarchy with whitespace and dividers
+- [ ] Consistent terminology throughout
+- [ ] All token references are valid and exist in token files
+
+FORMATTING STANDARDS:
+- Use `inline code` for: token names, prop names, code references
+- Use **bold** for: important terms on first mention, emphasis
+- Use *italics* sparingly for subtle emphasis
+- Use > blockquotes for important callouts
+- Use --- for section dividers
+- Use tables for comprehensive token listings
+- Use → arrows for token hierarchy
+- Use ✅ and ❌ for do's and don'ts
+- Write in complete sentences for explanations
+- Use bullet points only for lists of items or features
+- Maintain 60-80 character line length for readability
+
+ERROR HANDLING:
+- If a token doesn't exist in token files, note it as [TOKEN_MISSING: --token-name]
+- If documentation is unclear, add [NEEDS_CLARIFICATION: reason]
+- If examples are incomplete, add [INCOMPLETE_EXAMPLE: description]

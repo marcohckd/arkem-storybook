@@ -1,0 +1,80 @@
+.arkem-textarea {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-family-base);
+  font-size: var(--fonts-semantic-md);
+  font-weight: var(--font-weight-regular);
+  color: var(--semantic-text-primary);
+  background: var(--semantic-background-base);
+  border: var(--border-width-thin, 1px) solid var(--semantic-border-subtle);
+  border-radius: var(--radius-md, 8px);
+  outline: none;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base);
+  resize: vertical;
+}
+
+.arkem-textarea::placeholder {
+  color: var(--semantic-input-placeholder);
+}
+
+.arkem-textarea:hover:not(:disabled) {
+  border-color: var(--semantic-border-strong);
+  background: var(--semantic-background-muted);
+}
+
+.arkem-textarea:focus-visible {
+  border-color: var(--semantic-brand-base);
+  box-shadow: 0 0 0 3px var(--semantic-focus-ring);
+  background: var(--semantic-background-muted);
+}
+
+.arkem-textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--semantic-background-muted);
+}
+
+.arkem-textarea--error {
+  border-color: var(--semantic-input-border-error);
+}
+
+.arkem-textarea--error:hover:not(:disabled) {
+  border-color: var(--semantic-input-border-error);
+}
+
+.arkem-textarea--error:focus-visible {
+  border-color: var(--semantic-input-border-error);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semantic-input-border-error) 30%, transparent);
+}
+
+.arkem-textarea--success {
+  border-color: var(--semantic-input-border-success);
+}
+
+.arkem-textarea--success:hover:not(:disabled) {
+  border-color: var(--semantic-input-border-success);
+}
+
+.arkem-textarea--success:focus-visible {
+  border-color: var(--semantic-input-border-success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--semantic-input-border-success) 30%, transparent);
+}
+
+.arkem-textarea--sm {
+  padding: var(--spacing-style-spacing-4px-1-5-6px, 6px);
+  font-size: var(--fonts-semantic-sm);
+  line-height: var(--fonts-semantic-sm-line-height);
+}
+
+.arkem-textarea--md {
+  padding: var(--spacing-8, 8px);
+  font-size: var(--fonts-semantic-md);
+  line-height: var(--fonts-semantic-md-line-height);
+}
+
+.arkem-textarea--lg {
+  padding: var(--spacing-style-spacing-4px-3-12px, 12px);
+  font-size: var(--fonts-semantic-lg);
+  line-height: var(--fonts-semantic-lg-line-height);
+}
+

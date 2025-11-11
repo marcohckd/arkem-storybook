@@ -4,6 +4,44 @@ const meta: Meta = {
   title: "Foundations/Font Check",
   parameters: {
     layout: "centered",
+    backgrounds: { default: "arkem-base" },
+    docs: {
+      description: {
+        component: `A utility component for visually checking font weights and sizes in the ARKEM Design System. Useful for verifying typography implementation and ensuring consistent font rendering.
+
+## Purpose
+
+This component helps developers and designers:
+- Verify font weights are loading correctly
+- Check font size scales
+- Ensure consistent typography rendering
+- Debug font-related issues
+
+## Font Weights
+
+Displays all available font weights:
+- Regular (400)
+- Medium (500)
+- Semibold (600)
+- Bold (700)
+
+## Font Sizes
+
+Shows the complete font size scale from 10px to 36px with their corresponding line heights.
+
+## Usage
+
+This is primarily a development/debugging tool. Use it to verify that IBM Plex Sans is loading correctly and all font weights and sizes render as expected.
+
+## Design Tokens
+
+Font-related tokens displayed:
+- \`--font-family-base\`: IBM Plex Sans
+- \`--font-weight-regular/medium/semibold/bold\`: Font weights
+- \`--font-size-*\`: Font sizes (10px-36px)
+- \`--line-*\`: Line heights`,
+      },
+    },
   },
   tags: ["autodocs"],
 };

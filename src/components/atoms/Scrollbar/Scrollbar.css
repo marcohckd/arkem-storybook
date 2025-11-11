@@ -1,0 +1,68 @@
+/* === SCROLLBAR STYLING === */
+/* Base scrollbar styles using semantic design tokens */
+
+.arkem-scrollbar {
+  /* Firefox scrollbar styling */
+  scrollbar-color: var(--semantic-border-muted) var(--semantic-background-base);
+  scrollbar-width: thin;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+.arkem-scrollbar::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.arkem-scrollbar::-webkit-scrollbar-track {
+  background: var(--semantic-background-base);
+  border-radius: var(--radius-sm);
+}
+
+.arkem-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--semantic-border-muted);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--semantic-background-base);
+}
+
+.arkem-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--semantic-border-subtle);
+}
+
+.arkem-scrollbar::-webkit-scrollbar-thumb:active {
+  background: var(--semantic-border-strong);
+}
+
+/* Size variants */
+.arkem-scrollbar--thin::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.arkem-scrollbar--medium::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+}
+
+.arkem-scrollbar--medium {
+  scrollbar-width: auto;
+}
+
+/* Orientation variants */
+.arkem-scrollbar--horizontal::-webkit-scrollbar {
+  height: 8px;
+  width: 0;
+}
+
+.arkem-scrollbar--vertical::-webkit-scrollbar {
+  height: 0;
+  width: 8px;
+}
+
+.arkem-scrollbar--horizontal.arkem-scrollbar--medium::-webkit-scrollbar {
+  height: 12px;
+}
+
+.arkem-scrollbar--vertical.arkem-scrollbar--medium::-webkit-scrollbar {
+  width: 12px;
+}
+

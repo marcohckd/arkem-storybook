@@ -1,0 +1,163 @@
+.arkem-dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.arkem-dropdown__trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  font-family: var(--font-family-base);
+  font-size: var(--fonts-semantic-md);
+  font-weight: var(--font-weight-regular);
+  color: var(--semantic-text-primary);
+  background: var(--semantic-background-base);
+  border: var(--border-width-thin, 1px) solid var(--semantic-border-subtle);
+  border-radius: var(--radius-md, 8px);
+  outline: none;
+  cursor: pointer;
+  transition: border-color var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base), font-weight var(--transition-base);
+  text-align: left;
+}
+
+.arkem-dropdown__trigger:hover:not(:disabled) {
+  border-color: var(--semantic-border-strong);
+  background: var(--semantic-background-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.arkem-dropdown__trigger:focus-visible {
+  border-color: var(--semantic-brand-base);
+  box-shadow: 0 0 0 3px var(--semantic-focus-ring);
+  background: var(--semantic-background-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.arkem-dropdown__trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background: var(--semantic-background-muted);
+}
+
+.arkem-dropdown--open .arkem-dropdown__trigger {
+  border-color: var(--semantic-brand-base);
+  box-shadow: 0 0 0 3px var(--semantic-focus-ring);
+  background: var(--semantic-background-muted);
+}
+
+.arkem-dropdown__value {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--semantic-text-primary);
+}
+
+.arkem-dropdown__value:empty::before {
+  content: attr(placeholder);
+  color: var(--semantic-text-muted);
+}
+
+.arkem-dropdown__icon {
+  flex-shrink: 0;
+  margin-left: var(--spacing-8, 8px);
+  color: var(--semantic-text-secondary);
+  transition: transform var(--transition-base);
+}
+
+.arkem-dropdown__icon--open {
+  transform: rotate(180deg);
+}
+
+/* Sizes */
+.arkem-dropdown--sm .arkem-dropdown__trigger {
+  height: 32px;
+  padding-top: var(--spacing-style-spacing-4px-1-5-6px, 6px);
+  padding-bottom: var(--spacing-style-spacing-4px-1-5-6px, 6px);
+  padding-left: var(--spacing-style-spacing-4px-1-5-6px, 6px);
+  padding-right: var(--spacing-style-spacing-4px-1-5-6px, 6px);
+  font-size: var(--fonts-semantic-sm);
+  line-height: var(--fonts-semantic-sm-line-height);
+}
+
+.arkem-dropdown--md .arkem-dropdown__trigger {
+  height: 40px;
+  padding-top: var(--spacing-8);
+  padding-bottom: var(--spacing-8);
+  padding-left: var(--spacing-8);
+  padding-right: var(--spacing-8);
+  font-size: var(--fonts-semantic-md);
+  line-height: var(--fonts-semantic-md-line-height);
+}
+
+.arkem-dropdown--lg .arkem-dropdown__trigger {
+  height: 48px;
+  padding-top: var(--spacing-12);
+  padding-bottom: var(--spacing-12);
+  padding-left: var(--spacing-12);
+  padding-right: var(--spacing-12);
+  font-size: var(--fonts-semantic-lg);
+  line-height: var(--fonts-semantic-lg-line-height);
+}
+
+/* Menu */
+.arkem-dropdown__menu {
+  position: absolute;
+  top: calc(100% + var(--spacing-style-spacing-4px-0-5-2px, 2px));
+  left: 0;
+  right: 0;
+  z-index: var(--z-index-dropdown);
+  background: var(--semantic-background-base);
+  border: var(--border-width-thin, 1px) solid var(--semantic-border-subtle);
+  border-radius: var(--radius-md, 8px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  max-height: 240px;
+  overflow-y: auto;
+  margin: 0;
+  padding: var(--spacing-style-spacing-4px-0-5-2px, 2px);
+}
+
+.arkem-dropdown__option {
+  width: 100%;
+  display: block;
+  box-sizing: border-box;
+  padding: var(--spacing-8, 8px) var(--spacing-style-spacing-4px-3-12px, 12px);
+  font-family: var(--font-family-base);
+  font-size: var(--fonts-semantic-md);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--fonts-semantic-md-line-height);
+  color: var(--semantic-text-primary);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-xs, 4px);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--transition-base), font-weight var(--transition-base);
+  outline: none;
+}
+
+.arkem-dropdown__option:hover:not(:disabled) {
+  background: var(--semantic-background-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.arkem-dropdown__option:focus-visible {
+  background: var(--semantic-background-muted);
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+  font-weight: var(--font-weight-medium);
+}
+
+.arkem-dropdown__option--selected {
+  background: var(--semantic-background-muted);
+  color: var(--semantic-brand-base);
+  font-weight: var(--font-weight-medium);
+}
+
+.arkem-dropdown__option--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+

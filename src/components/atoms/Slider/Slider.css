@@ -1,0 +1,61 @@
+.arkem-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  user-select: none;
+  touch-action: none;
+}
+
+.arkem-slider__track {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  background: var(--color-fill-neutral-200);
+  border-radius: var(--radius-mode-1-radius-max);
+  overflow: hidden;
+}
+
+.arkem-slider__range {
+  position: absolute;
+  height: 100%;
+  background: var(--semantic-brand-base);
+  border-radius: var(--radius-mode-1-radius-max);
+  transition: left var(--transition-fast), width var(--transition-fast);
+}
+
+.arkem-slider__thumb {
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: var(--semantic-brand-base);
+  border: 2px solid var(--semantic-background-base);
+  border-radius: var(--radius-mode-1-radius-max);
+  cursor: pointer;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+}
+
+.arkem-slider__thumb:hover {
+  transform: scale(1.1);
+}
+
+.arkem-slider__thumb:active {
+  transform: scale(1.2);
+}
+
+.arkem-slider__thumb:focus-visible {
+  box-shadow: 0 0 0 3px var(--semantic-focus-ring);
+}
+
+.arkem-slider:disabled,
+.arkem-slider[data-disabled] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.arkem-slider:disabled .arkem-slider__thumb,
+.arkem-slider[data-disabled] .arkem-slider__thumb {
+  cursor: not-allowed;
+}
+

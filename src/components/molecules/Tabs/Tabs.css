@@ -1,0 +1,69 @@
+/* === TABS ROOT === */
+.arkem-tabs {
+  width: 100%;
+}
+
+/* === TABS LIST === */
+.arkem-tabs__list {
+  display: flex;
+  gap: var(--spacing-8, 8px);
+  background: transparent;
+  border-bottom: var(--border-width-thin, 1px) solid var(--semantic-border-subtle);
+  padding: 0;
+  margin: 0;
+}
+
+/* === TABS TRIGGER === */
+.arkem-tabs__trigger {
+  all: unset;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8, 8px);
+  height: 32px;
+  padding: 0 var(--spacing-12, 12px);
+  font-size: var(--fonts-semantic-sm, 12px);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--fonts-semantic-sm-line-height, 16px);
+  font-family: var(--font-family-base);
+  color: var(--semantic-text-secondary);
+  background: transparent;
+  border: none;
+  border-bottom: var(--border-width-medium) solid transparent;
+  cursor: pointer;
+  transition: color var(--transition-base), border-color var(--transition-base);
+  outline: none;
+  user-select: none;
+}
+
+.arkem-tabs__trigger:hover {
+  color: var(--semantic-text-primary);
+}
+
+.arkem-tabs__trigger[data-state="active"] {
+  color: var(--semantic-brand-base);
+  border-bottom-color: var(--semantic-brand-base);
+}
+
+.arkem-tabs__trigger:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px var(--semantic-focus-ring);
+  border-radius: var(--radius-xs, 4px);
+}
+
+.arkem-tabs__trigger:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* === TABS CONTENT === */
+.arkem-tabs__content {
+  outline: none;
+  margin-top: var(--spacing-12, 12px);
+}
+
+.arkem-tabs__content[data-state="inactive"] {
+  display: none;
+}
+

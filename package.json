@@ -5,11 +5,11 @@
   "homepage": "https://marcohckd.github.io/arkem-design-system",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "storybook dev -p 6006",
-    "storybook:clean": "rm -rf node_modules/.vite node_modules/.storybook .storybook-static && STORYBOOK_FORCE_OPTIMIZE=true storybook dev -p 6006",
+    "storybook": "NODE_ENV=development storybook dev -p 6006",
+    "storybook:clean": "rm -rf node_modules/.vite node_modules/.storybook .storybook-static && NODE_ENV=development STORYBOOK_FORCE_OPTIMIZE=true storybook dev -p 6006",
     "storybook:clear-cache": "rm -rf node_modules/.vite node_modules/.storybook node_modules/.cache/storybook",
-    "build-storybook": "storybook build",
-    "deploy-storybook": "storybook build && npx gh-pages -d storybook-static"
+    "build-storybook": "NODE_ENV=production storybook build",
+    "deploy-storybook": "NODE_ENV=production storybook build && npx gh-pages -d storybook-static"
   },
   "keywords": [],
   "author": "",

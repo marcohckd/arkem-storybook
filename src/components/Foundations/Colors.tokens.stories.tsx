@@ -7,14 +7,19 @@ import "../../styles/tokens-semantic.css";
 
 const meta: Meta = {
   title: "Foundations/Color Tokens",
+  decorators: [
+    (Story) => (
+      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: '20px' }}>
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     layout: "padded",
     backgrounds: { default: "arkem-base" },
     docs: {
       description: {
-        component: `# Color Tokens
-
-ARKEM Design System uses a comprehensive color token system organized into semantic, neutral, and brand palettes. All colors are available as CSS custom properties.
+        component: `ARKEM Design System uses a comprehensive color token system organized into semantic, neutral, and brand palettes. All colors are available as CSS custom properties.
 
 ## Token Categories
 
@@ -22,12 +27,53 @@ ARKEM Design System uses a comprehensive color token system organized into seman
 - **Neutral Colors**: Grayscale palette from lightest (25) to darkest (950)
 - **Brand Palette**: Yellow-green brand colors from lightest (25) to darkest (950)
 
-## Usage
+## Usage Guidelines
 
-Always use semantic tokens for UI components. Use raw color tokens only for specific design needs.`,
+Always use semantic tokens for UI components. Use raw color tokens only for specific design needs.
+
+### When to Use Semantic Tokens
+
+- **Backgrounds**: Use \`--semantic-background-*\` tokens for all component backgrounds
+- **Text**: Use \`--semantic-text-*\` tokens for all text colors
+- **Borders**: Use \`--semantic-border-*\` tokens for all borders
+- **Brand Colors**: Use \`--semantic-brand-*\` tokens for brand elements
+- **Feedback**: Use \`--semantic-feedback-*\` tokens for success/warning/error states
+
+### When to Use Raw Color Tokens
+
+- Custom illustrations or graphics
+- Data visualizations
+- Specific design requirements that don't fit semantic categories
+
+\`\`\`css
+/* ✅ Good: Use semantic tokens */
+.component {
+  background: var(--semantic-background-base);
+  color: var(--semantic-text-primary);
+  border: 1px solid var(--semantic-border-subtle);
+}
+
+/* ⚠️ Avoid: Raw color tokens for UI components */
+.component {
+  background: var(--color-fill-neutral-800);
+  color: var(--color-fill-neutral-100);
+}
+\`\`\`
+
+## Design Tokens
+
+Key token categories:
+- \`--semantic-background-*\`: Background colors (base, raised, interactive, overlay, muted, backdrop)
+- \`--semantic-text-*\`: Text colors (primary, secondary, subtle, muted, inverse, hover)
+- \`--semantic-border-*\`: Border colors (subtle, muted, ghosted, strong)
+- \`--semantic-brand-*\`: Brand colors (base, hover, active, pressed, muted, mode)
+- \`--semantic-feedback-*\`: Feedback colors (success, warning, error)
+- \`--color-fill-neutral-*\`: Neutral color scale (25-950)
+- \`--color-fill-brand-*\`: Brand color scale (25-950)`,
       },
     },
   },
+  tags: ["autodocs"],
 };
 
 export default meta;

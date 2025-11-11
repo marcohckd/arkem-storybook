@@ -7,29 +7,80 @@ import "../../styles/tokens-semantic.css";
 
 const meta: Meta = {
   title: "Foundations/Effects Tokens",
+  decorators: [
+    (Story) => (
+      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: '20px' }}>
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     layout: "padded",
     backgrounds: { default: "arkem-base" },
     docs: {
       description: {
-        component: `# Effects Tokens
-
-ARKEM Design System provides tokens for visual effects including shadows, focus rings, and animations.
+        component: `ARKEM Design System provides tokens for visual effects including shadows, focus rings, and animations to create depth, hierarchy, and accessibility.
 
 ## Shadow Tokens
 
-Elevation and depth effects for components.
+Elevation and depth effects for components. Shadows help create visual hierarchy and indicate interactive elements.
+
+### Available Shadows
+
+- **Extra Small (\`--shadow-xs\`)**: Subtle elevation for small elements, cards, and raised surfaces
+- **Skeuomorphic (\`--shadow-skeuomorphic\`)**: Material-style shadow with border for modals and raised surfaces
+- **Inner Panel (\`--shadow-inner-panel\`)**: Brand-colored inner shadow for panels and drawers, creating depth with a warm glow effect
 
 ## Focus Ring Tokens
 
-Accessibility-focused visual indicators for keyboard navigation.
+Accessibility-focused visual indicators for keyboard navigation. Focus rings ensure users can see which element has keyboard focus.
+
+### Focus Ring
+
+- **Focus Ring (\`--semantic-focus-ring\`)**: Brand-colored focus indicator using brand color with 60% opacity
+  - Used for: Buttons, inputs, links, and all interactive elements
+  - Ensures WCAG contrast requirements for accessibility
 
 ## Animation Tokens
 
-Motion and transition timing (coming soon).`,
+Motion and transition timing tokens (coming soon). Currently, components use inline transition values for smooth interactions.
+
+## Usage
+
+Apply effects using CSS custom properties:
+
+\`\`\`css
+/* Shadow for elevation */
+.card {
+  box-shadow: var(--shadow-xs);
+}
+
+.modal {
+  box-shadow: var(--shadow-skeuomorphic);
+}
+
+.panel {
+  box-shadow: var(--shadow-inner-panel);
+}
+
+/* Focus ring for accessibility */
+.button:focus-visible {
+  outline: 2px solid var(--semantic-focus-ring);
+  outline-offset: 2px;
+}
+\`\`\`
+
+## Design Tokens
+
+Key effects tokens:
+- \`--shadow-xs\`: Extra small shadow
+- \`--shadow-skeuomorphic\`: Material-style shadow with border
+- \`--shadow-inner-panel\`: Inner panel shadow with brand color
+- \`--semantic-focus-ring\`: Focus ring color for accessibility`,
       },
     },
   },
+  tags: ["autodocs"],
 };
 
 export default meta;

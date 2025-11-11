@@ -1,7 +1,7 @@
 import type { StorybookConfig } from '@storybook/react-vite';
 import type { UserConfig } from 'vite';
 
-const config: StorybookConfig = {
+const config: StorybookConfig & { autodocs?: string } = {
   stories: ['../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-docs',
@@ -15,9 +15,9 @@ const config: StorybookConfig = {
     name: '@storybook/react-vite',
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
+  // Enable autodocs globally for all stories with 'autodocs' tag
+  // Type intersection needed as StorybookConfig types may not include this in v10
+  autodocs: 'tag',
   typescript: {
     check: false,
     // Disable react-docgen in dev for faster startup (can re-enable if needed)
@@ -37,16 +37,32 @@ const config: StorybookConfig = {
     // },
   },
   async viteFinal(config: UserConfig) {
-    // Explicitly set mode to development to ensure React runs in dev mode
-    config.mode = 'development';
+    // Determine the correct mode based on NODE_ENV
+    const isProduction = process.env.NODE_ENV === 'production';
+    const mode = isProduction ? 'production' : 'development';
     
-    // Ensure React runs in development mode for Storybook dev server
+    // Set mode appropriately
+    config.mode = mode;
+    
+    // Ensure React runs in the correct mode
     // React checks both process.env.NODE_ENV and __DEV__ internally
     config.define = {
       ...config.define,
-      'process.env.NODE_ENV': JSON.stringify('development'),
-      '__DEV__': 'true',
+      'process.env.NODE_ENV': JSON.stringify(mode),
+      '__DEV__': JSON.stringify(!isProduction),
+      'global': 'globalThis',
     };
+    
+    // Configure build settings based on mode
+    config.build = config.build || {};
+    if (isProduction) {
+      // Production: Enable minification and tree-shaking for dead code elimination
+      config.build.minify = 'esbuild';
+      config.build.terserOptions = undefined; // Use esbuild for faster builds
+    } else {
+      // Development: Disable minification for better debugging
+      config.build.minify = false;
+    }
 
     config.optimizeDeps = config.optimizeDeps || {};
     config.optimizeDeps.include = [
@@ -56,6 +72,10 @@ const config: StorybookConfig = {
       '@radix-ui/react-switch',
       '@radix-ui/react-tabs',
       '@radix-ui/react-visually-hidden',
+      // Include React and React-DOM to ensure proper NODE_ENV injection
+      // This prevents the "React is running in production mode" error
+      'react',
+      'react-dom',
     ];
     
     // Exclude incompatible Storybook packages from optimization
@@ -64,6 +84,8 @@ const config: StorybookConfig = {
       ...(config.optimizeDeps.exclude || []),
       '@storybook/theming',
       '@storybook/manager-api',
+      // Note: React and React-DOM are now included (not excluded) to ensure
+      // proper NODE_ENV injection and dead code elimination
     ];
     
     // Add resolve aliases to handle @storybook/theming v8 shim issues
@@ -86,24 +108,24 @@ const config: StorybookConfig = {
     }
     
     // Configure esbuild options for dependency optimization
-    // Set NODE_ENV=development during optimization so React is optimized in dev mode
+    // Use the same mode as the main build to ensure consistency
     config.optimizeDeps.esbuildOptions = {
       ...config.optimizeDeps.esbuildOptions,
       target: 'esnext',
       // Reduce processing overhead
       legalComments: 'none',
-      // Ensure React is optimized with development mode settings
-      // This prevents React from detecting production mode during pre-bundling
+      // Ensure React is optimized with the correct mode settings
+      // This prevents React from detecting the wrong mode during pre-bundling
       define: {
         ...config.optimizeDeps.esbuildOptions?.define,
-        'process.env.NODE_ENV': '"development"',
-        '__DEV__': 'true',
+        'process.env.NODE_ENV': JSON.stringify(mode),
+        '__DEV__': JSON.stringify(!isProduction),
         'process.env': '{}', // Prevent process.env from being replaced incorrectly
       },
-      // Disable minification during optimization to preserve React dev mode
-      minify: false,
-      // Disable tree shaking to prevent React from being optimized in production mode
-      treeShaking: false,
+      // Match minification settings to the build mode
+      minify: isProduction,
+      // Enable tree shaking in production for dead code elimination
+      treeShaking: isProduction,
     };
     
     // Cache optimization results more aggressively
@@ -112,8 +134,8 @@ const config: StorybookConfig = {
     // Performance optimizations
     config.build = config.build || {};
     config.build.chunkSizeWarningLimit = 1000;
-    // Reduce source map generation in dev for faster builds
-    config.build.sourcemap = false;
+    // Source maps: disabled in dev for faster builds, enabled in production for debugging
+    config.build.sourcemap = isProduction ? 'hidden' : false;
     // Improve build performance
     config.build.rollupOptions = {
       ...config.build.rollupOptions,
@@ -127,7 +149,7 @@ const config: StorybookConfig = {
     // Faster HMR with optimized settings
     config.server = config.server || {};
     config.server.hmr = {
-      ...config.server.hmr,
+      ...(typeof config.server.hmr === 'object' && config.server.hmr ? config.server.hmr : {}),
       overlay: false, // Disable error overlay for faster HMR
       // Reduce HMR latency
       clientPort: 6006,

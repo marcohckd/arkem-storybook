@@ -1,0 +1,37 @@
+.arkem-spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arkem-spinner__circle {
+  border: 2px solid var(--semantic-border-subtle);
+  border-top-color: var(--semantic-brand-base);
+  border-radius: 50%;
+  animation: arkem-spinner-spin 0.8s linear infinite;
+}
+
+.arkem-spinner--sm .arkem-spinner__circle {
+  width: var(--spacing-style-spacing-4px-4-16px);
+  height: var(--spacing-style-spacing-4px-4-16px);
+  border-width: 2px;
+}
+
+.arkem-spinner--md .arkem-spinner__circle {
+  width: var(--spacing-style-spacing-4px-6-24px);
+  height: var(--spacing-style-spacing-4px-6-24px);
+  border-width: 2px;
+}
+
+.arkem-spinner--lg .arkem-spinner__circle {
+  width: var(--spacing-style-spacing-4px-8-32px);
+  height: var(--spacing-style-spacing-4px-8-32px);
+  border-width: 3px;
+}
+
+@keyframes arkem-spinner-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
