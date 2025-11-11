@@ -45,15 +45,20 @@
   display: block;
   width: var(--spacing-style-spacing-4px-2-8px);
   height: var(--spacing-style-spacing-4px-2-8px);
-  background: var(--semantic-text-primary);
+  background: var(--color-fill-neutral-100);
   border-radius: var(--radius-full);
-  transition: transform var(--transition-base);
+  transition: transform var(--transition-base), background-color var(--transition-base);
   transform: translateX(2px);
   will-change: transform;
 }
 
 .arkem-switch[data-state="checked"] .arkem-switch__thumb {
+  background: var(--color-fill-brand-500);
   transform: translateX(calc(var(--spacing-style-spacing-4px-5-20px) - var(--spacing-style-spacing-4px-2-8px) - 2px));
+}
+
+.arkem-switch:disabled .arkem-switch__thumb {
+  background: var(--color-fill-neutral-300);
 }
 
 /* === SIZE VARIANTS === */
