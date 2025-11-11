@@ -1,6 +1,6 @@
 :root {
   --semantic-background-base: #080808;
-  --semantic-background-raised: #8a8a8a;
+  --semantic-background-raised: #121212;
   --semantic-background-interactive: #5a5a5a;
   --semantic-background-overlay: #3a3a3a;
   --semantic-background-backdrop: #00000080;
@@ -49,10 +49,16 @@
   --connections-cluster-1: #8a38f5;
   --connections-cluster-2: #3b82f6;
   --connections-color: #fb923c;
-  --tone-grey-default: var(--color-fill-neutral-200);
-  --tone-grey-focused: var(--color-fill-neutral-200);
-  --tone-grey-hover: var(--color-fill-neutral-300);
-  --tone-grey-disabled: var(--color-fill-neutral-900);
+  --semantic-background-grey-default: var(--color-fill-neutral-200);
+  --semantic-background-grey-hover: var(--color-fill-neutral-300);
+  --semantic-background-grey-disabled: var(--color-fill-neutral-900);
+  --semantic-border-grey-default: var(--color-stroke-neutral-300);
+  --semantic-border-grey-hover: var(--color-stroke-neutral-400);
+  --semantic-background-action-hover: var(--color-fill-neutral-800);
+  --tone-grey-default: var(--semantic-background-grey-default);
+  --tone-grey-focused: var(--semantic-background-grey-default);
+  --tone-grey-hover: var(--semantic-background-grey-hover);
+  --tone-grey-disabled: var(--semantic-background-grey-disabled);
   --font-family-base: var(--typography-mode-1-font-family-ibm-plex-sans);
   
   /* Display Scale - based on height */
@@ -118,6 +124,8 @@
   --font-weight-bold: var(--typography-mode-1-font-weight-bold);
   --spacing-8: var(--spacing-style-spacing-4px-2-8px);
   --spacing-12: var(--spacing-style-spacing-4px-3-12px);
+  --spacing-16: var(--spacing-style-spacing-4px-4-16px);
+  --spacing-20: var(--spacing-style-spacing-4px-5-20px);
   --spacing-24: var(--spacing-style-spacing-4px-6-24px);
   --radius-xs: var(--radius-mode-1-radius-xs);
   --radius-sm: var(--radius-mode-1-radius-sm);
@@ -129,7 +137,10 @@
   --border-text-strong: var(--semantic-border-strong);
   --border-text-muted: var(--semantic-border-muted);
   --border-text-ghosted: var(--semantic-border-ghosted);
-  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-opacity-xs: 0.25;
+  --shadow-opacity-sm: 0.4;
+  --shadow-opacity-md: 0.6;
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, var(--shadow-opacity-xs));
   --shadow-skeuomorphic: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.1);
   --shadow-inner-panel: inset 4px 4px 28px 1px rgba(224, 221, 91, 0.29);
   
@@ -193,6 +204,12 @@
   --semantic-input-icon-success: var(--semantic-feedback-success-base);
   --semantic-input-placeholder: var(--semantic-text-muted);
   
+  /* Icon Size Tokens */
+  --icon-size-xs: 12px;
+  --icon-size-sm: 16px;
+  --icon-size-md: 20px;
+  --icon-size-lg: 24px;
+  
   /* Z-Index Tokens */
   --z-index-base: 1;
   --z-index-sticky: 10;
@@ -205,6 +222,7 @@
   --transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --easing-base: ease;
   --easing-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --animation-spinner: 0.8s linear infinite;
   
   /* Typography Tokens - Letter Spacing */
   --letter-spacing-tight: 0.2%;

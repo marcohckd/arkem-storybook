@@ -138,6 +138,13 @@
   min-height: 0;
 }
 
+/* === MODAL RIGHT SLOT WRAPPER === */
+.arkem-modal__right-slot {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-style-spacing-4px-0-5-2px);
+}
+
 /* === RESPONSIVE === */
 @media (max-width: var(--breakpoint-md)) {
   .arkem-modal {

@@ -51,6 +51,16 @@ Tokens follow a three-tier hierarchy:
     },
   },
   tags: ["autodocs"],
+  argTypes: {
+    children: {
+      control: false,
+      description: "Avatar content, typically AvatarFallback component with initials or an image",
+    },
+    className: {
+      control: "text",
+      description: "Additional CSS class name",
+    },
+  },
 };
 
 export default meta;

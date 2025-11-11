@@ -2,7 +2,9 @@ import React, { ReactNode } from "react";
 import "./Card.css";
 
 export type CardHeaderProps = {
+  /** Header content */
   children?: ReactNode;
+  /** Additional CSS class name */
   className?: string;
 };
 

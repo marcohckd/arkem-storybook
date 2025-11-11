@@ -9,7 +9,7 @@ const meta = {
   title: "Foundations/Typography",
   decorators: [
     (Story) => (
-      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: '20px' }}>
+      <div style={{ backgroundColor: 'var(--semantic-background-base)', minHeight: '100vh', padding: 'var(--spacing-20)' }}>
         <Story />
       </div>
     ),
@@ -100,9 +100,9 @@ const TypographyExample: React.FC<{
       style={{
         border: `1px solid var(--semantic-border-subtle)`,
         borderRadius: "var(--radius-md)",
-        padding: "16px",
+        padding: "var(--spacing-16)",
         background: "var(--semantic-background-base)",
-        marginBottom: "16px",
+        marginBottom: "var(--spacing-16)",
       }}
     >
       <div
@@ -112,7 +112,7 @@ const TypographyExample: React.FC<{
           fontWeight: "var(--font-weight-regular)",
           color: "var(--semantic-text-primary)",
           fontFamily: "var(--font-family-base)",
-          marginBottom: "8px",
+          marginBottom: "var(--spacing-8)",
         }}
       >
         The quick brown fox jumps over the lazy dog
@@ -124,7 +124,7 @@ const TypographyExample: React.FC<{
           fontWeight: "var(--font-weight-regular)",
           fontFamily: "var(--font-family-base)",
           color: "var(--semantic-text-secondary)",
-          marginBottom: "4px",
+          marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
         }}
       >
         {token}
@@ -137,7 +137,7 @@ const TypographyExample: React.FC<{
             fontWeight: "var(--font-weight-regular)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-muted)",
-            marginBottom: "4px",
+            marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
           }}
         >
           {lineHeightToken}
@@ -162,7 +162,7 @@ const TypographyExample: React.FC<{
             fontWeight: "var(--font-weight-regular)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-muted)",
-            marginTop: "4px",
+            marginTop: "var(--spacing-style-spacing-4px-0-5-2px)",
           }}
         >
           {description}
@@ -184,7 +184,7 @@ export const DisplayScale: Story = {
     ];
 
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         <h2
           style={{
             fontSize: "var(--fonts-display-xl)",
@@ -192,9 +192,9 @@ export const DisplayScale: Story = {
             lineHeight: "var(--fonts-display-xl-line-height)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-primary)",
-            marginBottom: "24px",
+            marginBottom: "var(--spacing-24)",
             borderBottom: "1px solid var(--semantic-border-subtle)",
-            paddingBottom: "8px",
+            paddingBottom: "var(--spacing-8)",
             background: "var(--semantic-background-base)",
           }}
         >
@@ -227,7 +227,7 @@ export const SemanticScale: Story = {
     ];
 
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         <h2
           style={{
             fontSize: "var(--fonts-display-xl)",
@@ -235,9 +235,9 @@ export const SemanticScale: Story = {
             lineHeight: "var(--fonts-display-xl-line-height)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-primary)",
-            marginBottom: "24px",
+            marginBottom: "var(--spacing-24)",
             borderBottom: "1px solid var(--semantic-border-subtle)",
-            paddingBottom: "8px",
+            paddingBottom: "var(--spacing-8)",
             background: "var(--semantic-background-base)",
           }}
         >
@@ -267,7 +267,7 @@ export const FontWeights: Story = {
     ];
 
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         <h2
           style={{
             fontSize: "var(--fonts-display-xl)",
@@ -275,9 +275,9 @@ export const FontWeights: Story = {
             lineHeight: "var(--fonts-display-xl-line-height)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-primary)",
-            marginBottom: "24px",
+            marginBottom: "var(--spacing-24)",
             borderBottom: "1px solid var(--semantic-border-subtle)",
-            paddingBottom: "8px",
+            paddingBottom: "var(--spacing-8)",
             background: "var(--semantic-background-base)",
           }}
         >
@@ -289,9 +289,9 @@ export const FontWeights: Story = {
             style={{
               border: `1px solid var(--semantic-border-subtle)`,
               borderRadius: "var(--radius-md)",
-              padding: "16px",
+              padding: "var(--spacing-16)",
               background: "var(--semantic-background-base)",
-              marginBottom: "16px",
+              marginBottom: "var(--spacing-16)",
             }}
           >
             <div
@@ -300,7 +300,7 @@ export const FontWeights: Story = {
                 fontWeight: `var(${weight.token})`,
                 color: "var(--semantic-text-primary)",
                 fontFamily: "var(--font-family-base)",
-                marginBottom: "8px",
+                marginBottom: "var(--spacing-8)",
               }}
             >
               The quick brown fox jumps over the lazy dog
@@ -312,7 +312,7 @@ export const FontWeights: Story = {
                 fontWeight: "var(--font-weight-regular)",
                 fontFamily: "var(--font-family-base)",
                 color: "var(--semantic-text-secondary)",
-                marginBottom: "4px",
+                marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
               }}
             >
               {weight.token}
@@ -324,7 +324,7 @@ export const FontWeights: Story = {
                 fontWeight: "var(--font-weight-regular)",
                 fontFamily: "var(--font-family-base)",
                 color: "var(--semantic-text-muted)",
-                marginBottom: "4px",
+                marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
               }}
             >
               {weight.value}
@@ -350,7 +350,7 @@ export const FontWeights: Story = {
 export const FontFamilies: Story = {
   render: () => {
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         <h2
           style={{
             fontSize: "var(--fonts-display-xl)",
@@ -358,9 +358,9 @@ export const FontFamilies: Story = {
             lineHeight: "var(--fonts-display-xl-line-height)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-primary)",
-            marginBottom: "24px",
+            marginBottom: "var(--spacing-24)",
             borderBottom: "1px solid var(--semantic-border-subtle)",
-            paddingBottom: "8px",
+            paddingBottom: "var(--spacing-8)",
             background: "var(--semantic-background-base)",
           }}
         >
@@ -370,7 +370,7 @@ export const FontFamilies: Story = {
           style={{
             border: `1px solid var(--semantic-border-subtle)`,
             borderRadius: "var(--radius-md)",
-            padding: "16px",
+            padding: "var(--spacing-16)",
             background: "var(--semantic-background-base)",
           }}
         >
@@ -379,7 +379,7 @@ export const FontFamilies: Story = {
               fontSize: "var(--fonts-display-md)",
               fontFamily: "var(--font-family-base)",
               color: "var(--semantic-text-primary)",
-              marginBottom: "16px",
+              marginBottom: "var(--spacing-16)",
             }}
           >
             The quick brown fox jumps over the lazy dog
@@ -391,7 +391,7 @@ export const FontFamilies: Story = {
               fontWeight: "var(--font-weight-regular)",
               fontFamily: "var(--font-family-base)",
               color: "var(--semantic-text-secondary)",
-              marginBottom: "4px",
+              marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
             }}
           >
             --font-family-base
@@ -403,7 +403,7 @@ export const FontFamilies: Story = {
               fontWeight: "var(--font-weight-regular)",
               fontFamily: "var(--font-family-base)",
               color: "var(--semantic-text-muted)",
-              marginBottom: "4px",
+              marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
             }}
           >
             IBM Plex Sans

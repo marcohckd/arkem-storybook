@@ -1,15 +1,25 @@
 import React from "react";
 
 export interface TableHeadProps {
+  /** Header cell content */
   children: React.ReactNode;
+  /** Whether the header cell is sticky */
   sticky?: boolean;
+  /** Offset for sticky positioning */
   stickyOffset?: number;
+  /** Whether sticky positioning is on the right side */
   stickyRight?: boolean;
+  /** Whether the column is sortable */
   sortable?: boolean;
+  /** Callback function called when header is clicked */
   onClick?: () => void;
+  /** Number of columns this header spans */
   colSpan?: number;
+  /** Number of rows this header spans */
   rowSpan?: number;
+  /** Additional CSS class name */
   className?: string;
+  /** Inline styles */
   style?: React.CSSProperties;
 }
 

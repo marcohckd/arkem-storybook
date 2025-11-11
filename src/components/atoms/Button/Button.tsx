@@ -3,25 +3,43 @@ import * as Lucide from "lucide-react";
 import "./Button.css";
 
 export interface ButtonProps {
+  /** Size variant of the button */
   size?: "sm" | "md" | "lg";
+  /** Visual hierarchy variant */
   hierarchy?: "primary" | "secondary" | "mode";
+  /** Color tone variant */
   tone?: "black" | "grey" | "color";
+  /** Visual state of the button */
   state?: "default" | "hover" | "focused" | "disabled";
+  /** Functional variant of the button */
   function?: "feature" | "action" | "table-action" | "close" | "borderless";
+  /** Whether to show button text */
   showText?: boolean;
-  iconLeading?: boolean; // Show/hide leading icon
-  iconTrailing?: boolean; // Show/hide trailing icon
+  /** Whether to show leading icon */
+  iconLeading?: boolean;
+  /** Whether to show trailing icon */
+  iconTrailing?: boolean;
+  /** Name of the Lucide icon to display as leading icon */
   leadingIconName?: keyof typeof Lucide;
+  /** Name of the Lucide icon to display as trailing icon */
   trailingIconName?: keyof typeof Lucide;
+  /** Custom React node for leading icon */
   leadingIcon?: React.ReactNode;
+  /** Custom React node for trailing icon */
   trailingIcon?: React.ReactNode;
+  /** Whether the button should take full width */
   fullWidth?: boolean;
+  /** Whether the button is disabled */
   disabled?: boolean;
+  /** Additional CSS class name */
   className?: string;
+  /** Button content/text */
   children?: React.ReactNode;
+  /** Callback function called when button is clicked */
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  /** ARIA label for accessibility */
   ariaLabel?: string;
-  // Story-only control
+  /** Story-only control for forcing visual state */
   forcedState?: "default" | "hover" | "focused" | "disabled";
 }
 

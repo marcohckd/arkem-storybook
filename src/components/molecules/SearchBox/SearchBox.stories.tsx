@@ -22,6 +22,37 @@ const meta: Meta<typeof SearchBox> = {
     },
   },
   tags: ["autodocs"],
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg"],
+      description: "Size variant of the search box",
+    },
+    value: {
+      control: "text",
+      description: "Current value of the search box (controlled)",
+    },
+    onChange: {
+      action: "value changed",
+      description: "Callback function called when the value changes",
+    },
+    placeholder: {
+      control: "text",
+      description: "Placeholder text displayed when search box is empty",
+    },
+    disabled: {
+      control: "boolean",
+      description: "Whether the search box is disabled",
+    },
+    onClear: {
+      action: "cleared",
+      description: "Callback function called when the clear button is clicked",
+    },
+    className: {
+      control: false,
+      description: "Additional CSS class name",
+    },
+  },
 };
 
 export default meta;

@@ -2,8 +2,11 @@ import React from "react";
 import "./Spinner.css";
 
 export type SpinnerProps = {
+  /** Size variant of the spinner */
   size?: "sm" | "md" | "lg";
+  /** Additional CSS class name */
   className?: string;
+  /** ARIA label for accessibility (defaults to 'Loading') */
   "aria-label"?: string;
 };
 

@@ -1,7 +1,9 @@
 import React from "react";
 
 export interface AvatarProps {
+  /** Avatar content, typically AvatarFallback component with initials or an image */
   children: React.ReactNode;
+  /** Additional CSS class name */
   className?: string;
 }
 

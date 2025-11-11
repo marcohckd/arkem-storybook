@@ -20,6 +20,17 @@ const meta: Meta<typeof Divider> = {
     },
   },
   tags: ["autodocs"],
+  argTypes: {
+    orientation: {
+      control: "select",
+      options: ["horizontal", "vertical"],
+      description: "Orientation of the divider",
+    },
+    className: {
+      control: false,
+      description: "Additional CSS class name",
+    },
+  },
 };
 
 export default meta;

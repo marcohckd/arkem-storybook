@@ -22,6 +22,38 @@ const meta: Meta<typeof Link> = {
     },
   },
   tags: ["autodocs"],
+  argTypes: {
+    variant: {
+      control: "select",
+      options: ["default", "subtle", "underline"],
+      description: "Visual variant of the link",
+    },
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg"],
+      description: "Size variant of the link",
+    },
+    disabled: {
+      control: "boolean",
+      description: "Whether the link is disabled",
+    },
+    href: {
+      control: "text",
+      description: "URL or path for the link",
+    },
+    children: {
+      control: false,
+      description: "Link text content",
+    },
+    className: {
+      control: false,
+      description: "Additional CSS class name",
+    },
+    onClick: {
+      action: "clicked",
+      description: "Callback function called when the link is clicked",
+    },
+  },
 };
 
 export default meta;

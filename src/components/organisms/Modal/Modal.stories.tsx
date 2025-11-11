@@ -2,6 +2,8 @@
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
+import * as React from "react";
+import { createRoot } from "react-dom/client";
 
 import { Button } from "../../atoms/Button/Button";
 
@@ -12,7 +14,7 @@ const meta: Meta<typeof Modal> = {
   component: Modal,
   decorators: [
     (Story) => (
-      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: '20px' }}>
+      <div style={{ backgroundColor: 'var(--semantic-background-base)', minHeight: '100vh', padding: 'var(--spacing-20)' }}>
         <Story />
       </div>
     ),
@@ -665,5 +667,85 @@ export const PaneVisibilityToggle: Story = {
       )}
     </ModalWrapper>
   ),
+};
+
+export const LongContent: Story = {
+  tags: ['!dev'],
+  parameters: {
+    docs: {
+      description: {
+        story: "Example showing how Modal handles long content. The modal body scrolls independently while the header remains fixed, ensuring the close button and title are always accessible.",
+      },
+    },
+  },
+  render: () => {
+    const LongContentModal = () => {
+      const [isOpen, setIsOpen] = useState(true);
+
+      React.useEffect(() => {
+        if (isOpen) {
+          const timer = setTimeout(() => {
+            const pane = document.querySelector('.arkem-modal__pane');
+            if (pane) {
+              const content = Array.from({ length: 50 }, (_, i) => (
+                <div
+                  key={i}
+                  style={{
+                    padding: "var(--spacing-12)",
+                    marginBottom: "var(--spacing-8)",
+                    background: "var(--semantic-background-raised)",
+                    borderRadius: "var(--radius-md)",
+                    border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
+                  }}
+                >
+                  <h4
+                    style={{
+                      fontSize: "var(--fonts-semantic-md)",
+                      fontWeight: "var(--font-weight-medium)",
+                      color: "var(--semantic-text-primary)",
+                      margin: "0 0 var(--spacing-8) 0",
+                    }}
+                  >
+                    Section {i + 1}
+                  </h4>
+                  <p
+                    style={{
+                      fontSize: "var(--fonts-semantic-sm)",
+                      color: "var(--semantic-text-secondary)",
+                      margin: 0,
+                      lineHeight: "1.6",
+                    }}
+                  >
+                    This is section {i + 1} of a long content modal. The modal body scrolls independently while the header remains fixed at the top. This ensures that the close button and title are always accessible, even when scrolling through extensive content.
+                  </p>
+                </div>
+              ));
+              const container = document.createElement('div');
+              container.style.padding = "var(--spacing-12)";
+              pane.appendChild(container);
+              const root = createRoot(container);
+              root.render(<>{content}</>);
+            }
+          }, 100);
+          return () => clearTimeout(timer);
+        }
+      }, [isOpen]);
+
+      return (
+        <ModalWrapper>
+          {({ isOpen, onClose }) => (
+            <Modal
+              title="Modal with Long Content"
+              isOpen={isOpen}
+              onClose={onClose}
+              format="single"
+            />
+          )}
+        </ModalWrapper>
+      );
+    };
+
+    return <LongContentModal />;
+  },
 };
 

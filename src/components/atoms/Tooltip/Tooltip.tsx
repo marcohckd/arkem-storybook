@@ -1,7 +1,9 @@
 import React from "react";
 
 export interface TooltipProps {
+  /** Delay in milliseconds before showing the tooltip (default: 200) */
   delayDuration?: number;
+  /** Tooltip content, typically TooltipTrigger and TooltipContent components */
   children: React.ReactNode;
 }
 

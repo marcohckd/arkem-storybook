@@ -5,8 +5,11 @@ import { Switch } from "../../../atoms/Switch/Switch";
 export type ModuleKey = "monitor" | "tracer" | "network_graph" | "profile" | "audit_logs";
 
 export interface ModuleAccessTabProps {
+  /** Currently enabled module keys */
   enabledModules?: ModuleKey[];
+  /** Callback function called when enabled modules change */
   onModulesChange?: (modules: ModuleKey[]) => void;
+  /** Available modules to display */
   availableModules?: Array<{
     id: ModuleKey;
     name: string;

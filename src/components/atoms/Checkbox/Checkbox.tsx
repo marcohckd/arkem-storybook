@@ -2,10 +2,15 @@ import React from "react";
 import "./Checkbox.css";
 
 export interface CheckboxProps {
+  /** Whether the checkbox is checked */
   checked?: boolean;
+  /** Callback function called when the checked state changes */
   onCheckedChange?: (checked: boolean) => void;
+  /** Additional CSS class name */
   className?: string;
+  /** Whether the checkbox is disabled */
   disabled?: boolean;
+  /** ARIA label for accessibility */
   "aria-label"?: string;
 }
 

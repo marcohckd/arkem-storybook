@@ -1,10 +1,15 @@
 import React from "react";
 
 export interface TableRowProps {
+  /** Row content, typically TableCell or TableHead components */
   children: React.ReactNode;
+  /** Whether this is an even row (for zebra striping) */
   isEven?: boolean;
+  /** Whether this row is selected */
   isSelected?: boolean;
+  /** Additional CSS class name */
   className?: string;
+  /** Inline styles */
   style?: React.CSSProperties;
 }
 

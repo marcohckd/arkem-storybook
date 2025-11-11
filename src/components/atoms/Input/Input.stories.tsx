@@ -16,6 +16,26 @@ const meta: Meta<typeof Input> = {
       description: {
         component: `Text input fields for user data entry, styled with ARKEM Design System tokens to match Button typography and color tokens.
 
+## Component Architecture
+
+**Input is a pure atom component** - it handles only the input element itself. For labels, error messages, and help text, use the **FormField molecule** component which composes Input + Label + error handling.
+
+\`\`\`tsx
+// ✅ Recommended: Use FormField for labels
+<FormField
+  label="Username"
+  placeholder="Enter username"
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+/>
+
+// ⚠️ Deprecated: Input with label prop (kept for backward compatibility)
+<Input
+  label="Username"  // Use FormField instead
+  placeholder="Enter username"
+/>
+\`\`\`
+
 ## Features
 
 - **Three sizes**: \`sm\` (32px), \`md\` (40px), \`lg\` (48px) - matching Button sizes
@@ -23,7 +43,7 @@ const meta: Meta<typeof Input> = {
 - **Colors**: Uses semantic color tokens matching Button styling
 - **Icons**: Support for leading and trailing icons
 - **States**: Default, error, success, disabled
-- **Labels & Character Count**: Optional label above input with character count
+- **Labels & Character Count**: Use FormField molecule for labels and character count (Input's label prop is deprecated)
 - **Multiline**: Textarea support for longer text input
 - **Accessible**: Full ARIA support and keyboard navigation
 
@@ -560,6 +580,59 @@ export const AllVariations: Story = {
             />
             <Input size="lg" placeholder="Disabled" disabled />
           </div>
+        </div>
+      </div>
+    );
+  },
+};
+
+export const LongContent: Story = {
+  tags: ['!dev'],
+  parameters: {
+    docs: {
+      description: {
+        story: "Examples showing how Input handles long content. Single-line inputs truncate with ellipsis, while textarea inputs wrap and scroll.",
+      },
+    },
+  },
+  render: () => {
+    const [longText, setLongText] = useState("This is a very long text that demonstrates how single-line inputs handle extended content that exceeds the input width.");
+    const [longTextarea, setLongTextarea] = useState(`This is a very long textarea content that demonstrates how multiline inputs handle extended content. The textarea will wrap and allow scrolling when the content exceeds the visible area. This is useful for longer form inputs like descriptions, comments, or notes that require multiple lines of text.`);
+    
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-16)", maxWidth: "400px" }}>
+        <div>
+          <p style={{ fontSize: "var(--fonts-semantic-sm)", color: "var(--semantic-text-secondary)", marginBottom: "var(--spacing-8)" }}>
+            Single-line input with long text (truncates):
+          </p>
+          <Input
+            size="md"
+            value={longText}
+            onChange={(e) => setLongText(e.target.value)}
+            placeholder="Enter long text..."
+            maxLength={200}
+          />
+          <p style={{ fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-muted)", marginTop: "var(--spacing-4)" }}>
+            Character count: {longText.length}/200
+          </p>
+        </div>
+        
+        <div>
+          <p style={{ fontSize: "var(--fonts-semantic-sm)", color: "var(--semantic-text-secondary)", marginBottom: "var(--spacing-8)" }}>
+            Textarea with long content (wraps and scrolls):
+          </p>
+          <Input
+            size="md"
+            multiline
+            rows={6}
+            value={longTextarea}
+            onChange={(e) => setLongTextarea(e.target.value)}
+            placeholder="Enter long text..."
+            maxLength={500}
+          />
+          <p style={{ fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-muted)", marginTop: "var(--spacing-4)" }}>
+            Character count: {longTextarea.length}/500
+          </p>
         </div>
       </div>
     );

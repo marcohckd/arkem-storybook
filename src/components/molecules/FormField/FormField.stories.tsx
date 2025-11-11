@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 import { FormField } from "./FormField";
 import { Search } from "lucide-react";
+import { Button } from "../../atoms/Button/Button";
+import { Card, CardHeader, CardBody, CardFooter } from "../Card";
 
 const meta: Meta<typeof FormField> = {
   title: "Molecules/FormField",
@@ -75,10 +78,95 @@ export const WithCharacterCount: Story = {
 };
 
 export const WithIcon: Story = {
+  tags: ['!dev'],
   args: {
     label: "Search",
     placeholder: "Search...",
     iconLeading: <Search size={16} />,
+  },
+};
+
+export const FormComposition: Story = {
+  tags: ['!dev'],
+  parameters: {
+    layout: "padded",
+    docs: {
+      description: {
+        story: "Example showing multiple FormField components working together in a complete form. Demonstrates proper form composition patterns.",
+      },
+    },
+  },
+  render: () => {
+    const [formData, setFormData] = useState({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      description: "",
+    });
+    
+    return (
+      <div style={{ maxWidth: "400px" }}>
+        <Card>
+          <CardHeader>
+            <h3 style={{ margin: 0, fontSize: "var(--fonts-semantic-lg)", fontWeight: "var(--font-weight-semibold)" }}>
+              Create Account
+            </h3>
+          </CardHeader>
+          <CardBody>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-16)" }}>
+              <FormField
+                label="Full Name"
+                placeholder="Enter your full name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              />
+              <FormField
+                label="Email"
+                placeholder="Enter your email"
+                type="email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                error={formData.email && !formData.email.includes("@") ? "Please enter a valid email" : undefined}
+              />
+              <FormField
+                label="Password"
+                placeholder="Enter your password"
+                type="password"
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                error={formData.password && formData.password.length < 8 ? "Password must be at least 8 characters" : undefined}
+                helpText="Must be at least 8 characters"
+              />
+              <FormField
+                label="Confirm Password"
+                placeholder="Confirm your password"
+                type="password"
+                value={formData.confirmPassword}
+                onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                error={formData.confirmPassword && formData.password !== formData.confirmPassword ? "Passwords do not match" : undefined}
+              />
+              <FormField
+                label="Bio"
+                placeholder="Tell us about yourself"
+                multiline
+                rows={4}
+                value={formData.description}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                maxLength={200}
+                showCharacterCount
+              />
+            </div>
+          </CardBody>
+          <CardFooter>
+            <div style={{ display: "flex", gap: "var(--spacing-8)", justifyContent: "flex-end" }}>
+              <Button size="sm" hierarchy="secondary" tone="grey">Cancel</Button>
+              <Button size="sm" hierarchy="secondary" tone="color">Create Account</Button>
+            </div>
+          </CardFooter>
+        </Card>
+      </div>
+    );
   },
 };
 

@@ -38,7 +38,7 @@
 
 /* === TABLE CONTAINER === */
 .arkem-user-table__container {
-  border: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-border);
+  border: var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-table-border);
   border-radius: var(--radius-md);
   background: var(--semantic-table-row-even);
   flex: 1;

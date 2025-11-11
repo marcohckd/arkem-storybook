@@ -66,6 +66,17 @@
   gap: var(--spacing-4, 4px);
 }
 
+.arkem-drawer__user-name {
+  font-size: var(--fonts-semantic-md);
+  font-weight: var(--font-weight-medium);
+  color: var(--semantic-text-primary);
+}
+
+.arkem-drawer__user-details {
+  font-size: var(--fonts-semantic-sm);
+  color: var(--semantic-text-secondary);
+}
+
 /* === SCROLLABLE BODY === */
 .arkem-drawer__body {
   flex: 1;

@@ -2,7 +2,9 @@ import React from "react";
 import "./Divider.css";
 
 export type DividerProps = {
+  /** Orientation of the divider */
   orientation?: "horizontal" | "vertical";
+  /** Additional CSS class name */
   className?: string;
 };
 

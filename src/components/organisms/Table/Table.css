@@ -19,7 +19,7 @@
   letter-spacing: var(--letter-spacing-tight);
   text-align: left;
   padding: var(--spacing-12);
-  border-bottom: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-divider-subtle);
+  border-bottom: var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-table-divider-subtle);
   white-space: nowrap;
 }
 
@@ -53,8 +53,8 @@
 
 /* Visual divider for right-side sticky columns */
 .arkem-table__head--sticky-right {
-  border-left: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-divider-subtle);
-  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+  border-left: var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-table-divider-subtle);
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.4);
 }
 
 .arkem-table__head--group-header {
@@ -77,7 +77,7 @@
 /* === TABLE ROW === */
 .arkem-table__row {
   height: var(--component-table-body-row-height);
-  border-bottom: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-border);
+  border-bottom: var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-table-border);
   transition: background-color var(--transition-base);
 }
 
@@ -138,8 +138,8 @@
 
 /* Visual divider for right-side sticky columns */
 .arkem-table__cell--sticky-right {
-  border-left: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-divider-subtle);
-  box-shadow: -2px 0 4px rgba(0, 0, 0, 0.1);
+  border-left: var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-table-divider-subtle);
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Ensure sticky cells maintain background on hover */
@@ -159,13 +159,13 @@
 /* Subtle dividers: external borders, between groups, between headers and rows */
 .arkem-table__head--divider-subtle,
 .arkem-table__cell--divider-subtle {
-  border-right: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-divider-subtle);
+  border-right: var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-table-divider-subtle);
 }
 
 /* Muted dividers: between columns of the same group */
 .arkem-table__head--divider-muted,
 .arkem-table__cell--divider-muted {
-  border-right: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-divider-muted);
+  border-right: var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-table-divider-muted);
 }
 
 /* === TABLE CONTAINER WRAPPER === */
@@ -174,7 +174,7 @@
   flex-direction: column;
   flex: 1;
   overflow: hidden;
-  border: var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-divider-subtle);
+  border: var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-table-divider-subtle);
   border-radius: var(--radius-md);
   background: var(--semantic-table-row-even);
 }

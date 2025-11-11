@@ -41,13 +41,21 @@ export interface Module {
 }
 
 export interface UserManagementTableProps {
+  /** Array of user data to display */
   users: User[];
+  /** Array of available modules */
   modules: Module[];
+  /** Callback function called when a user is edited */
   onUserEdit?: (user: User) => void;
+  /** Callback function called for bulk updates */
   onBulkUpdate?: (userIds: string[]) => void;
+  /** Callback function called for bulk activation */
   onBulkActivate?: (userIds: string[]) => void;
+  /** Callback function called for bulk export */
   onBulkExport?: (userIds: string[]) => void;
+  /** Number of items per page */
   pageSize?: number;
+  /** Additional CSS class name */
   className?: string;
 }
 

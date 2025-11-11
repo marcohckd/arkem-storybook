@@ -1,8 +1,11 @@
 // src/components/Panel/Panel.stories.tsx
 
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 
 import { Panel } from "./Panel";
+import { FormField } from "../FormField/FormField";
+import { Button } from "../../atoms/Button/Button";
 
 const meta: Meta<typeof Panel> = {
   title: "Molecules/Panel",
@@ -480,6 +483,61 @@ export const LargeContent: Story = {
   },
   parameters: {
     layout: "centered",
+  },
+};
+
+export const WithForm: Story = {
+  tags: ['!dev'],
+  parameters: {
+    layout: "padded",
+    docs: {
+      description: {
+        story: "Panel containing form content. Demonstrates how Panel can be used as a container for form fields and actions.",
+      },
+    },
+  },
+  render: () => {
+    const [email, setEmail] = useState("");
+    const [name, setName] = useState("");
+    
+    return (
+      <div style={{ maxWidth: "400px" }}>
+        <Panel withInnerShadow>
+          <div>
+            <h3
+              style={{
+                fontSize: "var(--fonts-semantic-lg)",
+                fontWeight: "var(--font-weight-medium)",
+                color: "var(--semantic-text-primary)",
+                marginBottom: "var(--spacing-16)",
+              }}
+            >
+              Contact Information
+            </h3>
+            <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-16)", marginBottom: "var(--spacing-16)" }}>
+              <FormField
+                label="Full Name"
+                placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+              <FormField
+                label="Email"
+                placeholder="Enter your email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                error={email && !email.includes("@") ? "Please enter a valid email" : undefined}
+              />
+            </div>
+            <div style={{ display: "flex", gap: "var(--spacing-8)", justifyContent: "flex-end" }}>
+              <Button size="sm" hierarchy="secondary" tone="grey">Cancel</Button>
+              <Button size="sm" hierarchy="secondary" tone="color">Save</Button>
+            </div>
+          </div>
+        </Panel>
+      </div>
+    );
   },
 };
 

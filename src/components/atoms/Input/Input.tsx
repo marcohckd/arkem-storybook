@@ -15,7 +15,10 @@ export type InputProps = {
   maxLength?: number;
   multiline?: boolean;
   rows?: number;
-  // Deprecated: Use FormField molecule instead
+  /**
+   * @deprecated Use FormField molecule instead. This prop is kept for backward compatibility only.
+   * Input is a pure atom component - use FormField for labels, error messages, and help text.
+   */
   label?: string;
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "size"> &
   Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "size">;
@@ -38,6 +41,7 @@ export const Input: React.FC<InputProps> = ({
   ...rest
 }) => {
   // Backward compatibility: support label prop but prefer FormField molecule
+  // Note: Input is a pure atom - FormField should be used for labels
   const currentLength = value?.toString().length || 0;
   const showCharacterCount = maxLength !== undefined;
   const hasLabelOrCount = label || showCharacterCount;

@@ -23,6 +23,55 @@ const meta: Meta<typeof Textarea> = {
     },
   },
   tags: ["autodocs"],
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg"],
+      description: "Size variant of the textarea",
+    },
+    state: {
+      control: "select",
+      options: ["default", "error", "success"],
+      description: "Visual state of the textarea",
+    },
+    disabled: {
+      control: "boolean",
+      description: "Whether the textarea is disabled",
+    },
+    value: {
+      control: "text",
+      description: "Current value of the textarea (controlled)",
+    },
+    onChange: {
+      action: "value changed",
+      description: "Callback function called when the value changes",
+    },
+    rows: {
+      control: "number",
+      description: "Number of visible rows",
+    },
+    placeholder: {
+      control: "text",
+      description: "Placeholder text displayed when textarea is empty",
+    },
+    maxLength: {
+      control: "number",
+      description: "Maximum number of characters allowed",
+    },
+    resize: {
+      control: "select",
+      options: ["none", "vertical", "horizontal", "both"],
+      description: "Resize behavior of the textarea",
+    },
+    className: {
+      control: false,
+      description: "Additional CSS class name",
+    },
+    ariaLabel: {
+      control: "text",
+      description: "ARIA label for accessibility",
+    },
+  },
 };
 
 export default meta;

@@ -5,11 +5,17 @@ import { Button } from "../../atoms/Button/Button";
 import "./Header.css";
 
 export type HeaderProps = {
+  /** Visual hierarchy variant */
   hierarchy?: "primary" | "secondary";
+  /** Header label text */
   label: string;
+  /** Content to display in the right slot */
   rightSlot?: React.ReactNode;
+  /** Number of feature buttons to display */
   featureCount?: number;
+  /** Number of function buttons to display */
   functionCount?: number;
+  /** Whether to show close button */
   close?: boolean;
 };
 

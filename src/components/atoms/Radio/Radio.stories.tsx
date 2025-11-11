@@ -24,6 +24,36 @@ const meta: Meta<typeof Radio> = {
     },
   },
   tags: ["autodocs"],
+  argTypes: {
+    checked: {
+      control: "boolean",
+      description: "Whether the radio button is checked",
+    },
+    onCheckedChange: {
+      action: "checked changed",
+      description: "Callback function called when the checked state changes",
+    },
+    name: {
+      control: "text",
+      description: "Name attribute for grouping radio buttons",
+    },
+    value: {
+      control: "text",
+      description: "Value attribute for the radio button",
+    },
+    disabled: {
+      control: "boolean",
+      description: "Whether the radio button is disabled",
+    },
+    className: {
+      control: false,
+      description: "Additional CSS class name",
+    },
+    "aria-label": {
+      control: "text",
+      description: "ARIA label for accessibility",
+    },
+  },
 };
 
 export default meta;

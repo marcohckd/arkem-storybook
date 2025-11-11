@@ -9,7 +9,7 @@ const meta: Meta = {
   title: "Foundations/Effects Tokens",
   decorators: [
     (Story) => (
-      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: '20px' }}>
+      <div style={{ backgroundColor: 'var(--semantic-background-base)', minHeight: '100vh', padding: 'var(--spacing-20)' }}>
         <Story />
       </div>
     ),
@@ -110,7 +110,7 @@ export const Shadows: Story = {
     ];
 
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         <h2
           style={{
             fontSize: "var(--fonts-display-xl)",
@@ -118,9 +118,9 @@ export const Shadows: Story = {
             lineHeight: "var(--fonts-display-xl-line-height)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-primary)",
-            marginBottom: "24px",
+            marginBottom: "var(--spacing-24)",
             borderBottom: "1px solid var(--semantic-border-subtle)",
-            paddingBottom: "8px",
+            paddingBottom: "var(--spacing-8)",
             background: "var(--semantic-background-base)",
           }}
         >
@@ -130,7 +130,7 @@ export const Shadows: Story = {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gap: "24px",
+            gap: "var(--spacing-24)",
           }}
         >
           {shadows.map((shadow) => (
@@ -139,7 +139,7 @@ export const Shadows: Story = {
               style={{
                 border: `1px solid var(--semantic-border-subtle)`,
                 borderRadius: "var(--radius-md)",
-                padding: "24px",
+                padding: "var(--spacing-24)",
                 background: "var(--semantic-background-base)",
               }}
             >
@@ -152,7 +152,7 @@ export const Shadows: Story = {
                     : "var(--semantic-background-overlay)",
                   borderRadius: "var(--radius-md)",
                   boxShadow: `var(${shadow.token})`,
-                  marginBottom: "16px",
+                  marginBottom: "var(--spacing-16)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -178,7 +178,7 @@ export const Shadows: Story = {
                   lineHeight: "var(--fonts-semantic-md-line-height)",
                   fontFamily: "var(--font-family-base)",
                   color: "var(--semantic-text-primary)",
-                  marginBottom: "8px",
+                  marginBottom: "var(--spacing-8)",
                 }}
               >
                 {shadow.name}
@@ -190,7 +190,7 @@ export const Shadows: Story = {
                   fontWeight: "var(--font-weight-regular)",
                   fontFamily: "var(--font-family-base)",
                   color: "var(--semantic-text-secondary)",
-                  marginBottom: "4px",
+                  marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
                   wordBreak: "break-word",
                 }}
               >
@@ -203,7 +203,7 @@ export const Shadows: Story = {
                   fontWeight: "var(--font-weight-regular)",
                   fontFamily: "var(--font-family-base)",
                   color: "var(--semantic-text-muted)",
-                  marginBottom: "8px",
+                  marginBottom: "var(--spacing-8)",
                   wordBreak: "break-word",
                 }}
               >
@@ -242,7 +242,7 @@ export const FocusRings: Story = {
     ];
 
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         <h2
           style={{
             fontSize: "var(--fonts-display-xl)",
@@ -250,9 +250,9 @@ export const FocusRings: Story = {
             lineHeight: "var(--fonts-display-xl-line-height)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-primary)",
-            marginBottom: "24px",
+            marginBottom: "var(--spacing-24)",
             borderBottom: "1px solid var(--semantic-border-subtle)",
-            paddingBottom: "8px",
+            paddingBottom: "var(--spacing-8)",
             background: "var(--semantic-background-base)",
           }}
         >
@@ -262,7 +262,7 @@ export const FocusRings: Story = {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gap: "24px",
+            gap: "var(--spacing-24)",
           }}
         >
           {focusRings.map((ring) => (
@@ -271,7 +271,7 @@ export const FocusRings: Story = {
               style={{
                 border: `1px solid var(--semantic-border-subtle)`,
                 borderRadius: "var(--radius-md)",
-                padding: "24px",
+                padding: "var(--spacing-24)",
                 background: "var(--semantic-background-base)",
               }}
             >
@@ -282,7 +282,7 @@ export const FocusRings: Story = {
                   background: "var(--semantic-background-overlay)",
                   borderRadius: "var(--radius-md)",
                   border: `1px solid var(--semantic-border-subtle)`,
-                  marginBottom: "16px",
+                  marginBottom: "var(--spacing-16)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -291,7 +291,7 @@ export const FocusRings: Story = {
               >
                 <button
                   style={{
-                    padding: "12px 24px",
+                    padding: "var(--spacing-12) var(--spacing-24)",
                     background: "var(--semantic-background-base)",
                     border: `1px solid var(--semantic-border-subtle)`,
                     borderRadius: "var(--radius-xs)",
@@ -315,7 +315,7 @@ export const FocusRings: Story = {
                   lineHeight: "var(--fonts-semantic-md-line-height)",
                   fontFamily: "var(--font-family-base)",
                   color: "var(--semantic-text-primary)",
-                  marginBottom: "8px",
+                  marginBottom: "var(--spacing-8)",
                 }}
               >
                 {ring.name}
@@ -327,7 +327,7 @@ export const FocusRings: Story = {
                   fontWeight: "var(--font-weight-regular)",
                   fontFamily: "var(--font-family-base)",
                   color: "var(--semantic-text-secondary)",
-                  marginBottom: "4px",
+                  marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
                   wordBreak: "break-word",
                 }}
               >
@@ -340,7 +340,7 @@ export const FocusRings: Story = {
                   fontWeight: "var(--font-weight-regular)",
                   fontFamily: "var(--font-family-base)",
                   color: "var(--semantic-text-muted)",
-                  marginBottom: "8px",
+                  marginBottom: "var(--spacing-8)",
                   wordBreak: "break-word",
                 }}
               >
@@ -370,7 +370,7 @@ export const FocusRings: Story = {
 export const Animations: Story = {
   render: () => {
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         <h2
           style={{
             fontSize: "var(--fonts-display-xl)",
@@ -378,9 +378,9 @@ export const Animations: Story = {
             lineHeight: "var(--fonts-display-xl-line-height)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-primary)",
-            marginBottom: "24px",
+            marginBottom: "var(--spacing-24)",
             borderBottom: "1px solid var(--semantic-border-subtle)",
-            paddingBottom: "8px",
+            paddingBottom: "var(--spacing-8)",
             background: "var(--semantic-background-base)",
           }}
         >

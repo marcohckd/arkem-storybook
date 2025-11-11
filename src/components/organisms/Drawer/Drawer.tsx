@@ -13,17 +13,25 @@ import { useOverlay } from "../../hooks/useOverlay";
 import "./Drawer.css";
 
 export type UserConfigDrawerProps = {
+  /** Whether the drawer is open */
   open: boolean;
+  /** Callback function called when drawer open state changes */
   onOpenChange: (open: boolean) => void;
+  /** User information to display */
   user: {
     name: string;
     email: string;
     role: string;
   } | null;
+  /** Initially enabled module keys */
   initialEnabledModules?: ModuleKey[];
+  /** Initial geography configuration */
   initialGeography?: GeographyRow[];
+  /** Initial limits configuration */
   initialLimits?: LimitsConfig;
+  /** Initial privacy settings */
   initialPrivacy?: PrivacyState;
+  /** Callback function called when save is triggered */
   onSave?: (payload: {
     enabledModules: ModuleKey[];
     geography?: GeographyRow[];
@@ -31,7 +39,8 @@ export type UserConfigDrawerProps = {
     privacy?: PrivacyState;
     userEmail: string;
   }) => void;
-  header?: React.ReactNode; // Custom header element (alternative to default Header)
+  /** Custom header element (alternative to default Header) */
+  header?: React.ReactNode;
 };
 
 export const Drawer: React.FC<UserConfigDrawerProps> = ({
@@ -216,21 +225,10 @@ export const Drawer: React.FC<UserConfigDrawerProps> = ({
               />
               {user && (
                 <div className="arkem-drawer__user-info">
-                  <div
-                    style={{
-                      fontSize: "var(--fonts-semantic-md)",
-                      fontWeight: "var(--font-weight-medium)",
-                      color: "var(--semantic-text-primary)",
-                    }}
-                  >
+                  <div className="arkem-drawer__user-name">
                     {user.name}
                   </div>
-                  <div
-                    style={{
-                      fontSize: "var(--fonts-semantic-sm)",
-                      color: "var(--semantic-text-secondary)",
-                    }}
-                  >
+                  <div className="arkem-drawer__user-details">
                     {user.email} • {user.role}
                   </div>
                 </div>

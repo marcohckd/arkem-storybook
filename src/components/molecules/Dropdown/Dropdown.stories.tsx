@@ -497,3 +497,58 @@ export const AllVariations: Story = {
   },
 };
 
+export const EmptyState: Story = {
+  tags: ['!dev'],
+  parameters: {
+    docs: {
+      description: {
+        story: "Empty state example showing how to handle dropdowns with no options available. Provides a user-friendly message when no options are available.",
+      },
+    },
+  },
+  render: () => {
+    const [value, setValue] = useState("");
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-16)", width: "300px" }}>
+        <div>
+          <p style={{ fontSize: "var(--fonts-semantic-sm)", color: "var(--semantic-text-secondary)", marginBottom: "var(--spacing-8)" }}>
+            Dropdown with no options:
+          </p>
+          <Dropdown
+            options={[]}
+            value={value}
+            onChange={setValue}
+            placeholder="No options available"
+            disabled
+            ariaLabel="Empty dropdown"
+          />
+        </div>
+        <div>
+          <p style={{ fontSize: "var(--fonts-semantic-sm)", color: "var(--semantic-text-secondary)", marginBottom: "var(--spacing-8)" }}>
+            With custom empty message:
+          </p>
+          <div
+            style={{
+              padding: "var(--spacing-12)",
+              background: "var(--semantic-background-raised)",
+              borderRadius: "var(--radius-md)",
+              border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "var(--fonts-semantic-sm)",
+                color: "var(--semantic-text-secondary)",
+                margin: 0,
+                textAlign: "center",
+              }}
+            >
+              No options available at this time.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  },
+};
+

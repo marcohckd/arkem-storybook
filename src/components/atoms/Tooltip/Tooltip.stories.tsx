@@ -57,6 +57,16 @@ Tokens follow a three-tier hierarchy:
     },
   },
   tags: ["autodocs"],
+  argTypes: {
+    delayDuration: {
+      control: "number",
+      description: "Delay in milliseconds before showing the tooltip (default: 200)",
+    },
+    children: {
+      control: false,
+      description: "Tooltip content, typically TooltipTrigger and TooltipContent components",
+    },
+  },
 };
 
 export default meta;

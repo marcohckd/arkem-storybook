@@ -1,7 +1,9 @@
 import React from "react";
 
 export interface AvatarFallbackProps {
+  /** Fallback content, typically initials or placeholder text */
   children: React.ReactNode;
+  /** Additional CSS class name */
   className?: string;
 }
 

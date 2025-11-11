@@ -14,8 +14,11 @@ export type GeographyRow = {
 };
 
 export interface GeographyTabProps {
+  /** Initial geography data rows */
   initialData?: GeographyRow[];
+  /** Currently selected row IDs */
   selectedRows?: string[];
+  /** Callback function called when selection changes */
   onSelectionChange?: (selectedIds: string[]) => void;
 }
 

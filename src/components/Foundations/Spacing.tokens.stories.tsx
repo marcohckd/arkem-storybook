@@ -9,7 +9,7 @@ const meta: Meta = {
   title: "Foundations/Spacing & Layout Tokens",
   decorators: [
     (Story) => (
-      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: '20px' }}>
+      <div style={{ backgroundColor: 'var(--semantic-background-base)', minHeight: '100vh', padding: 'var(--spacing-20)' }}>
         <Story />
       </div>
     ),
@@ -115,17 +115,17 @@ const SpacingExample: React.FC<{ token: string; name: string; value: string }> =
       style={{
         border: `1px solid var(--semantic-border-subtle)`,
         borderRadius: "var(--radius-md)",
-        padding: "16px",
+        padding: "var(--spacing-16)",
         background: "var(--semantic-background-base)",
-        marginBottom: "16px",
+        marginBottom: "var(--spacing-16)",
       }}
     >
       <div
         style={{
           display: "flex",
           alignItems: "center",
-          gap: "12px",
-          marginBottom: "8px",
+          gap: "var(--spacing-12)",
+          marginBottom: "var(--spacing-8)",
         }}
       >
         <div
@@ -144,7 +144,7 @@ const SpacingExample: React.FC<{ token: string; name: string; value: string }> =
               lineHeight: "var(--fonts-semantic-md-line-height)",
               fontFamily: "var(--font-family-base)",
               color: "var(--semantic-text-primary)",
-              marginBottom: "4px",
+              marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
             }}
           >
             {name}
@@ -156,7 +156,7 @@ const SpacingExample: React.FC<{ token: string; name: string; value: string }> =
               fontWeight: "var(--font-weight-regular)",
               fontFamily: "var(--font-family-base)",
               color: "var(--semantic-text-secondary)",
-              marginBottom: "2px",
+              marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
             }}
           >
             {token}
@@ -199,7 +199,7 @@ export const SpacingScale: Story = {
     ];
 
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         <h2
           style={{
             fontSize: "var(--fonts-display-xl)",
@@ -207,9 +207,9 @@ export const SpacingScale: Story = {
             lineHeight: "var(--fonts-display-xl-line-height)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-primary)",
-            marginBottom: "24px",
+            marginBottom: "var(--spacing-24)",
             borderBottom: "1px solid var(--semantic-border-subtle)",
-            paddingBottom: "8px",
+            paddingBottom: "var(--spacing-8)",
             background: "var(--semantic-background-base)",
           }}
         >
@@ -242,7 +242,7 @@ export const CornerRadius: Story = {
     ];
 
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         <h2
           style={{
             fontSize: "var(--fonts-display-xl)",
@@ -250,9 +250,9 @@ export const CornerRadius: Story = {
             lineHeight: "var(--fonts-display-xl-line-height)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-primary)",
-            marginBottom: "24px",
+            marginBottom: "var(--spacing-24)",
             borderBottom: "1px solid var(--semantic-border-subtle)",
-            paddingBottom: "8px",
+            paddingBottom: "var(--spacing-8)",
             background: "var(--semantic-background-base)",
           }}
         >
@@ -271,7 +271,7 @@ export const CornerRadius: Story = {
               style={{
                 border: `1px solid var(--semantic-border-subtle)`,
                 borderRadius: "var(--radius-md)",
-                padding: "16px",
+                padding: "var(--spacing-16)",
                 background: "var(--semantic-background-base)",
               }}
             >
@@ -281,7 +281,7 @@ export const CornerRadius: Story = {
                   height: "100px",
                   background: "var(--semantic-brand-base)",
                   borderRadius: `var(${radius.token})`,
-                  marginBottom: "12px",
+                  marginBottom: "var(--spacing-12)",
                   border: `1px solid var(--semantic-border-subtle)`,
                 }}
               />
@@ -292,7 +292,7 @@ export const CornerRadius: Story = {
                   lineHeight: "var(--fonts-semantic-md-line-height)",
                   fontFamily: "var(--font-family-base)",
                   color: "var(--semantic-text-primary)",
-                  marginBottom: "4px",
+                  marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
                 }}
               >
                 {radius.name}
@@ -304,7 +304,7 @@ export const CornerRadius: Story = {
                   fontWeight: "var(--font-weight-regular)",
                   fontFamily: "var(--font-family-base)",
                   color: "var(--semantic-text-secondary)",
-                  marginBottom: "2px",
+                  marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
                   wordBreak: "break-word",
                 }}
               >
@@ -317,7 +317,7 @@ export const CornerRadius: Story = {
                   fontWeight: "var(--font-weight-regular)",
                   fontFamily: "var(--font-family-base)",
                   color: "var(--semantic-text-muted)",
-                  marginBottom: "4px",
+                  marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
                 }}
               >
                 {radius.value}
@@ -346,14 +346,14 @@ export const CornerRadius: Story = {
 export const BorderWidths: Story = {
   render: () => {
     const borderWidths = [
-      { token: "--border-widths-mode-1-border-widht-hairline", name: "Hairline", value: "0.5px", desc: "Subtle borders" },
+      { token: "--border-widths-mode-1-border-width-hairline", name: "Hairline", value: "0.5px", desc: "Subtle borders" },
       { token: "--border-width-thin", name: "Thin", value: "1px", desc: "Standard borders" },
       { token: "--border-widths-mode-1-border-width-medium", name: "Medium", value: "2px", desc: "Emphasized borders" },
       { token: "--border-widths-mode-1-border-width-thick", name: "Thick", value: "4px", desc: "Heavy borders" },
     ];
 
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         <h2
           style={{
             fontSize: "var(--fonts-display-xl)",
@@ -361,9 +361,9 @@ export const BorderWidths: Story = {
             lineHeight: "var(--fonts-display-xl-line-height)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-primary)",
-            marginBottom: "24px",
+            marginBottom: "var(--spacing-24)",
             borderBottom: "1px solid var(--semantic-border-subtle)",
-            paddingBottom: "8px",
+            paddingBottom: "var(--spacing-8)",
             background: "var(--semantic-background-base)",
           }}
         >
@@ -377,17 +377,17 @@ export const BorderWidths: Story = {
               borderRadius: "var(--radius-md)",
               padding: "16px",
               background: "var(--semantic-background-base)",
-              marginBottom: "16px",
+              marginBottom: "var(--spacing-16)",
             }}
           >
             <div
               style={{
                 height: "60px",
                 borderTop: `${border.value} solid var(--semantic-brand-base)`,
-                marginBottom: "12px",
+                marginBottom: "var(--spacing-12)",
                 display: "flex",
                 alignItems: "center",
-                paddingLeft: "12px",
+                paddingLeft: "var(--spacing-12)",
               }}
             >
               <div
@@ -405,7 +405,7 @@ export const BorderWidths: Story = {
                 lineHeight: "var(--fonts-semantic-md-line-height)",
                 fontFamily: "var(--font-family-base)",
                 color: "var(--semantic-text-primary)",
-                marginBottom: "4px",
+                marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
               }}
             >
               {border.name}
@@ -417,7 +417,7 @@ export const BorderWidths: Story = {
                 fontWeight: "var(--font-weight-regular)",
                 fontFamily: "var(--font-family-base)",
                 color: "var(--semantic-text-secondary)",
-                marginBottom: "2px",
+                marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
                 wordBreak: "break-word",
               }}
             >
@@ -430,7 +430,7 @@ export const BorderWidths: Story = {
                 fontWeight: "var(--font-weight-regular)",
                 fontFamily: "var(--font-family-base)",
                 color: "var(--semantic-text-muted)",
-                marginBottom: "4px",
+                marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
               }}
             >
               {border.value}

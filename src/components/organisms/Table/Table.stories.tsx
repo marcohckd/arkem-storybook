@@ -15,7 +15,7 @@ const meta: Meta<typeof Table> = {
   component: Table,
   decorators: [
     (Story) => (
-      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: '20px' }}>
+      <div style={{ backgroundColor: 'var(--semantic-background-base)', minHeight: '100vh', padding: 'var(--spacing-20)' }}>
         <Story />
       </div>
     ),
@@ -309,6 +309,7 @@ export const Sortable: Story = {
 };
 
 export const States: Story = {
+  tags: ['!dev'],
   render: () => (
     <div style={{ padding: "var(--spacing-style-spacing-4px-6-24px)" }}>
       <Table ariaLabel="Table States">
@@ -344,5 +345,163 @@ export const States: Story = {
       </Table>
     </div>
   ),
+};
+
+export const EmptyState: Story = {
+  tags: ['!dev'],
+  parameters: {
+    docs: {
+      description: {
+        story: "Empty state example showing how to handle tables with no data. Provides a user-friendly message when no rows are available.",
+      },
+    },
+  },
+  render: () => (
+    <div style={{ padding: "var(--spacing-style-spacing-4px-6-24px)" }}>
+      <Table ariaLabel="Empty Table">
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Role</TableHead>
+            <TableHead>Email</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow>
+            <TableCell colSpan={3} style={{ textAlign: "center", padding: "var(--spacing-24)" }}>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "var(--spacing-8)",
+                }}
+              >
+                <p
+                  style={{
+                    fontSize: "var(--fonts-semantic-md)",
+                    color: "var(--semantic-text-secondary)",
+                    margin: 0,
+                  }}
+                >
+                  No data available
+                </p>
+                <p
+                  style={{
+                    fontSize: "var(--fonts-semantic-sm)",
+                    color: "var(--semantic-text-muted)",
+                    margin: 0,
+                  }}
+                >
+                  There are no items to display at this time.
+                </p>
+              </div>
+            </TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
+  ),
+};
+
+export const LongContent: Story = {
+  tags: ['!dev'],
+  parameters: {
+    docs: {
+      description: {
+        story: "Example showing how the table handles long content. Text truncation and overflow handling for cells with extensive content.",
+      },
+    },
+  },
+  render: () => {
+    const longData = [
+      {
+        id: "1",
+        name: "John Doe with a very long name that might overflow",
+        role: "Administrator",
+        email: "john.doe.with.a.very.long.email.address@example.com",
+        description: "This is a very long description that demonstrates how the table handles extended text content in cells.",
+      },
+      {
+        id: "2",
+        name: "Jane Smith",
+        role: "User",
+        email: "jane@example.com",
+        description: "Normal length description.",
+      },
+      {
+        id: "3",
+        name: "Bob Johnson",
+        role: "Super Administrator with Extended Role Title",
+        email: "bob@example.com",
+        description: "Another example of long content that might need special handling in table cells.",
+      },
+    ];
+
+    return (
+      <div style={{ padding: "var(--spacing-style-spacing-4px-6-24px)", maxWidth: "800px" }}>
+        <Table ariaLabel="Table with Long Content">
+          <TableHeader>
+            <TableRow>
+              <TableHead style={{ minWidth: "200px" }}>Name</TableHead>
+              <TableHead style={{ minWidth: "150px" }}>Role</TableHead>
+              <TableHead style={{ minWidth: "250px" }}>Email</TableHead>
+              <TableHead>Description</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {longData.map((row, index) => (
+              <TableRow key={row.id} isEven={index % 2 === 0}>
+                <TableCell
+                  style={{
+                    maxWidth: "200px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                  title={row.name}
+                >
+                  {row.name}
+                </TableCell>
+                <TableCell
+                  style={{
+                    maxWidth: "150px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                  title={row.role}
+                >
+                  {row.role}
+                </TableCell>
+                <TableCell
+                  style={{
+                    maxWidth: "250px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                  title={row.email}
+                >
+                  {row.email}
+                </TableCell>
+                <TableCell
+                  style={{
+                    maxWidth: "300px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                  }}
+                  title={row.description}
+                >
+                  {row.description}
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    );
+  },
 };
 

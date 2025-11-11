@@ -76,18 +76,18 @@
 
 /* Icon sizes per button size */
 .arkem-btn[data-size="sm"] .arkem-btn__icon svg {
-  width: 16px;
-  height: 16px;
+  width: var(--icon-size-sm);
+  height: var(--icon-size-sm);
 }
 
 .arkem-btn[data-size="md"] .arkem-btn__icon svg {
-  width: 20px;
-  height: 20px;
+  width: var(--icon-size-md);
+  height: var(--icon-size-md);
 }
 
 .arkem-btn[data-size="lg"] .arkem-btn__icon svg {
-  width: 24px;
-  height: 24px;
+  width: var(--icon-size-lg);
+  height: var(--icon-size-lg);
 }
 
 /* Secondary (sm, md) */
@@ -320,17 +320,17 @@
 
 /* ===== GLOBAL GREY TONE (all sizes & hierarchies) ===== */
 .arkem-btn[data-tone="grey"] {
-  background: var(--color-fill-neutral-200) !important;
+  background: var(--semantic-background-grey-default) !important;
 }
 
 .arkem-btn[data-tone="grey"]:hover,
 .arkem-btn[data-tone="grey"][data-forced-state="hover"] {
-  background: var(--color-fill-neutral-300) !important;
+  background: var(--semantic-background-grey-hover) !important;
 }
 
 .arkem-btn[data-tone="grey"]:focus-visible,
 .arkem-btn[data-tone="grey"][data-forced-state="focused"] {
-  background: var(--color-fill-neutral-200) !important;
+  background: var(--semantic-background-grey-default) !important;
   outline: none;
   box-shadow: 0 0 0 3px var(--semantic-focus-ring);
 }
@@ -338,18 +338,18 @@
 .arkem-btn[data-tone="grey"]:disabled,
 .arkem-btn[data-tone="grey"][data-disabled="true"],
 .arkem-btn[data-tone="grey"][data-forced-state="disabled"] {
-  background: var(--semantic-background-surface) !important;
+  background: var(--semantic-background-grey-disabled) !important;
   pointer-events: none;
 }
 
 /* Optional: keep borders neutral & readable */
 .arkem-btn[data-tone="grey"] {
-  border-color: var(--color-stroke-neutral-300);
+  border-color: var(--semantic-border-grey-default);
 }
 
 .arkem-btn[data-tone="grey"]:hover,
 .arkem-btn[data-tone="grey"][data-forced-state="hover"] {
-  border-color: var(--color-stroke-neutral-400);
+  border-color: var(--semantic-border-grey-hover);
 }
 
 .arkem-btn[data-tone="grey"]:disabled,
@@ -527,7 +527,7 @@
 
 .arkem-btn[data-function="action"]:hover,
 .arkem-btn[data-function="action"][data-forced-state="hover"] {
-  background: var(--color-fill-neutral-800);
+  background: var(--semantic-background-action-hover);
   color: var(--semantic-text-secondary);
   border: none;
 }
@@ -579,7 +579,7 @@
 
 .arkem-btn[data-function="table-action"]:hover,
 .arkem-btn[data-function="table-action"][data-forced-state="hover"] {
-  background: var(--color-fill-neutral-800);
+  background: var(--semantic-background-action-hover);
   color: var(--semantic-text-secondary);
   border: none;
 }

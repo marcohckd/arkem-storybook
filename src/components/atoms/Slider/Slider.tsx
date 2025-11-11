@@ -3,15 +3,25 @@ import * as SliderPrimitive from "@radix-ui/react-slider";
 import "./Slider.css";
 
 export interface SliderProps {
+  /** Controlled value of the slider */
   value?: number[];
+  /** Default value for uncontrolled slider */
   defaultValue?: number[];
+  /** Callback function called when the value changes */
   onValueChange?: (value: number[]) => void;
+  /** Callback function called when the user commits the value (e.g., on mouse up) */
   onValueCommit?: (value: number[]) => void;
+  /** Minimum value */
   min?: number;
+  /** Maximum value */
   max?: number;
+  /** Step increment */
   step?: number;
+  /** Whether the slider is disabled */
   disabled?: boolean;
+  /** Additional CSS class name */
   className?: string;
+  /** ARIA label for accessibility */
   ariaLabel?: string;
 }
 

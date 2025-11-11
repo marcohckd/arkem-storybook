@@ -58,7 +58,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
 
 
   return (
-    <div style={{ padding: "24px", background: "var(--semantic-background-base)", minHeight: "100vh" }}>
+    <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)", minHeight: "100vh" }}>
       <style>{`
         input[type="text"]::placeholder {
           color: var(--semantic-text-secondary) !important;
@@ -68,8 +68,8 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
       {/* Header with total count */}
       <div
         style={{
-          marginBottom: "8px",
-          padding: "16px",
+          marginBottom: "var(--spacing-8)",
+          padding: "var(--spacing-16)",
           background: "var(--color-fill-neutral-700)",
           borderRadius: "var(--radius-md)",
           border: `0.5px solid var(--semantic-border-subtle)`,
@@ -82,7 +82,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
             lineHeight: "var(--fonts-semantic-lg-line-height)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-primary)",
-            marginBottom: "4px",
+            marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
           }}
         >
           Total icons available: <strong style={{ color: "var(--semantic-brand-base)" }}>{ALL_ICON_NAMES.length}</strong>
@@ -105,8 +105,8 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
       <div
         style={{
           display: "flex",
-          gap: "8px",
-          marginBottom: "8px",
+          gap: "var(--spacing-8)",
+          marginBottom: "var(--spacing-8)",
           flexWrap: "wrap",
           alignItems: "center",
         }}
@@ -119,7 +119,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
           style={{
             flex: "1",
             minWidth: "200px",
-            padding: "8px 12px",
+            padding: "var(--spacing-8) var(--spacing-12)",
             fontSize: "var(--fonts-semantic-md)",
             lineHeight: "var(--fonts-semantic-md-line-height)",
             fontWeight: "var(--font-weight-regular)",
@@ -153,7 +153,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "8px",
+            gap: "var(--spacing-8)",
             fontSize: "var(--fonts-semantic-md)",
             lineHeight: "var(--fonts-semantic-md-line-height)",
             fontWeight: "var(--font-weight-medium)",
@@ -179,8 +179,8 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            marginBottom: "8px",
-            padding: "12px",
+            marginBottom: "var(--spacing-8)",
+            padding: "var(--spacing-12)",
             background: "var(--color-fill-neutral-700)",
             borderRadius: "var(--radius-sm)",
             border: `0.5px solid var(--semantic-border-subtle)`,
@@ -190,7 +190,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
             onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
             disabled={currentPage === 1}
             style={{
-              padding: "8px 16px",
+              padding: "var(--spacing-8) var(--spacing-16)",
               fontSize: "var(--fonts-semantic-md)",
               lineHeight: "var(--fonts-semantic-md-line-height)",
               fontWeight: "var(--font-weight-regular)",
@@ -238,7 +238,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
             onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
             disabled={currentPage === totalPages}
             style={{
-              padding: "8px 16px",
+              padding: "var(--spacing-8) var(--spacing-16)",
               fontSize: "var(--fonts-semantic-sm)",
               color: currentPage === totalPages ? "var(--semantic-text-muted)" : "var(--semantic-text-primary)",
               background: currentPage === totalPages ? "var(--color-fill-neutral-700)" : "var(--color-fill-neutral-600)",
@@ -276,7 +276,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(64px, 1fr))",
-          gap: "12px",
+          gap: "var(--spacing-12)",
         }}
       >
         {currentIcons.map((iconName) => {
@@ -291,12 +291,12 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
               style={{
                 border: `1px solid var(--semantic-border-subtle)`,
                 borderRadius: "var(--radius-md)",
-                padding: "12px",
+                padding: "var(--spacing-12)",
                 background: "var(--semantic-background-base)",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                gap: "8px",
+                gap: "var(--spacing-8)",
                 transition: "all 0.15s ease",
                 minHeight: "100px",
                 color: `var(${colorToken})`,
@@ -341,7 +341,7 @@ const IconsGallery: React.FC<IconsGalleryProps> = ({
       {filteredIcons.length === 0 && (
         <div
           style={{
-            padding: "48px",
+            padding: "var(--spacing-style-spacing-4px-12-48px)",
             textAlign: "center",
             color: "var(--semantic-text-secondary)",
             fontSize: "var(--fonts-semantic-md)",
@@ -358,7 +358,7 @@ const meta: Meta<IconsGalleryProps> = {
   title: "Foundations/Icons",
   decorators: [
     (Story) => (
-      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: '20px' }}>
+      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: 'var(--spacing-20)' }}>
         <Story />
       </div>
     ),
@@ -538,12 +538,12 @@ const IconGrid: React.FC<{ icons: string[]; title: string }> = ({ icons, title }
               style={{
                 border: `1px solid var(--semantic-border-subtle)`,
                 borderRadius: "var(--radius-md)",
-                padding: "16px",
+                padding: "var(--spacing-16)",
                 background: "var(--semantic-background-base)",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
-                gap: "8px",
+                gap: "var(--spacing-8)",
                 transition: "all 0.15s ease",
               }}
               onMouseEnter={(e) => {
@@ -591,7 +591,7 @@ export const CommonIcons: Story = {
     const commonIcons = ["Settings", "X", "Check", "Plus", "Minus", "Search", "Filter", "MoreVertical", "Menu", "ArrowRight", "ArrowLeft", "ChevronDown", "ChevronUp", "ChevronLeft", "ChevronRight"];
 
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         <IconGrid icons={commonIcons} title="Commonly Used Icons" />
       </div>
     );

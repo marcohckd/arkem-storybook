@@ -4,6 +4,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "./Tabs";
+import { FormField } from "../FormField/FormField";
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "../../organisms/Table";
 
 const meta: Meta<typeof Tabs> = {
   title: "Molecules/Tabs",
@@ -139,22 +141,22 @@ export const Default: Story = {
           <TabsTrigger value="tab4">Privacy</TabsTrigger>
         </TabsList>
         <TabsContent value="tab1">
-          <div style={{ padding: "var(--spacing-12, 12px)", color: "var(--semantic-text-primary)" }}>
+          <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
             Modules tab content
           </div>
         </TabsContent>
         <TabsContent value="tab2">
-          <div style={{ padding: "var(--spacing-12, 12px)", color: "var(--semantic-text-primary)" }}>
+          <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
             Geography tab content
           </div>
         </TabsContent>
         <TabsContent value="tab3">
-          <div style={{ padding: "var(--spacing-12, 12px)", color: "var(--semantic-text-primary)" }}>
+          <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
             Limits tab content
           </div>
         </TabsContent>
         <TabsContent value="tab4">
-          <div style={{ padding: "var(--spacing-12, 12px)", color: "var(--semantic-text-primary)" }}>
+          <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
             Privacy tab content
           </div>
         </TabsContent>
@@ -175,17 +177,17 @@ export const Controlled: Story = {
             <TabsTrigger value="tab3">Tab 3</TabsTrigger>
           </TabsList>
           <TabsContent value="tab1">
-            <div style={{ padding: "var(--spacing-12, 12px)", color: "var(--semantic-text-primary)" }}>
+            <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
               Content for Tab 1 (Current: {value})
             </div>
           </TabsContent>
           <TabsContent value="tab2">
-            <div style={{ padding: "var(--spacing-12, 12px)", color: "var(--semantic-text-primary)" }}>
+            <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
               Content for Tab 2 (Current: {value})
             </div>
           </TabsContent>
           <TabsContent value="tab3">
-            <div style={{ padding: "var(--spacing-12, 12px)", color: "var(--semantic-text-primary)" }}>
+            <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
               Content for Tab 3 (Current: {value})
             </div>
           </TabsContent>
@@ -212,12 +214,12 @@ export const WithIcons: Story = {
           </TabsTrigger>
         </TabsList>
         <TabsContent value="modules">
-          <div style={{ padding: "var(--spacing-12, 12px)", color: "var(--semantic-text-primary)" }}>
+          <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
             Modules content
           </div>
         </TabsContent>
         <TabsContent value="geography">
-          <div style={{ padding: "var(--spacing-12, 12px)", color: "var(--semantic-text-primary)" }}>
+          <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
             Geography content
           </div>
         </TabsContent>
@@ -227,6 +229,7 @@ export const WithIcons: Story = {
 };
 
 export const DisabledTab: Story = {
+  tags: ['!dev'],
   render: () => (
     <div style={{ width: "500px" }}>
       <Tabs defaultValue="tab1">
@@ -238,22 +241,165 @@ export const DisabledTab: Story = {
           <TabsTrigger value="tab3">Another Enabled Tab</TabsTrigger>
         </TabsList>
         <TabsContent value="tab1">
-          <div style={{ padding: "var(--spacing-12, 12px)", color: "var(--semantic-text-primary)" }}>
+          <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
             Enabled tab content
           </div>
         </TabsContent>
         <TabsContent value="tab2">
-          <div style={{ padding: "var(--spacing-12, 12px)", color: "var(--semantic-text-primary)" }}>
+          <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
             This tab is disabled
           </div>
         </TabsContent>
         <TabsContent value="tab3">
-          <div style={{ padding: "var(--spacing-12, 12px)", color: "var(--semantic-text-primary)" }}>
+          <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
             Another enabled tab content
           </div>
         </TabsContent>
       </Tabs>
     </div>
   ),
+};
+
+export const WithForm: Story = {
+  tags: ['!dev'],
+  parameters: {
+    layout: "padded",
+    docs: {
+      description: {
+        story: "Tabs containing form content. Demonstrates how Tabs can organize multiple forms or form sections.",
+      },
+    },
+  },
+  render: () => {
+    const [personalEmail, setPersonalEmail] = useState("");
+    const [personalName, setPersonalName] = useState("");
+    const [accountPassword, setAccountPassword] = useState("");
+    const [accountConfirm, setAccountConfirm] = useState("");
+    
+    return (
+      <div style={{ width: "500px" }}>
+        <Tabs defaultValue="personal">
+          <TabsList>
+            <TabsTrigger value="personal">Personal Info</TabsTrigger>
+            <TabsTrigger value="account">Account Settings</TabsTrigger>
+          </TabsList>
+          <TabsContent value="personal">
+            <div style={{ padding: "var(--spacing-12)", display: "flex", flexDirection: "column", gap: "var(--spacing-16)" }}>
+              <FormField
+                label="Full Name"
+                placeholder="Enter your name"
+                value={personalName}
+                onChange={(e) => setPersonalName(e.target.value)}
+              />
+              <FormField
+                label="Email"
+                placeholder="Enter your email"
+                type="email"
+                value={personalEmail}
+                onChange={(e) => setPersonalEmail(e.target.value)}
+              />
+            </div>
+          </TabsContent>
+          <TabsContent value="account">
+            <div style={{ padding: "var(--spacing-12)", display: "flex", flexDirection: "column", gap: "var(--spacing-16)" }}>
+              <FormField
+                label="New Password"
+                placeholder="Enter new password"
+                type="password"
+                value={accountPassword}
+                onChange={(e) => setAccountPassword(e.target.value)}
+                helpText="Must be at least 8 characters"
+              />
+              <FormField
+                label="Confirm Password"
+                placeholder="Confirm password"
+                type="password"
+                value={accountConfirm}
+                onChange={(e) => setAccountConfirm(e.target.value)}
+                error={accountConfirm && accountPassword !== accountConfirm ? "Passwords do not match" : undefined}
+              />
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    );
+  },
+};
+
+export const WithTable: Story = {
+  tags: ['!dev'],
+  parameters: {
+    layout: "padded",
+    docs: {
+      description: {
+        story: "Tabs containing table content. Demonstrates how Tabs can organize different data views.",
+      },
+    },
+  },
+  render: () => {
+    const activeUsers = [
+      { id: "1", name: "John Doe", role: "Admin", email: "john@example.com" },
+      { id: "2", name: "Jane Smith", role: "User", email: "jane@example.com" },
+    ];
+    
+    const inactiveUsers = [
+      { id: "3", name: "Bob Johnson", role: "User", email: "bob@example.com" },
+    ];
+    
+    return (
+      <div style={{ width: "600px" }}>
+        <Tabs defaultValue="active">
+          <TabsList>
+            <TabsTrigger value="active">Active Users</TabsTrigger>
+            <TabsTrigger value="inactive">Inactive Users</TabsTrigger>
+          </TabsList>
+          <TabsContent value="active">
+            <div style={{ padding: "var(--spacing-12)" }}>
+              <Table ariaLabel="Active users table">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Role</TableHead>
+                    <TableHead>Email</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {activeUsers.map((row, index) => (
+                    <TableRow key={row.id} isEven={index % 2 === 0}>
+                      <TableCell>{row.name}</TableCell>
+                      <TableCell>{row.role}</TableCell>
+                      <TableCell>{row.email}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </TabsContent>
+          <TabsContent value="inactive">
+            <div style={{ padding: "var(--spacing-12)" }}>
+              <Table ariaLabel="Inactive users table">
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Role</TableHead>
+                    <TableHead>Email</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {inactiveUsers.map((row, index) => (
+                    <TableRow key={row.id} isEven={index % 2 === 0}>
+                      <TableCell>{row.name}</TableCell>
+                      <TableCell>{row.role}</TableCell>
+                      <TableCell>{row.email}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    );
+  },
 };
 

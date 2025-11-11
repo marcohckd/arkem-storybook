@@ -21,6 +21,21 @@ const meta: Meta<typeof Spinner> = {
     },
   },
   tags: ["autodocs"],
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["sm", "md", "lg"],
+      description: "Size variant of the spinner",
+    },
+    className: {
+      control: false,
+      description: "Additional CSS class name",
+    },
+    "aria-label": {
+      control: "text",
+      description: "ARIA label for accessibility (defaults to 'Loading')",
+    },
+  },
 };
 
 export default meta;

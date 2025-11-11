@@ -4,10 +4,15 @@ import { Label } from "../../atoms/Label/Label";
 import "./FormField.css";
 
 export type FormFieldProps = Omit<InputProps, "label" | "ariaLabel"> & {
+  /** Label text displayed above the input */
   label?: string;
+  /** Error message displayed below the input */
   error?: string;
+  /** Help text displayed below the input (when no error) */
   helpText?: string;
+  /** ID of the form control this label is associated with */
   htmlFor?: string;
+  /** Whether to show character count */
   showCharacterCount?: boolean;
 };
 

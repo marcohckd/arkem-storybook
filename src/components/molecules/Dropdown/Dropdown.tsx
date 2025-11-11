@@ -3,19 +3,30 @@ import { ChevronDown } from "lucide-react";
 import "./Dropdown.css";
 
 export type DropdownOption = {
+  /** Option value */
   value: string;
+  /** Option display label */
   label: string;
+  /** Whether the option is disabled */
   disabled?: boolean;
 };
 
 export type DropdownProps = {
+  /** Size variant of the dropdown */
   size?: "sm" | "md" | "lg";
+  /** Array of dropdown options */
   options: DropdownOption[];
+  /** Selected value (controlled) */
   value?: string;
+  /** Callback function called when selection changes */
   onChange?: (value: string) => void;
+  /** Placeholder text displayed when no option is selected */
   placeholder?: string;
+  /** Whether the dropdown is disabled */
   disabled?: boolean;
+  /** Additional CSS class name */
   className?: string;
+  /** ARIA label for accessibility */
   ariaLabel?: string;
 } & Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "onChange" | "size">;
 

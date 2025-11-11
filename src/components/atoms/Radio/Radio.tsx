@@ -2,12 +2,19 @@ import React from "react";
 import "./Radio.css";
 
 export interface RadioProps {
+  /** Whether the radio button is checked */
   checked?: boolean;
+  /** Callback function called when the checked state changes */
   onCheckedChange?: (checked: boolean) => void;
+  /** Name attribute for grouping radio buttons */
   name?: string;
+  /** Value attribute for the radio button */
   value?: string;
+  /** Whether the radio button is disabled */
   disabled?: boolean;
+  /** Additional CSS class name */
   className?: string;
+  /** ARIA label for accessibility */
   "aria-label"?: string;
 }
 

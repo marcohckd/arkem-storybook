@@ -4,12 +4,19 @@ import { Search, X } from "lucide-react";
 import "./SearchBox.css";
 
 export type SearchBoxProps = {
+  /** Current value of the search box (controlled) */
   value?: string;
+  /** Callback function called when the value changes */
   onChange?: (value: string) => void;
+  /** Placeholder text displayed when search box is empty */
   placeholder?: string;
+  /** Whether the search box is disabled */
   disabled?: boolean;
+  /** Additional CSS class name */
   className?: string;
+  /** Size variant of the search box */
   size?: "sm" | "md" | "lg";
+  /** Callback function called when the clear button is clicked */
   onClear?: () => void;
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "value" | "size">;
 

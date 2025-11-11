@@ -9,7 +9,7 @@ const meta: Meta = {
   title: "Foundations/Color Tokens",
   decorators: [
     (Story) => (
-      <div style={{ backgroundColor: 'var(--color-fill-neutral-600)', minHeight: '100vh', padding: '20px' }}>
+      <div style={{ backgroundColor: 'var(--semantic-background-base)', minHeight: '100vh', padding: 'var(--spacing-20)' }}>
         <Story />
       </div>
     ),
@@ -110,7 +110,7 @@ const ColorSwatch: React.FC<{ token: string; name: string; description?: string 
           borderBottom: `1px solid var(--semantic-border-subtle)`,
         }}
       />
-      <div style={{ padding: "12px" }}>
+      <div style={{ padding: "var(--spacing-12)" }}>
         <div
           style={{
             fontSize: "var(--fonts-semantic-md)",
@@ -118,7 +118,7 @@ const ColorSwatch: React.FC<{ token: string; name: string; description?: string 
             lineHeight: "var(--fonts-semantic-md-line-height)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-primary)",
-            marginBottom: "4px",
+            marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
           }}
         >
           {name}
@@ -130,7 +130,7 @@ const ColorSwatch: React.FC<{ token: string; name: string; description?: string 
             fontWeight: "var(--font-weight-regular)",
             fontFamily: "var(--font-family-base)",
             color: "var(--semantic-text-secondary)",
-            marginBottom: "2px",
+            marginBottom: "var(--spacing-style-spacing-4px-0-5-2px)",
           }}
         >
           {token}
@@ -154,7 +154,7 @@ const ColorSwatch: React.FC<{ token: string; name: string; description?: string 
               fontWeight: "var(--font-weight-regular)",
               fontFamily: "var(--font-family-base)",
               color: "var(--semantic-text-secondary)",
-              marginTop: "8px",
+              marginTop: "var(--spacing-8)",
             }}
           >
             {description}
@@ -206,7 +206,7 @@ export const SemanticColors: Story = {
     };
 
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         {Object.entries(semanticColors).map(([category, colors]) => (
           <div key={category} style={{ marginBottom: "48px" }}>
             <h2
@@ -216,9 +216,9 @@ export const SemanticColors: Story = {
                 lineHeight: "var(--fonts-display-xl-line-height)",
                 fontFamily: "var(--font-family-base)",
                 color: "var(--semantic-text-primary)",
-                marginBottom: "24px",
+                marginBottom: "var(--spacing-24)",
                 borderBottom: "1px solid var(--semantic-border-subtle)",
-                paddingBottom: "8px",
+                paddingBottom: "var(--spacing-8)",
                 background: "var(--semantic-background-base)",
               }}
             >
@@ -252,7 +252,7 @@ export const NeutralColors: Story = {
     const neutralScale = [25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         <h2
           style={{
             fontSize: "var(--fonts-display-xl)",
@@ -294,7 +294,7 @@ export const BrandPalette: Story = {
     const brandScale = [25, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 
     return (
-      <div style={{ padding: "24px", background: "var(--semantic-background-base)" }}>
+      <div style={{ padding: "var(--spacing-24)", background: "var(--semantic-background-base)" }}>
         <h2
           style={{
             fontSize: "var(--fonts-display-xl)",

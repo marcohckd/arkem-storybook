@@ -1,11 +1,17 @@
 import React from "react";
 
 export interface TableCellProps {
+  /** Cell content */
   children: React.ReactNode;
+  /** Whether the cell is sticky */
   sticky?: boolean;
+  /** Offset for sticky positioning */
   stickyOffset?: number;
+  /** Whether sticky positioning is on the right side */
   stickyRight?: boolean;
+  /** Additional CSS class name */
   className?: string;
+  /** Inline styles */
   style?: React.CSSProperties;
 }
 

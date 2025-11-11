@@ -57,7 +57,7 @@ export const TooltipContent: React.FC<TooltipContentProps> = ({
         padding: "var(--spacing-8) var(--spacing-12)",
         background: "var(--semantic-table-tooltip-bg)",
         color: "var(--semantic-text-primary)",
-        border: "var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-border)",
+        border: "var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-table-border)",
         borderRadius: "var(--radius-sm)",
         fontSize: "var(--fonts-semantic-sm)",
         whiteSpace: "nowrap",

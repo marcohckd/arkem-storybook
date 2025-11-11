@@ -1,7 +1,9 @@
 import React from "react";
 
 export interface TooltipTriggerProps {
+  /** Whether to merge props with child element */
   asChild?: boolean;
+  /** Trigger element content */
   children: React.ReactNode;
 }
 

@@ -6,6 +6,7 @@ import { useOverlay } from "../../hooks/useOverlay";
 
 import "./Modal.css";
 
+/** Modal layout format */
 export type ModalFormat = "single" | "1+1-vertical" | "1+1-horizontal" | "2+1" | "1+2";
 
 export const MODAL_FORMATS: readonly ModalFormat[] = [
@@ -17,17 +18,28 @@ export const MODAL_FORMATS: readonly ModalFormat[] = [
 ] as const;
 
 export type ModalProps = {
+  /** Modal title text */
   title: string;
+  /** Layout format of the modal */
   format?: ModalFormat;
+  /** Content to display in the header right slot */
   rightSlot?: ReactNode;
+  /** Optional subheader content */
   subHeader?: ReactNode;
+  /** Whether the modal is open */
   isOpen: boolean;
+  /** Callback function called when modal should close */
   onClose: () => void;
+  /** Additional CSS class name */
   className?: string;
-  showA?: boolean; // Controls first pane visibility (or top/left depending on format)
-  showB?: boolean; // Controls second pane visibility (or bottom/right depending on format)
-  showC?: boolean; // Controls third pane visibility (for 2+1 and 1+2 formats)
-  header?: ReactNode; // Custom header element (alternative to title/rightSlot)
+  /** Controls first pane visibility (or top/left depending on format) */
+  showA?: boolean;
+  /** Controls second pane visibility (or bottom/right depending on format) */
+  showB?: boolean;
+  /** Controls third pane visibility (for 2+1 and 1+2 formats) */
+  showC?: boolean;
+  /** Custom header element (alternative to title/rightSlot) */
+  header?: ReactNode;
 };
 
 export const Modal: React.FC<ModalProps> = ({
@@ -108,7 +120,7 @@ export const Modal: React.FC<ModalProps> = ({
             label={title}
             rightSlot={
               rightSlot ? (
-                <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-style-spacing-4px-0-5-2px)" }}>
+                <div className="arkem-modal__right-slot">
                   {rightSlot}
                   <Button
                     size="md"

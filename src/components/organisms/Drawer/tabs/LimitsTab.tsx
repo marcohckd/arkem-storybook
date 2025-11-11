@@ -11,9 +11,13 @@ export type LimitsConfig = {
 };
 
 export interface LimitsTabProps {
+  /** Initial query limit value */
   initialQuery?: number;
+  /** Initial storage limit value */
   initialStorage?: number;
+  /** Initial time window */
   initialWindow?: "Daily" | "Weekly" | "Monthly";
+  /** Callback function called when limits configuration changes */
   onChange?: (config: LimitsConfig) => void;
 }
 

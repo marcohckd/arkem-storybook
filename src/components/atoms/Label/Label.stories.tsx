@@ -1,8 +1,10 @@
 // src/components/Label/Label.stories.tsx
 
 import type { Meta, StoryObj } from "@storybook/react";
+import { useState } from "react";
 
 import { Label } from "./Label";
+import { FormField } from "../../molecules/FormField/FormField";
 
 const meta: Meta<typeof Label> = {
   title: "Atoms/Label",
@@ -110,17 +112,18 @@ export const Default: Story = {
 };
 
 export const WithInput: Story = {
+  tags: ['!dev'],
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8, 8px)", width: "300px" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)", width: "300px" }}>
       <Label htmlFor="example-input">Example Input</Label>
       <input
         id="example-input"
         type="text"
         placeholder="Enter text..."
         style={{
-          padding: "var(--spacing-8, 8px)",
+          padding: "var(--spacing-8)",
           background: "var(--semantic-background-muted)",
-          border: "1px solid var(--semantic-border-subtle)",
+          border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
           borderRadius: "var(--radius-xs)",
           color: "var(--semantic-text-primary)",
           fontSize: "var(--fonts-semantic-md)",
@@ -131,35 +134,207 @@ export const WithInput: Story = {
 };
 
 export const MultipleLabels: Story = {
+  tags: ['!dev'],
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12, 12px)", width: "300px" }}>
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8, 8px)" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)", width: "300px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
         <Label htmlFor="input1">First Input</Label>
         <input
           id="input1"
           type="text"
           style={{
-            padding: "var(--spacing-8, 8px)",
+            padding: "var(--spacing-8)",
             background: "var(--semantic-background-muted)",
-            border: "1px solid var(--semantic-border-subtle)",
+            border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
             borderRadius: "var(--radius-xs)",
             color: "var(--semantic-text-primary)",
+            fontSize: "var(--fonts-semantic-md)",
           }}
         />
       </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8, 8px)" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
         <Label htmlFor="input2">Second Input</Label>
         <input
           id="input2"
           type="text"
           style={{
-            padding: "var(--spacing-8, 8px)",
+            padding: "var(--spacing-8)",
             background: "var(--semantic-background-muted)",
-            border: "1px solid var(--semantic-border-subtle)",
+            border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
             borderRadius: "var(--radius-xs)",
             color: "var(--semantic-text-primary)",
+            fontSize: "var(--fonts-semantic-md)",
           }}
         />
+      </div>
+    </div>
+  ),
+};
+
+export const RequiredIndicator: Story = {
+  tags: ['!dev'],
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)", width: "300px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-style-spacing-4px-0-5-2px)" }}>
+          <Label htmlFor="required-input">Email Address</Label>
+          <span style={{ color: "var(--semantic-text-error)", fontSize: "var(--fonts-semantic-sm)" }}>*</span>
+        </div>
+        <input
+          id="required-input"
+          type="email"
+          required
+          style={{
+            padding: "var(--spacing-8)",
+            background: "var(--semantic-background-muted)",
+            border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
+            borderRadius: "var(--radius-xs)",
+            color: "var(--semantic-text-primary)",
+            fontSize: "var(--fonts-semantic-md)",
+          }}
+        />
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-style-spacing-4px-0-5-2px)" }}>
+          <Label htmlFor="optional-input">Phone Number</Label>
+          <span style={{ color: "var(--semantic-text-secondary)", fontSize: "var(--fonts-semantic-sm)", fontStyle: "italic" }}>
+            (optional)
+          </span>
+        </div>
+        <input
+          id="optional-input"
+          type="tel"
+          style={{
+            padding: "var(--spacing-8)",
+            background: "var(--semantic-background-muted)",
+            border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
+            borderRadius: "var(--radius-xs)",
+            color: "var(--semantic-text-primary)",
+            fontSize: "var(--fonts-semantic-md)",
+          }}
+        />
+      </div>
+    </div>
+  ),
+};
+
+export const ErrorState: Story = {
+  tags: ['!dev'],
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)", width: "300px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-style-spacing-4px-0-5-2px)" }}>
+          <Label htmlFor="error-input">Email Address</Label>
+          <span style={{ color: "var(--semantic-text-error)", fontSize: "var(--fonts-semantic-sm)" }}>*</span>
+        </div>
+        <input
+          id="error-input"
+          type="email"
+          required
+          aria-invalid="true"
+          aria-describedby="error-message"
+          style={{
+            padding: "var(--spacing-8)",
+            background: "var(--semantic-background-muted)",
+            border: "var(--border-width-thin) solid var(--semantic-text-error)",
+            borderRadius: "var(--radius-xs)",
+            color: "var(--semantic-text-primary)",
+            fontSize: "var(--fonts-semantic-md)",
+          }}
+        />
+        <span
+          id="error-message"
+          style={{
+            fontSize: "var(--fonts-semantic-sm)",
+            color: "var(--semantic-text-error)",
+          }}
+        >
+          Please enter a valid email address
+        </span>
+      </div>
+    </div>
+  ),
+};
+
+export const WithFormField: Story = {
+  tags: ['!dev'],
+  render: () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-16)", width: "300px" }}>
+        <FormField
+          label="Email Address"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          type="email"
+        />
+        <FormField
+          label="Password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          type="password"
+          error={password.length > 0 && password.length < 8 ? "Password must be at least 8 characters" : undefined}
+        />
+      </div>
+    );
+  },
+};
+
+export const AccessibilityExample: Story = {
+  tags: ['!dev'],
+  parameters: {
+    docs: {
+      description: {
+        story: `This example demonstrates proper accessibility practices:
+
+1. **Label Association**: The \`htmlFor\` prop matches the input's \`id\`
+2. **Required Indicator**: Visual indicator with asterisk
+3. **Error Association**: \`aria-describedby\` links error message to input
+4. **Screen Reader Support**: Label text is announced when input receives focus
+
+**Best Practices:**
+- Always use \`htmlFor\` to associate labels with inputs
+- Include required indicators for required fields
+- Link error messages using \`aria-describedby\`
+- Use descriptive label text that explains the purpose of the field`,
+      },
+    },
+  },
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-16)", width: "300px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-style-spacing-4px-0-5-2px)" }}>
+          <Label htmlFor="accessible-input">Full Name</Label>
+          <span style={{ color: "var(--semantic-text-error)", fontSize: "var(--fonts-semantic-sm)" }}>*</span>
+        </div>
+        <input
+          id="accessible-input"
+          type="text"
+          required
+          aria-required="true"
+          aria-describedby="name-help"
+          style={{
+            padding: "var(--spacing-8)",
+            background: "var(--semantic-background-muted)",
+            border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
+            borderRadius: "var(--radius-xs)",
+            color: "var(--semantic-text-primary)",
+            fontSize: "var(--fonts-semantic-md)",
+          }}
+        />
+        <span
+          id="name-help"
+          style={{
+            fontSize: "var(--fonts-semantic-sm)",
+            color: "var(--semantic-text-secondary)",
+          }}
+        >
+          Enter your first and last name
+        </span>
       </div>
     </div>
   ),

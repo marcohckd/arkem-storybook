@@ -1,9 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 
 export interface TooltipContentProps {
+  /** Position of the tooltip relative to the trigger */
   side?: "top" | "bottom" | "left" | "right";
+  /** Offset distance from the trigger element */
   sideOffset?: number;
+  /** Tooltip content text */
   children: React.ReactNode;
+  /** Additional CSS class name */
   className?: string;
 }
 
@@ -51,11 +55,11 @@ export const TooltipContent: React.FC<TooltipContentProps> = ({
       className={className}
       style={{
         position: "absolute",
-        zIndex: 1000,
+        zIndex: 'var(--z-index-dropdown)',
         padding: "var(--spacing-8) var(--spacing-12)",
         background: "var(--semantic-table-tooltip-bg)",
         color: "var(--semantic-text-primary)",
-        border: "var(--border-widths-mode-1-border-widht-hairline) solid var(--semantic-table-border)",
+        border: "var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-table-border)",
         borderRadius: "var(--radius-sm)",
         fontSize: "var(--fonts-semantic-sm)",
         whiteSpace: "nowrap",

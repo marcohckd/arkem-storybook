@@ -107,7 +107,7 @@ export const HorizontalScroll: Story = {
                 height: "80px",
                 background: "var(--semantic-background-raised)",
                 borderRadius: "var(--radius-md)",
-                border: "1px solid var(--semantic-border-subtle)",
+                border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -152,7 +152,7 @@ export const VerticalScroll: Story = {
                 padding: "var(--spacing-12)",
                 background: "var(--semantic-background-raised)",
                 borderRadius: "var(--radius-md)",
-                border: "1px solid var(--semantic-border-subtle)",
+                border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
                 color: "var(--semantic-text-primary)",
                 fontSize: "var(--fonts-semantic-sm)",
               }}
@@ -194,7 +194,7 @@ export const BothDirections: Story = {
                 padding: "var(--spacing-8)",
                 background: "var(--semantic-background-raised)",
                 borderRadius: "var(--radius-sm)",
-                border: "1px solid var(--semantic-border-subtle)",
+                border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
                 color: "var(--semantic-text-primary)",
                 fontSize: "var(--fonts-semantic-xs)",
                 textAlign: "center",
@@ -236,7 +236,7 @@ export const MediumSize: Story = {
                 height: "80px",
                 background: "var(--semantic-background-raised)",
                 borderRadius: "var(--radius-md)",
-                border: "1px solid var(--semantic-border-subtle)",
+                border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -261,6 +261,7 @@ export const MediumSize: Story = {
 };
 
 export const InteractiveStates: Story = {
+  tags: ['!dev'],
   render: () => (
     <div style={{ width: "400px", padding: "var(--spacing-16)" }}>
       <div
@@ -269,7 +270,7 @@ export const InteractiveStates: Story = {
           padding: "var(--spacing-12)",
           background: "var(--semantic-background-raised)",
           borderRadius: "var(--radius-md)",
-          border: "1px solid var(--semantic-border-subtle)",
+          border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
         }}
       >
         <h3
@@ -322,7 +323,7 @@ export const InteractiveStates: Story = {
                 height: "80px",
                 background: "var(--semantic-background-raised)",
                 borderRadius: "var(--radius-md)",
-                border: "1px solid var(--semantic-border-subtle)",
+                border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -354,5 +355,244 @@ export const InteractiveStates: Story = {
       },
     },
   },
+};
+
+export const LongContent: Story = {
+  tags: ['!dev'],
+  render: () => (
+    <div style={{ width: "400px", height: "300px", padding: "var(--spacing-16)" }}>
+      <Scrollbar orientation="vertical">
+        <div
+          style={{
+            overflowY: "auto",
+            padding: "var(--spacing-8)",
+            height: "100%",
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--spacing-12)",
+            }}
+          >
+            {Array.from({ length: 30 }, (_, i) => (
+              <div
+                key={i}
+                style={{
+                  padding: "var(--spacing-12)",
+                  background: "var(--semantic-background-raised)",
+                  borderRadius: "var(--radius-md)",
+                  border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
+                }}
+              >
+                <h4
+                  style={{
+                    color: "var(--semantic-text-primary)",
+                    fontSize: "var(--fonts-semantic-md)",
+                    fontWeight: "var(--font-weight-medium)",
+                    margin: "0 0 var(--spacing-8) 0",
+                  }}
+                >
+                  Section {i + 1}
+                </h4>
+                <p
+                  style={{
+                    color: "var(--semantic-text-secondary)",
+                    fontSize: "var(--fonts-semantic-sm)",
+                    margin: 0,
+                    lineHeight: "1.6",
+                  }}
+                >
+                  This is a longer content section to demonstrate vertical scrolling with the custom scrollbar.
+                  The scrollbar provides a consistent visual style that matches the design system tokens.
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Scrollbar>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Long content example showing vertical scrolling with many items. Demonstrates how the scrollbar handles extended content.",
+      },
+    },
+  },
+};
+
+export const TableWithScrollbar: Story = {
+  tags: ['!dev'],
+  render: () => (
+    <div style={{ width: "500px", height: "300px", padding: "var(--spacing-16)" }}>
+      <Scrollbar orientation="both">
+        <div
+          style={{
+            overflow: "auto",
+            height: "100%",
+          }}
+        >
+          <table
+            style={{
+              width: "100%",
+              borderCollapse: "collapse",
+            }}
+          >
+            <thead>
+              <tr>
+                {Array.from({ length: 8 }, (_, i) => (
+                  <th
+                    key={i}
+                    style={{
+                      padding: "var(--spacing-12)",
+                      background: "var(--semantic-background-raised)",
+                      border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
+                      color: "var(--semantic-text-primary)",
+                      fontSize: "var(--fonts-semantic-sm)",
+                      fontWeight: "var(--font-weight-medium)",
+                      textAlign: "left",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    Column {i + 1}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {Array.from({ length: 20 }, (_, rowIndex) => (
+                <tr key={rowIndex}>
+                  {Array.from({ length: 8 }, (_, colIndex) => (
+                    <td
+                      key={colIndex}
+                      style={{
+                        padding: "var(--spacing-12)",
+                        border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
+                        color: "var(--semantic-text-secondary)",
+                        fontSize: "var(--fonts-semantic-sm)",
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      Row {rowIndex + 1}, Col {colIndex + 1}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Scrollbar>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Table with scrollbar for both horizontal and vertical scrolling. Useful for large data tables that need to fit in a constrained space.",
+      },
+    },
+  },
+};
+
+export const AccessibilityExample: Story = {
+  tags: ['!dev'],
+  parameters: {
+    docs: {
+      description: {
+        story: `This example demonstrates accessibility best practices for scrollable content:
+
+1. **Keyboard Navigation**: Users can navigate scrollable content using:
+   - Arrow keys (up/down for vertical, left/right for horizontal)
+   - Page Up/Page Down keys
+   - Home/End keys
+   - Tab to navigate between scrollable regions
+
+2. **Focus Indicators**: Ensure scrollable content has proper focus management
+
+3. **Screen Reader Support**: 
+   - Use semantic HTML (lists, tables, etc.)
+   - Provide descriptive labels for scrollable regions
+   - Announce scroll position changes when appropriate
+
+4. **Visual Indicators**:
+   - Scrollbar provides visual feedback about scroll position
+   - Hover states indicate interactivity
+   - Active states show when dragging
+
+**Best Practices:**
+- Always provide keyboard alternatives to scrolling
+- Use semantic HTML structures inside scrollable containers
+- Consider adding ARIA labels for complex scrollable regions
+- Test with keyboard-only navigation
+- Ensure scrollbars are visible and accessible`,
+      },
+    },
+  },
+  render: () => (
+    <div style={{ width: "400px", height: "300px", padding: "var(--spacing-16)" }}>
+      <Scrollbar orientation="vertical">
+        <div
+          role="region"
+          aria-label="Accessible scrollable content"
+          tabIndex={0}
+          style={{
+            overflowY: "auto",
+            padding: "var(--spacing-8)",
+            height: "100%",
+            outline: "none",
+          }}
+          onFocus={(e) => {
+            e.currentTarget.style.outline = "2px solid var(--semantic-focus-ring)";
+            e.currentTarget.style.outlineOffset = "2px";
+          }}
+          onBlur={(e) => {
+            e.currentTarget.style.outline = "none";
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "var(--spacing-12)",
+            }}
+          >
+            {Array.from({ length: 15 }, (_, i) => (
+              <div
+                key={i}
+                style={{
+                  padding: "var(--spacing-12)",
+                  background: "var(--semantic-background-raised)",
+                  borderRadius: "var(--radius-md)",
+                  border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
+                }}
+              >
+                <h4
+                  style={{
+                    color: "var(--semantic-text-primary)",
+                    fontSize: "var(--fonts-semantic-md)",
+                    fontWeight: "var(--font-weight-medium)",
+                    margin: "0 0 var(--spacing-8) 0",
+                  }}
+                >
+                  Accessible Item {i + 1}
+                </h4>
+                <p
+                  style={{
+                    color: "var(--semantic-text-secondary)",
+                    fontSize: "var(--fonts-semantic-sm)",
+                    margin: 0,
+                    lineHeight: "1.6",
+                  }}
+                >
+                  This scrollable region supports keyboard navigation. Use Arrow keys, Page Up/Down, or Home/End to navigate.
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Scrollbar>
+    </div>
+  ),
 };
 

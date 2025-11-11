@@ -4,10 +4,15 @@ import * as TabsPrimitive from "@radix-ui/react-tabs";
 import "./Tabs.css";
 
 export interface TabsProps {
+  /** Initial active tab value (uncontrolled) */
   defaultValue?: string;
+  /** Active tab value (controlled) */
   value?: string;
+  /** Callback function called when tab changes */
   onValueChange?: (value: string) => void;
+  /** Tabs content, typically TabsList and TabsContent components */
   children: React.ReactNode;
+  /** Additional CSS class name */
   className?: string;
 }
 
@@ -31,7 +36,9 @@ export const Tabs: React.FC<TabsProps> = ({
 };
 
 export interface TabsListProps {
+  /** Tabs trigger elements */
   children: React.ReactNode;
+  /** Additional CSS class name */
   className?: string;
 }
 
@@ -47,9 +54,13 @@ export const TabsList: React.FC<TabsListProps> = ({
 };
 
 export interface TabsTriggerProps {
+  /** Unique value identifying this tab */
   value: string;
+  /** Tab trigger content */
   children: React.ReactNode;
+  /** Additional CSS class name */
   className?: string;
+  /** Whether the tab is disabled */
   disabled?: boolean;
 }
 
@@ -71,8 +82,11 @@ export const TabsTrigger: React.FC<TabsTriggerProps> = ({
 };
 
 export interface TabsContentProps {
+  /** Value of the tab this content belongs to */
   value: string;
+  /** Tab content */
   children: React.ReactNode;
+  /** Additional CSS class name */
   className?: string;
 }
 

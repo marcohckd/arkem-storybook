@@ -10,7 +10,9 @@ export type PrivacyState = {
 };
 
 export interface PrivacyTabProps {
+  /** Initial privacy state */
   initial?: PrivacyState;
+  /** Callback function called when privacy state changes */
   onChange?: (state: PrivacyState) => void;
 }
 

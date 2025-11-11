@@ -1,9 +1,13 @@
 import React from "react";
 
 export interface BadgeProps {
+  /** Visual variant of the badge */
   variant?: "default" | "secondary";
+  /** Badge content */
   children: React.ReactNode;
+  /** Additional CSS class name */
   className?: string;
+  /** Inline styles */
   style?: React.CSSProperties;
 }
 

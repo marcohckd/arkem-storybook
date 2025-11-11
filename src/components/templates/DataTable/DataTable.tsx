@@ -12,34 +12,57 @@ import { Checkbox } from "../../atoms/Checkbox";
 import "./DataTable.css";
 
 export interface DataTableColumn<T> {
+  /** Unique identifier for the column */
   id: string;
+  /** Header content (text or React node) */
   header: string | ReactNode;
+  /** Function to extract value from row data */
   accessor?: (row: T) => any;
+  /** Custom cell renderer function */
   cell?: (row: T, value: any) => ReactNode;
+  /** Whether the column is sortable */
   sortable?: boolean;
+  /** Column width */
   width?: string;
+  /** Text alignment */
   align?: "left" | "center" | "right";
+  /** Whether the column is sticky */
   sticky?: boolean;
+  /** Whether sticky positioning is on the right side */
   stickyRight?: boolean;
 }
 
 export interface DataTableBatchAction {
+  /** Action label text */
   label: string;
+  /** Icon name (optional) */
   icon?: string;
+  /** Callback function called when action is triggered */
   onClick: (selectedIds: string[]) => void;
 }
 
 export interface DataTableProps<T> {
+  /** Array of data rows */
   data: T[];
+  /** Column definitions */
   columns: DataTableColumn<T>[];
+  /** Function to get unique ID for each row */
   getRowId: (row: T) => string;
+  /** Number of items per page */
   pageSize?: number;
+  /** Whether row selection is enabled */
   enableSelection?: boolean;
+  /** Whether column sorting is enabled */
   enableSorting?: boolean;
+  /** Whether pagination is enabled */
   enablePagination?: boolean;
+  /** Batch actions available when rows are selected */
   batchActions?: DataTableBatchAction[];
+  /** Message displayed when table is empty */
   emptyMessage?: string;
+  /** Additional CSS class name */
   className?: string;
+  /** ARIA label for accessibility */
   ariaLabel?: string;
 }
 
