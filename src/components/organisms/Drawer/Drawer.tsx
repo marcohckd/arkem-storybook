@@ -8,7 +8,7 @@ import { ModuleAccessTab, ModuleKey } from "./tabs/ModuleAccessTab";
 import { GeographyTab, GeographyRow } from "./tabs/GeographyTab";
 import { LimitsTab, LimitsConfig } from "./tabs/LimitsTab";
 import { PrivacyTab, PrivacyState } from "./tabs/PrivacyTab";
-import { useOverlay } from "../../hooks/useOverlay";
+import { useOverlay } from "../../../hooks/useOverlay";
 
 import "./Drawer.css";
 

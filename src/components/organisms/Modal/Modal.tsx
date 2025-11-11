@@ -2,7 +2,7 @@ import React, { useEffect, useRef, ReactNode } from "react";
 
 import { Button } from "../../atoms/Button/Button";
 import { Header } from "../Header/Header";
-import { useOverlay } from "../../hooks/useOverlay";
+import { useOverlay } from "../../../hooks/useOverlay";
 
 import "./Modal.css";
 
