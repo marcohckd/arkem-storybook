@@ -19,6 +19,7 @@
   --semantic-brand-mode: #49482c;
   --semantic-text-primary: var(--color-text-primary);
   --semantic-text-secondary: var(--color-text-secondary);
+  --semantic-text-secondary-ii: #9B9B9B;
   --semantic-text-subtle: var(--semantic-text-secondary);
   --semantic-text-muted: var(--color-text-muted);
   --semantic-text-inverse: var(--color-text-inverse);
@@ -29,7 +30,7 @@
   --semantic-feedback-warning-base: #a88940;
   --semantic-feedback-warning-surface: #a8894024;
   --semantic-feedback-warning-texton: #080808;
-  --semantic-feedback-error-base: #9e4b4b;
+  --semantic-feedback-error-base: #C55F5F;
   --semantic-feedback-error-surface: #9e4b4b24;
   --semantic-feedback-error-texton: #080808;
   --semantic-focus-ring: #e0dd5b59;

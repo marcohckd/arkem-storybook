@@ -1,0 +1,614 @@
+Prompt: Implement Device Details Modal Story in Storybook
+Objective
+Add a new "DeviceDetails" story variation to the Modal component in Storybook that demonstrates the enrichment metrics display pattern with a 2+1 layout (Device Information + Device Timeline on left, Enrichment Data on right).
+
+File to Modify
+src/components/organisms/Modal/Modal.stories.tsx
+
+1. Add New Story Export
+Add this story after the existing story exports (after Format1Plus2 or before Playground):
+tsxexport const DeviceDetails: Story = {
+  tags: ['!dev'],
+  args: {
+    format: "2+1",
+    title: "Device Details",
+    showA: true,  // Device Information (top left)
+    showB: true,  // Device Timeline (bottom left)
+    showC: true,  // Enrichment Data (right)
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: `Device details modal demonstrating the enrichment metrics display pattern. The left column contains Device Information (top) and Device Timeline (bottom), while the right column displays comprehensive threat intelligence and network infrastructure data from WHOIS, Shodan, and AlienVault organized into collapsible sections with proper tokenization.`,
+      },
+    },
+  },
+  render: (args) => (
+    <ModalWrapper>
+      {({ isOpen, onClose }) => (
+        <Modal
+          {...args}
+          isOpen={isOpen}
+          onClose={onClose}
+          rightSlot={
+            <>
+              <Button
+                size="md"
+                hierarchy="secondary"
+                tone="black"
+                function="action"
+                trailingIconName="MapPin"
+                showText={false}
+                iconTrailing={true}
+                iconLeading={false}
+                ariaLabel="Locate on map"
+              />
+              <Button
+                size="md"
+                hierarchy="secondary"
+                tone="black"
+                function="action"
+                trailingIconName="Navigation"
+                showText={false}
+                iconTrailing={true}
+                iconLeading={false}
+                ariaLabel="View connections"
+              />
+            </>
+          }
+        />
+      )}
+    </ModalWrapper>
+  ),
+};
+
+2. Populate Story Content with Mock Data
+Inside the render function, after creating the Modal, use useEffect to populate the three panes with demonstration content. Add this pattern similar to the LongContent story:
+tsxrender: (args) => {
+  const DeviceDetailsModal = () => {
+    const [isOpen, setIsOpen] = useState(true);
+
+    React.useEffect(() => {
+      if (isOpen) {
+        const timer = setTimeout(() => {
+          const panes = document.querySelectorAll('.arkem-modal__pane');
+          if (panes.length === 3) {
+            // Pane A: Device Information
+            const paneA = panes[0];
+            // Pane B: Device Timeline
+            const paneB = panes[1];
+            // Pane C: Enrichment Data
+            const paneC = panes[2];
+
+            // Populate each pane with content
+            populateDeviceInformation(paneA);
+            populateDeviceTimeline(paneB);
+            populateEnrichmentData(paneC);
+          }
+        }, 100);
+        return () => clearTimeout(timer);
+      }
+    }, [isOpen]);
+
+    return (
+      <ModalWrapper>
+        {({ isOpen, onClose }) => (
+          <Modal
+            {...args}
+            isOpen={isOpen}
+            onClose={onClose}
+            rightSlot={
+              <>
+                <Button
+                  size="md"
+                  hierarchy="secondary"
+                  tone="black"
+                  function="action"
+                  trailingIconName="MapPin"
+                  showText={false}
+                  iconTrailing={true}
+                  iconLeading={false}
+                  ariaLabel="Locate on map"
+                />
+                <Button
+                  size="md"
+                  hierarchy="secondary"
+                  tone="black"
+                  function="action"
+                  trailingIconName="Navigation"
+                  showText={false}
+                  iconTrailing={true}
+                  iconLeading={false}
+                  ariaLabel="View connections"
+                />
+              </>
+            }
+          />
+        )}
+      </ModalWrapper>
+    );
+  };
+
+  return <DeviceDetailsModal />;
+},
+
+3. Create Helper Functions for Content Population
+Add these helper functions before the story export (after imports, before meta definition):
+tsx// Helper function to populate Device Information pane
+const populateDeviceInformation = (pane: Element) => {
+  const container = document.createElement('div');
+  pane.appendChild(container);
+  const root = createRoot(container);
+  
+  root.render(
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      {/* Header */}
+      <div style={{
+        height: '44px',
+        display: 'flex',
+        alignItems: 'center',
+        padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-4-16px)',
+        background: 'var(--semantic-background-base)',
+        borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)'
+      }}>
+        <span style={{
+          fontSize: 'var(--fonts-semantic-sm)',
+          color: 'var(--semantic-text-primary)'
+        }}>
+          Device Information
+        </span>
+      </div>
+
+      {/* Tab-like buttons */}
+      <div style={{
+        display: 'flex',
+        borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)',
+        background: 'var(--color-fill-neutral-800)'
+      }}>
+        {['Identity', 'Specs', 'Location', 'Network', 'Observations'].map((tab, idx) => (
+          <div
+            key={tab}
+            style={{
+              flex: 1,
+              height: '44px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 'var(--fonts-semantic-xs)',
+              color: idx === 0 ? 'var(--semantic-text-primary)' : 'var(--semantic-text-secondary)',
+              borderRight: idx < 4 ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)' : 'none',
+              cursor: 'pointer'
+            }}
+          >
+            {tab}
+          </div>
+        ))}
+      </div>
+
+      {/* Metric rows */}
+      <div style={{ background: 'var(--color-fill-neutral-800)' }}>
+        {[
+          { label: 'DEVICE ID:', value: '0251E342-6E4D-4207-A1AD-DD0C3D9BF553' },
+          { label: 'USER ID:', value: '6E4D' },
+          { label: 'CONSENT:', value: 'Unknown', error: true }
+        ].map((metric, idx) => (
+          <div
+            key={idx}
+            style={{
+              display: 'flex',
+              height: '42px',
+              borderBottom: idx < 2 ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)' : 'none'
+            }}
+          >
+            <div style={{
+              width: '100px',
+              padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: 'var(--fonts-semantic-xs)',
+              color: 'var(--semantic-text-secondary)',
+              textTransform: 'uppercase'
+            }}>
+              {metric.label}
+            </div>
+            <div style={{
+              flex: 1,
+              padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              fontSize: 'var(--fonts-semantic-xs)',
+              color: metric.error ? 'var(--color-fill-feedback-error-500)' : 'var(--semantic-text-primary)',
+              textTransform: 'uppercase'
+            }}>
+              {metric.value}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Helper function to populate Device Timeline pane
+const populateDeviceTimeline = (pane: Element) => {
+  const container = document.createElement('div');
+  pane.appendChild(container);
+  const root = createRoot(container);
+  
+  const timelineEntries = Array.from({ length: 7 }, (_, i) => ({
+    date: 'Aug 1, 2025 • 08:11 PM • 75d ago',
+    location: 'Phoenix, USA',
+    id: '1207472156',
+    coords: '33.3366, -111.7307'
+  }));
+
+  root.render(
+    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      {/* Header */}
+      <div style={{
+        height: '44px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-4-16px)',
+        background: 'var(--semantic-background-base)',
+        borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)'
+      }}>
+        <span style={{
+          fontSize: 'var(--fonts-semantic-sm)',
+          color: 'var(--semantic-text-primary)'
+        }}>
+          Device Timeline
+        </span>
+        <span style={{
+          fontSize: 'var(--fonts-semantic-xs)',
+          color: 'var(--semantic-text-secondary)'
+        }}>
+          7 Observations
+        </span>
+      </div>
+
+      {/* Timeline entries */}
+      <div style={{ flex: 1, overflowY: 'auto' }}>
+        {timelineEntries.map((entry, idx) => (
+          <div
+            key={idx}
+            style={{
+              height: '70px',
+              padding: 'var(--radius-sm) var(--spacing-style-spacing-4px-1-5-6px)',
+              background: 'var(--color-fill-neutral-800)',
+              borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 'var(--spacing-style-spacing-4px-1-5-6px)'
+            }}
+          >
+            <div style={{
+              fontSize: 'var(--fonts-semantic-xxs)',
+              color: 'var(--semantic-text-secondary)',
+              textAlign: 'center'
+            }}>
+              {entry.date}
+            </div>
+            <div style={{
+              fontSize: 'var(--fonts-semantic-xs)',
+              color: 'var(--semantic-text-primary)',
+              textAlign: 'center'
+            }}>
+              {entry.location} • {entry.id} • {entry.coords}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Helper function to populate Enrichment Data pane
+const populateEnrichmentData = (pane: Element) => {
+  const container = document.createElement('div');
+  pane.appendChild(container);
+  const root = createRoot(container);
+
+  const [expandedSections, setExpandedSections] = React.useState<Set<string>>(
+    new Set(['threat'])
+  );
+
+  const toggleSection = (sectionId: string) => {
+    setExpandedSections(prev => {
+      const next = new Set(prev);
+      if (next.has(sectionId)) {
+        next.delete(sectionId);
+      } else {
+        next.add(sectionId);
+      }
+      return next;
+    });
+  };
+
+  const sections = [
+    {
+      id: 'threat',
+      title: 'Threat Assessment',
+      count: 4,
+      priority: '⭐⭐⭐',
+      metrics: [
+        { label: 'THREAT SCORE:', value: '87/100 [HIGH]', critical: true },
+        { label: 'HONEYPOT:', value: 'YES ⚠️', critical: true },
+        { label: 'HONEYPOT PROBABILITY:', value: '85%' },
+        { label: 'MALWARE SAMPLES:', value: '15 detected' }
+      ]
+    },
+    {
+      id: 'network',
+      title: 'Network Infrastructure',
+      count: 7,
+      priority: '⭐⭐',
+      metrics: [
+        { label: 'ORGANIZATION:', value: 'Iran Telecom PJS' },
+        { label: 'HOSTNAME:', value: 'mx.isp.ir' },
+        { label: 'ASN:', value: 'AS58224' },
+        { label: 'ISP:', value: 'Iran Telecom PJS' },
+        { label: 'NETWORK NAME:', value: 'RIPE-ERX-151' },
+        { label: 'WHOIS STATUS:', value: 'ASSIGNED PA' },
+        { label: 'IP OPERATING SYSTEM:', value: 'Linux 5.10' }
+      ]
+    },
+    {
+      id: 'services',
+      title: 'Services & Exposure',
+      count: 5,
+      priority: '⭐⭐',
+      metrics: [
+        { label: 'OPEN PORTS:', value: '[80, 443, 8080]' },
+        { label: 'SERVICES:', value: 'HTTP, HTTPS, SSH' },
+        { label: 'VULNERABILITIES:', value: '3 CVEs ↗' },
+        { label: 'DISCOVERED DOMAINS:', value: '2 domains ↗' },
+        { label: 'DISCOVERED URLS:', value: '4 URLs ↗' }
+      ]
+    },
+    {
+      id: 'intelligence',
+      title: 'Threat Intelligence',
+      count: 8,
+      priority: '⭐⭐',
+      metrics: [
+        { label: 'PULSE COUNT:', value: '42 reports' },
+        { label: 'PASSIVE DNS COUNT:', value: '228 resolutions' },
+        { label: 'URL COUNT:', value: '34 URLs' },
+        { label: 'PRIMARY TAG:', value: 'malware-distribution' },
+        { label: 'TAGS:', value: 'vpn, proxy +2' },
+        { label: 'AV COUNTRY:', value: 'Iran (IR)' },
+        { label: 'AV CITY:', value: 'Tehran' },
+        { label: 'AV ASN:', value: 'AS44244' }
+      ]
+    },
+    {
+      id: 'geolocation',
+      title: 'Geolocation (IP-based)',
+      count: 4,
+      priority: '⭐',
+      metrics: [
+        { label: 'WHOIS COUNTRY:', value: 'NL' },
+        { label: 'SHODAN COUNTRY:', value: 'IR' },
+        { label: 'AV COUNTRY:', value: 'Iran' },
+        { label: 'AV CITY:', value: 'Tehran' }
+      ]
+    },
+    {
+      id: 'freshness',
+      title: 'Data Freshness',
+      count: 3,
+      priority: '⭐',
+      metrics: [
+        { label: 'SHODAN UPDATED:', value: '2025-02-10 14:32' },
+        { label: 'ALIENVAULT UPDATED:', value: '2025-02-10 10:15' },
+        { label: 'WHOIS UPDATED:', value: '2025-02-08 09:20' }
+      ]
+    }
+  ];
+
+  const EnrichmentContent = () => {
+    const [expanded, setExpanded] = React.useState<Set<string>>(new Set(['threat']));
+
+    const toggle = (id: string) => {
+      setExpanded(prev => {
+        const next = new Set(prev);
+        if (next.has(id)) {
+          next.delete(id);
+        } else {
+          next.add(id);
+        }
+        return next;
+      });
+    };
+
+    return (
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        {/* Header */}
+        <div style={{
+          height: '44px',
+          display: 'flex',
+          alignItems: 'center',
+          padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-4-16px)',
+          background: 'var(--semantic-background-base)',
+          borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)'
+        }}>
+          <span style={{
+            fontSize: 'var(--fonts-semantic-sm)',
+            color: 'var(--semantic-text-primary)'
+          }}>
+            Enrichment Data
+          </span>
+        </div>
+
+        {/* Sections */}
+        <div style={{ flex: 1, overflowY: 'auto' }}>
+          {sections.map(section => {
+            const isExpanded = expanded.has(section.id);
+            
+            return (
+              <div
+                key={section.id}
+                style={{
+                  borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)'
+                }}
+              >
+                {/* Section Header */}
+                <div
+                  onClick={() => toggle(section.id)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    height: '44px',
+                    padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-4-16px)',
+                    background: 'var(--color-fill-neutral-800)',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <div style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 'var(--spacing-8)'
+                  }}>
+                    <span style={{ fontSize: 'var(--fonts-semantic-sm)' }}>
+                      {isExpanded ? '▼' : '▶'}
+                    </span>
+                    <span style={{
+                      fontSize: 'var(--fonts-semantic-sm)',
+                      color: 'var(--semantic-text-primary)'
+                    }}>
+                      {section.title}
+                    </span>
+                    <span style={{
+                      fontSize: 'var(--fonts-semantic-xs)',
+                      color: 'var(--semantic-text-secondary)'
+                    }}>
+                      • {section.count} metrics
+                    </span>
+                  </div>
+                  <span style={{
+                    fontSize: 'var(--fonts-semantic-xs)',
+                    color: 'var(--semantic-text-secondary)'
+                  }}>
+                    {section.priority}
+                  </span>
+                </div>
+
+                {/* Metrics (when expanded) */}
+                {isExpanded && (
+                  <div>
+                    {section.metrics.map((metric, idx) => (
+                      <div
+                        key={idx}
+                        style={{
+                          display: 'flex',
+                          height: '42px',
+                          borderBottom: idx < section.metrics.length - 1
+                            ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)'
+                            : 'none'
+                        }}
+                      >
+                        <div style={{
+                          width: '180px',
+                          padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          fontSize: 'var(--fonts-semantic-xs)',
+                          color: 'var(--semantic-text-secondary)',
+                          textTransform: 'uppercase'
+                        }}>
+                          {metric.label}
+                        </div>
+                        <div style={{
+                          flex: 1,
+                          padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'flex-end',
+                          fontSize: 'var(--fonts-semantic-xs)',
+                          color: metric.critical
+                            ? 'var(--color-fill-feedback-error-500)'
+                            : 'var(--semantic-text-primary)',
+                          fontWeight: metric.critical
+                            ? 'var(--font-weight-semibold)'
+                            : 'var(--font-weight-regular)',
+                          textAlign: 'right'
+                        }}>
+                          {metric.value}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  root.render(<EnrichmentContent />);
+};
+
+4. Ensure Imports
+Make sure these imports are present at the top of Modal.stories.tsx:
+tsximport { useState } from "react";
+import * as React from "react";
+import { createRoot } from "react-dom/client";
+
+5. Validation Checklist
+After implementation, verify:
+
+ Story appears in Storybook under "Organisms/Modal/Device Details"
+ Modal opens with correct 2+1 layout format
+ Left top pane shows Device Information with tabs and metrics
+ Left bottom pane shows Device Timeline with scrollable entries
+ Right pane shows Enrichment Data with collapsible sections
+ "Threat Assessment" section is expanded by default
+ All other sections are collapsed by default
+ Clicking section headers toggles expand/collapse
+ All spacing uses design tokens (no hardcoded pixel values except component-specific dimensions)
+ All colors use semantic tokens
+ All typography uses semantic font tokens
+ Critical values (threat score, honeypot) display in error red color
+ Header action buttons (MapPin, Navigation) appear in right slot
+ Modal closes on backdrop click, ESC key, or close button
+
+
+6. Token Usage Requirements
+Must use tokens for:
+
+All spacing: var(--spacing-*) or var(--spacing-style-spacing-4px-*)
+All colors: var(--semantic-*) or var(--color-fill-*)
+All typography: var(--fonts-semantic-*), var(--font-weight-*)
+All borders: var(--border-width-*), var(--semantic-border-*)
+
+Acceptable hardcoded values:
+
+Component-specific dimensions: 44px (header height), 42px (row height), 70px (timeline entry), 180px (label width)
+These are documented as component-specific per TOKENIZATION_GUIDELINES.md
+
+
+7. Expected Result
+The story should demonstrate:
+
+Proper layout: 2+1 format with left column containing two stacked panes and right column containing one full-height pane
+Interactive sections: Collapsible/expandable enrichment sections with state management
+Token consistency: All visual values use appropriate design tokens
+Realistic data: Mock data that represents actual enrichment metrics from WHOIS, Shodan, and AlienVault
+Visual hierarchy: Clear distinction between critical (red), standard (white), and secondary (grey) information
+Scrollable content: Both timeline and enrichment panels scroll independently when content overflows
+
+
+Success Criteria
+✅ Story compiles without errors
+✅ Story renders correctly in Storybook
+✅ All three panes populate with content
+✅ Sections expand/collapse on click
+✅ All tokens validated (no hardcoded colors, spacing, or typography except documented component-specific dimensions)
+✅ Matches Figma design specifications for layout and spacing
+✅ Interactive elements (buttons, collapsible sections) work correctly

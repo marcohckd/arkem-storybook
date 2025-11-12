@@ -22,10 +22,14 @@ export type ModalProps = {
   title: string;
   /** Layout format of the modal */
   format?: ModalFormat;
+  /** Optional leading icon for modal header */
+  leadingIcon?: ReactNode;
   /** Content to display in the header right slot */
   rightSlot?: ReactNode;
   /** Optional subheader content */
   subHeader?: ReactNode;
+  /** Optional footer content */
+  footer?: ReactNode;
   /** Whether the modal is open */
   isOpen: boolean;
   /** Callback function called when modal should close */
@@ -45,8 +49,10 @@ export type ModalProps = {
 export const Modal: React.FC<ModalProps> = ({
   title,
   format = "single",
+  leadingIcon,
   rightSlot,
   subHeader,
+  footer,
   isOpen,
   onClose,
   className,
@@ -118,6 +124,7 @@ export const Modal: React.FC<ModalProps> = ({
           <Header
             hierarchy="secondary"
             label={title}
+            leadingIcon={leadingIcon}
             rightSlot={
               rightSlot ? (
                 <div className="arkem-modal__right-slot">
@@ -238,6 +245,9 @@ export const Modal: React.FC<ModalProps> = ({
             </>
           )}
         </div>
+
+        {/* Footer (optional) */}
+        {footer && <div className="arkem-modal__footer">{footer}</div>}
       </div>
     </div>
   );
