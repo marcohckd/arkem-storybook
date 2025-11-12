@@ -461,95 +461,143 @@ const populateDeviceInformation = (pane: Element) => {
   const container = document.createElement('div');
   pane.appendChild(container);
   const root = createRoot(container);
-  
-  root.render(
-    <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      {/* Header */}
-      <div style={{
-        height: '44px',
-        display: 'flex',
-        alignItems: 'center',
-        padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-4-16px)',
-        background: 'var(--semantic-background-base)',
-        borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)'
-      }}>
-        <span style={{
-          fontSize: 'var(--fonts-semantic-sm)',
-          color: 'var(--semantic-text-primary)'
+
+  const DeviceInformationContent = () => {
+    const [activeTab, setActiveTab] = React.useState('Identity');
+
+    const tabs = ['Identity', 'Specs', 'Location', 'Network', 'Observations'];
+    
+    // Define content for each tab
+    const tabContent: Record<string, Array<{ label: string; value: string; error?: boolean }>> = {
+      Identity: [
+        { label: 'DEVICE ID:', value: '0251E342-6E4D-4207-A1AD-DD0C3D9BF553' },
+        { label: 'USER ID:', value: '6E4D' },
+        { label: 'CONSENT:', value: 'Unknown', error: true }
+      ],
+      Specs: [
+        { label: 'DEVICE MODEL:', value: 'iPhone 13 Pro' },
+        { label: 'OS VERSION:', value: 'iOS 16.5.1' },
+        { label: 'SCREEN SIZE:', value: '6.1 inches' }
+      ],
+      Location: [
+        { label: 'CITY:', value: 'Phoenix' },
+        { label: 'STATE:', value: 'Arizona' },
+        { label: 'COUNTRY:', value: 'USA' }
+      ],
+      Network: [
+        { label: 'IP ADDRESS:', value: '192.168.1.100' },
+        { label: 'CARRIER:', value: 'Verizon' },
+        { label: 'CONNECTION:', value: 'WiFi' }
+      ],
+      Observations: [
+        { label: 'FIRST SEEN:', value: '2024-01-15' },
+        { label: 'LAST SEEN:', value: '2025-08-01' },
+        { label: 'TOTAL EVENTS:', value: '247' }
+      ]
+    };
+
+    return (
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        {/* Sticky Header */}
+        <div className="arkem-modal__pane-header">
+          <span className="arkem-modal__pane-header-text">Device Information</span>
+        </div>
+
+        {/* Tabs */}
+        <div style={{
+          display: 'flex',
+          borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)',
+          background: 'var(--semantic-background-raised)'
         }}>
-          Device Information
-        </span>
-      </div>
+          {tabs.map((tab, idx) => {
+            const [isHovered, setIsHovered] = React.useState(false);
+            const isActive = activeTab === tab;
+            
+            return (
+              <div
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                style={{
+                  flex: 1,
+                  height: '44px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 'var(--fonts-semantic-xs)',
+                  color: isActive 
+                    ? 'var(--semantic-text-primary)' 
+                    : isHovered 
+                      ? 'var(--semantic-text-hover)' 
+                      : 'var(--semantic-text-secondary)',
+                  background: isActive 
+                    ? 'var(--semantic-background-raised)' 
+                    : isHovered 
+                      ? 'var(--semantic-background-action-hover)' 
+                      : 'var(--semantic-background-base)',
+                  borderRight: idx < tabs.length - 1 
+                    ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)' 
+                    : 'none',
+                  cursor: 'pointer',
+                  transition: 'color var(--transition-fast), background var(--transition-fast)',
+                  fontWeight: isActive 
+                    ? 'var(--font-weight-medium)' 
+                    : 'var(--font-weight-regular)'
+                }}
+              >
+                {tab}
+              </div>
+            );
+          })}
+        </div>
 
-      {/* Tab-like buttons */}
-      <div style={{
-        display: 'flex',
-        borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)',
-        background: 'var(--color-fill-neutral-800)'
-      }}>
-        {['Identity', 'Specs', 'Location', 'Network', 'Observations'].map((tab, idx) => (
-          <div
-            key={tab}
-            style={{
-              flex: 1,
-              height: '44px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: 'var(--fonts-semantic-xs)',
-              color: idx === 0 ? 'var(--semantic-text-primary)' : 'var(--semantic-text-secondary)',
-              borderRight: idx < 4 ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)' : 'none',
-              cursor: 'pointer'
-            }}
-          >
-            {tab}
-          </div>
-        ))}
+        {/* Tab Content - Metric rows */}
+        <div style={{ background: 'var(--semantic-background-raised)' }}>
+          {tabContent[activeTab].map((metric, idx) => (
+            <div
+              key={idx}
+              style={{
+                display: 'flex',
+                height: '42px',
+                borderBottom: idx < tabContent[activeTab].length - 1 
+                  ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)' 
+                  : 'none'
+              }}
+            >
+              <div style={{
+                width: '100px',
+                padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+                display: 'flex',
+                alignItems: 'center',
+                fontSize: 'var(--fonts-semantic-xs)',
+                color: 'var(--semantic-text-secondary)',
+                textTransform: 'uppercase'
+              }}>
+                {metric.label}
+              </div>
+              <div style={{
+                flex: 1,
+                padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                fontSize: 'var(--fonts-semantic-xs)',
+                color: metric.error 
+                  ? 'var(--semantic-feedback-error-base)' 
+                  : 'var(--semantic-text-primary)',
+                textTransform: 'uppercase'
+              }}>
+                {metric.value}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
+    );
+  };
 
-      {/* Metric rows */}
-      <div style={{ background: 'var(--color-fill-neutral-800)' }}>
-        {[
-          { label: 'DEVICE ID:', value: '0251E342-6E4D-4207-A1AD-DD0C3D9BF553' },
-          { label: 'USER ID:', value: '6E4D' },
-          { label: 'CONSENT:', value: 'Unknown', error: true }
-        ].map((metric, idx) => (
-          <div
-            key={idx}
-            style={{
-              display: 'flex',
-              height: '42px',
-              borderBottom: idx < 2 ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)' : 'none'
-            }}
-          >
-            <div style={{
-              width: '100px',
-              padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
-              display: 'flex',
-              alignItems: 'center',
-              fontSize: 'var(--fonts-semantic-xs)',
-              color: 'var(--semantic-text-secondary)',
-              textTransform: 'uppercase'
-            }}>
-              {metric.label}
-            </div>
-            <div style={{
-              flex: 1,
-              padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              fontSize: 'var(--fonts-semantic-xs)',
-              color: metric.error ? 'var(--color-fill-feedback-error-500)' : 'var(--semantic-text-primary)',
-              textTransform: 'uppercase'
-            }}>
-              {metric.value}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  root.render(<DeviceInformationContent />);
 };
 
 // Helper function to populate Device Timeline pane
@@ -567,32 +615,14 @@ const populateDeviceTimeline = (pane: Element) => {
 
   root.render(
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      {/* Header */}
-      <div style={{
-        height: '44px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-4-16px)',
-        background: 'var(--semantic-background-base)',
-        borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)'
-      }}>
-        <span style={{
-          fontSize: 'var(--fonts-semantic-sm)',
-          color: 'var(--semantic-text-primary)'
-        }}>
-          Device Timeline
-        </span>
-        <span style={{
-          fontSize: 'var(--fonts-semantic-xs)',
-          color: 'var(--semantic-text-secondary)'
-        }}>
-          7 Observations
-        </span>
+      {/* Sticky Header */}
+      <div className="arkem-modal__pane-header">
+        <span className="arkem-modal__pane-header-text">Device Timeline</span>
+        <span className="arkem-modal__pane-header-secondary">7 Observations</span>
       </div>
 
       {/* Timeline entries */}
-      <div style={{ flex: 1, overflowY: 'auto' }}>
+      <div className="arkem-modal__pane-content">
         {timelineEntries.map((entry, idx) => (
           <div
             key={idx}
@@ -638,7 +668,7 @@ const populateEnrichmentData = (pane: Element) => {
       id: 'threat',
       title: 'Threat Assessment',
       count: 4,
-      priority: '⭐⭐⭐',
+      threatLevel: 'critical',
       metrics: [
         { label: 'THREAT SCORE:', value: '87/100 [HIGH]', critical: true },
         { label: 'HONEYPOT:', value: 'YES ⚠️', critical: true },
@@ -650,7 +680,6 @@ const populateEnrichmentData = (pane: Element) => {
       id: 'network',
       title: 'Network Infrastructure',
       count: 7,
-      priority: '⭐⭐',
       metrics: [
         { label: 'ORGANIZATION:', value: 'Iran Telecom PJS' },
         { label: 'HOSTNAME:', value: 'mx.isp.ir' },
@@ -665,7 +694,6 @@ const populateEnrichmentData = (pane: Element) => {
       id: 'services',
       title: 'Services & Exposure',
       count: 5,
-      priority: '⭐⭐',
       metrics: [
         { label: 'OPEN PORTS:', value: '[80, 443, 8080]' },
         { label: 'SERVICES:', value: 'HTTP, HTTPS, SSH' },
@@ -678,7 +706,6 @@ const populateEnrichmentData = (pane: Element) => {
       id: 'intelligence',
       title: 'Threat Intelligence',
       count: 8,
-      priority: '⭐⭐',
       metrics: [
         { label: 'PULSE COUNT:', value: '42 reports' },
         { label: 'PASSIVE DNS COUNT:', value: '228 resolutions' },
@@ -694,7 +721,6 @@ const populateEnrichmentData = (pane: Element) => {
       id: 'geolocation',
       title: 'Geolocation (IP-based)',
       count: 4,
-      priority: '⭐',
       metrics: [
         { label: 'WHOIS COUNTRY:', value: 'NL' },
         { label: 'SHODAN COUNTRY:', value: 'IR' },
@@ -706,7 +732,6 @@ const populateEnrichmentData = (pane: Element) => {
       id: 'freshness',
       title: 'Data Freshness',
       count: 3,
-      priority: '⭐',
       metrics: [
         { label: 'SHODAN UPDATED:', value: '2025-02-10 14:32' },
         { label: 'ALIENVAULT UPDATED:', value: '2025-02-10 10:15' },
@@ -714,6 +739,27 @@ const populateEnrichmentData = (pane: Element) => {
       ]
     }
   ];
+
+  // Helper function to get color based on threat level
+  const getThreatLevelColor = (level?: string): string => {
+    // If no threat level specified, return default white color
+    if (!level) {
+      return 'var(--semantic-text-primary)'; // #E5E5E5 - White
+    }
+    
+    switch (level) {
+      case 'critical':
+        return 'var(--color-fill-feedback-error-500)'; // #9E4B4B - Red
+      case 'high':
+        return 'var(--color-fill-feedback-warning-500)'; // #A88940 - Orange
+      case 'medium':
+        return 'var(--semantic-brand-base)'; // #E0DD5B - Yellow
+      case 'low':
+        return 'var(--semantic-text-secondary)'; // #838383 - Grey
+      default:
+        return 'var(--semantic-text-primary)'; // #E5E5E5 - White
+    }
+  };
 
   const EnrichmentContent = () => {
     const [expanded, setExpanded] = React.useState<Set<string>>(new Set(['threat']));
@@ -732,27 +778,16 @@ const populateEnrichmentData = (pane: Element) => {
 
     return (
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-        {/* Header */}
-        <div style={{
-          height: '44px',
-          display: 'flex',
-          alignItems: 'center',
-          padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-4-16px)',
-          background: 'var(--semantic-background-base)',
-          borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)'
-        }}>
-          <span style={{
-            fontSize: 'var(--fonts-semantic-sm)',
-            color: 'var(--semantic-text-primary)'
-          }}>
-            Enrichment Data
-          </span>
+        {/* Sticky Header */}
+        <div className="arkem-modal__pane-header">
+          <span className="arkem-modal__pane-header-text">Enrichment Data</span>
         </div>
 
         {/* Sections */}
-        <div style={{ flex: 1, overflowY: 'auto' }}>
+        <div className="arkem-modal__pane-content">
           {sections.map(section => {
             const isExpanded = expanded.has(section.id);
+            const [isHovered, setIsHovered] = React.useState(false);
             
             return (
               <div
@@ -764,27 +799,34 @@ const populateEnrichmentData = (pane: Element) => {
                 {/* Section Header */}
                 <div
                   onClick={() => toggle(section.id)}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
                   style={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     height: '44px',
                     padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-4-16px)',
-                    background: 'var(--color-fill-neutral-800)',
-                    cursor: 'pointer'
+                    background: isExpanded 
+                      ? 'var(--semantic-background-raised)' 
+                      : isHovered 
+                        ? 'var(--semantic-background-action-hover)' 
+                        : 'var(--semantic-background-base)',
+                    cursor: 'pointer',
+                    transition: 'background var(--transition-fast)'
                   }}
                 >
+                  {/* Left side: Title and count */}
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 'var(--spacing-8)'
+                    gap: 'var(--spacing-8)',
+                    flex: 1
                   }}>
-                    <span style={{ fontSize: 'var(--fonts-semantic-sm)' }}>
-                      {isExpanded ? '▼' : '▶'}
-                    </span>
                     <span style={{
                       fontSize: 'var(--fonts-semantic-sm)',
-                      color: 'var(--semantic-text-primary)'
+                      color: getThreatLevelColor(section.threatLevel),
+                      fontWeight: section.threatLevel ? 'var(--font-weight-medium)' : 'var(--font-weight-regular)'
                     }}>
                       {section.title}
                     </span>
@@ -795,11 +837,19 @@ const populateEnrichmentData = (pane: Element) => {
                       • {section.count} metrics
                     </span>
                   </div>
+                  
+                  {/* Right side: Expand/collapse arrow */}
                   <span style={{
-                    fontSize: 'var(--fonts-semantic-xs)',
-                    color: 'var(--semantic-text-secondary)'
+                    fontSize: 'var(--fonts-semantic-sm)',
+                    color: isExpanded 
+                      ? 'var(--semantic-text-primary)' 
+                      : isHovered 
+                        ? 'var(--semantic-text-hover)' 
+                        : 'var(--semantic-text-secondary)',
+                    marginLeft: 'var(--spacing-8)',
+                    transition: 'color var(--transition-fast)'
                   }}>
-                    {section.priority}
+                    {isExpanded ? '▼' : '▶'}
                   </span>
                 </div>
 
@@ -812,6 +862,7 @@ const populateEnrichmentData = (pane: Element) => {
                         style={{
                           display: 'flex',
                           height: '42px',
+                          background: 'var(--semantic-background-raised)',
                           borderBottom: idx < section.metrics.length - 1
                             ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)'
                             : 'none'
@@ -836,7 +887,7 @@ const populateEnrichmentData = (pane: Element) => {
                           justifyContent: 'flex-end',
                           fontSize: 'var(--fonts-semantic-xs)',
                           color: metric.critical
-                            ? 'var(--color-fill-feedback-error-500)'
+                            ? 'var(--semantic-feedback-error-base)'
                             : 'var(--semantic-text-primary)',
                           fontWeight: metric.critical
                             ? 'var(--font-weight-semibold)'

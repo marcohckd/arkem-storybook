@@ -66,11 +66,109 @@
   height: 100%;
   min-width: 0;
   min-height: 0;
+  position: relative; /* needed for sticky positioning context */
   /* padding removed - content components handle their own padding */
   border: var(--border-width-thin, 1px) solid var(--semantic-border-subtle);
   background: var(--semantic-background-base);
   overflow-y: auto;
   overflow-x: hidden;
+  
+  /* Scrollbar styling - same as Scrollbar component (vertical only) */
+  /* Firefox scrollbar styling */
+  scrollbar-color: var(--semantic-border-muted) var(--semantic-background-base);
+  scrollbar-width: thin;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) - Vertical scrollbar only */
+.arkem-modal__pane::-webkit-scrollbar {
+  width: 8px;
+  height: 0;
+}
+
+.arkem-modal__pane::-webkit-scrollbar-track {
+  background: var(--semantic-background-base);
+  border-radius: var(--radius-sm);
+}
+
+.arkem-modal__pane::-webkit-scrollbar-thumb {
+  background: var(--semantic-border-muted);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--semantic-background-base);
+}
+
+.arkem-modal__pane::-webkit-scrollbar-thumb:hover {
+  background: var(--semantic-border-subtle);
+}
+
+.arkem-modal__pane::-webkit-scrollbar-thumb:active {
+  background: var(--semantic-border-strong);
+}
+
+/* === PANE CONTENT WRAPPER (SCROLLABLE) === */
+.arkem-modal__pane-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+  
+  /* Scrollbar styling - same as Scrollbar component (vertical only) */
+  /* Firefox scrollbar styling */
+  scrollbar-color: var(--semantic-border-muted) var(--semantic-background-base);
+  scrollbar-width: thin;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) - Vertical scrollbar only */
+.arkem-modal__pane-content::-webkit-scrollbar {
+  width: 8px;
+  height: 0;
+}
+
+.arkem-modal__pane-content::-webkit-scrollbar-track {
+  background: var(--semantic-background-base);
+  border-radius: var(--radius-sm);
+}
+
+.arkem-modal__pane-content::-webkit-scrollbar-thumb {
+  background: var(--semantic-border-muted);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--semantic-background-base);
+}
+
+.arkem-modal__pane-content::-webkit-scrollbar-thumb:hover {
+  background: var(--semantic-border-subtle);
+}
+
+.arkem-modal__pane-content::-webkit-scrollbar-thumb:active {
+  background: var(--semantic-border-strong);
+}
+
+/* === PANE SECTION HEADER (STICKY) === */
+.arkem-modal__pane-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-index-sticky, 10);
+  height: 44px;
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-8) var(--spacing-style-spacing-4px-4-16px);
+  background: var(--semantic-background-base);
+  border-bottom: var(--border-width-thin, 1px) solid var(--semantic-border-muted);
+  box-sizing: border-box;
+}
+
+/* Header text styling */
+.arkem-modal__pane-header-text {
+  font-size: var(--fonts-semantic-sm);
+  color: var(--semantic-text-primary);
+  font-weight: var(--font-weight-regular);
+  flex: 1;
+}
+
+/* Header secondary text (counts, etc.) */
+.arkem-modal__pane-header-secondary {
+  font-size: var(--fonts-semantic-xs);
+  color: var(--semantic-text-secondary);
+  margin-left: auto;
 }
 
 /* === PLACEHOLDER PANE (HIDDEN BUT OCCUPIES GRID CELL) === */
