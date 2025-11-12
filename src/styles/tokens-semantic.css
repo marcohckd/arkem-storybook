@@ -19,6 +19,7 @@
   --semantic-brand-mode: #49482c;
   --semantic-text-primary: var(--color-text-primary);
   --semantic-text-secondary: var(--color-text-secondary);
+  --semantic-text-secondary-ii: #9B9B9B;
   --semantic-text-subtle: var(--semantic-text-secondary);
   --semantic-text-muted: var(--color-text-muted);
   --semantic-text-inverse: var(--color-text-inverse);

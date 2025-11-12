@@ -466,6 +466,13 @@ const ModalWrapper: React.FC<{
 
 // Helper function to populate Device Information pane
 const populateDeviceInformation = (pane: Element) => {
+  // Override pane height to allow content wrapping
+  const paneElement = pane as HTMLElement;
+  paneElement.style.height = 'auto';
+  paneElement.style.alignSelf = 'start';
+  paneElement.style.overflowY = 'visible';
+  paneElement.style.overflowX = 'hidden';
+  
   const container = document.createElement('div');
   pane.appendChild(container);
   const root = createRoot(container);
@@ -473,29 +480,26 @@ const populateDeviceInformation = (pane: Element) => {
   const DeviceInformationContent = () => {
     const [activeTab, setActiveTab] = React.useState('Identity');
 
-    const tabs = ['Identity', 'Specs', 'Location', 'Network', 'Observations'];
+    const tabs = ['Identity', 'Specs', 'Geolocation', 'Observations'];
     
     // Define content for each tab
     const tabContent: Record<string, Array<{ label: string; value: string; error?: boolean }>> = {
       Identity: [
         { label: 'DEVICE ID:', value: '0251E342-6E4D-4207-A1AD-DD0C3D9BF553' },
         { label: 'USER ID:', value: '6E4D' },
-        { label: 'CONSENT:', value: 'Unknown', error: true }
+        { label: 'CONSENT:', value: 'Unknown', error: true },
+        { label: 'IP ADDRESS:', value: '192.168.1.100' }
       ],
       Specs: [
         { label: 'DEVICE MODEL:', value: 'iPhone 13 Pro' },
         { label: 'OS VERSION:', value: 'iOS 16.5.1' },
         { label: 'SCREEN SIZE:', value: '6.1 inches' }
       ],
-      Location: [
-        { label: 'CITY:', value: 'Phoenix' },
-        { label: 'STATE:', value: 'Arizona' },
-        { label: 'COUNTRY:', value: 'USA' }
-      ],
-      Network: [
-        { label: 'IP ADDRESS:', value: '192.168.1.100' },
-        { label: 'CARRIER:', value: 'Verizon' },
-        { label: 'CONNECTION:', value: 'WiFi' }
+      Geolocation: [
+        { label: 'WHOIS COUNTRY:', value: 'NL' },
+        { label: 'SHODAN COUNTRY:', value: 'IR' },
+        { label: 'AV COUNTRY:', value: 'Iran' },
+        { label: 'AV CITY:', value: 'Tehran' }
       ],
       Observations: [
         { label: 'FIRST SEEN:', value: '2024-01-15' },
@@ -505,7 +509,7 @@ const populateDeviceInformation = (pane: Element) => {
     };
 
     return (
-      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
         {/* Sticky Header */}
         <div className="arkem-modal__pane-header">
           <Info className="arkem-modal__pane-header-icon" size={16} />
@@ -514,11 +518,8 @@ const populateDeviceInformation = (pane: Element) => {
 
         {/* Content Container */}
         <div style={{ 
-          flex: 1, 
-          minHeight: 0,
           display: 'flex',
-          flexDirection: 'column',
-          overflow: 'hidden'
+          flexDirection: 'column'
         }}>
           {/* Tabs */}
           <div style={{
@@ -548,7 +549,7 @@ const populateDeviceInformation = (pane: Element) => {
                       ? 'var(--semantic-text-primary)' 
                       : isHovered 
                         ? 'var(--semantic-text-hover)' 
-                        : 'var(--semantic-text-secondary)',
+                        : 'var(--semantic-text-secondary-ii)',
                     background: isActive 
                       ? 'var(--semantic-background-raised)' 
                       : isHovered 
@@ -573,8 +574,6 @@ const populateDeviceInformation = (pane: Element) => {
           {/* Tab Content - Metric rows */}
           <div style={{ 
             background: 'var(--semantic-background-raised)',
-            flex: 1, 
-            minHeight: 0,
             overflowY: 'auto',
             overflowX: 'hidden'
           }}>
@@ -583,7 +582,7 @@ const populateDeviceInformation = (pane: Element) => {
                 key={idx}
                 style={{
                   display: 'flex',
-                  minHeight: '42px',
+                  height: '42px',
                   borderBottom: idx < tabContent[activeTab].length - 1 
                     ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)' 
                     : 'none'
@@ -648,7 +647,10 @@ const populateDeviceTimeline = (pane: Element) => {
       </div>
 
       {/* Timeline entries */}
-      <div className="arkem-modal__pane-content">
+      <div className="arkem-modal__pane-content" style={{ 
+        flex: 1,
+        minHeight: 0 
+      }}>
         {timelineEntries.map((entry, idx) => (
           <div
             key={idx}
@@ -756,17 +758,6 @@ const populateEnrichmentData = (pane: Element) => {
       ]
     },
     {
-      id: 'geolocation',
-      title: 'Geolocation (IP-based)',
-      count: 4,
-      metrics: [
-        { label: 'WHOIS COUNTRY:', value: 'NL' },
-        { label: 'SHODAN COUNTRY:', value: 'IR' },
-        { label: 'AV COUNTRY:', value: 'Iran' },
-        { label: 'AV CITY:', value: 'Tehran' }
-      ]
-    },
-    {
       id: 'freshness',
       title: 'Data Freshness',
       count: 3,
@@ -798,8 +789,8 @@ const populateEnrichmentData = (pane: Element) => {
     
     // For non-threat sections, use tab-style active/inactive colors
     return isExpanded 
-      ? 'var(--semantic-text-primary)'    // Active - white
-      : 'var(--semantic-text-secondary)'; // Inactive - grey
+      ? 'var(--semantic-text-primary)'        // Active - white
+      : 'var(--semantic-text-secondary-ii)';  // Inactive - brighter grey
   };
 
   const EnrichmentContent = () => {
@@ -848,6 +839,7 @@ const populateEnrichmentData = (pane: Element) => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     height: '44px',
+                    boxSizing: 'border-box',
                     padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-4-16px)',
                     background: isExpanded 
                       ? 'var(--semantic-background-raised)' 
@@ -892,7 +884,7 @@ const populateEnrichmentData = (pane: Element) => {
                         ? 'var(--semantic-text-primary)' 
                         : isHovered 
                           ? 'var(--semantic-text-hover)' 
-                          : 'var(--semantic-text-secondary)',
+                          : 'var(--semantic-text-secondary-ii)',
                       marginLeft: 'var(--spacing-8)'
                     }}
                   />
@@ -1068,6 +1060,12 @@ export const DeviceDetails: Story = {
       React.useEffect(() => {
         if (isOpen) {
           const timer = setTimeout(() => {
+            // Override left-panes grid to allow first pane to wrap content
+            const leftPanes = document.querySelector('.arkem-modal__left-panes') as HTMLElement;
+            if (leftPanes) {
+              leftPanes.style.gridTemplateRows = 'auto 1fr';
+            }
+            
             const panes = document.querySelectorAll('.arkem-modal__pane');
             if (panes.length === 3) {
               // Pane A: Device Information
