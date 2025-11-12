@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 
 import { Button } from "../../atoms/Button/Button";
+import { Badge } from "../../atoms/Badge/Badge";
+import { Header } from "../Header/Header";
 
 import { Modal, MODAL_FORMATS, type ModalFormat } from "./Modal";
 
@@ -487,8 +489,8 @@ const populateDeviceInformation = (pane: Element) => {
       Identity: [
         { label: 'DEVICE ID:', value: '0251E342-6E4D-4207-A1AD-DD0C3D9BF553' },
         { label: 'USER ID:', value: '6E4D' },
-        { label: 'CONSENT:', value: 'Unknown', error: true },
-        { label: 'IP ADDRESS:', value: '192.168.1.100' }
+        { label: 'IP ADDRESS:', value: '192.168.1.100' },
+        { label: 'CONSENT:', value: 'Unknown', error: true }
       ],
       Specs: [
         { label: 'DEVICE MODEL:', value: 'iPhone 13 Pro' },
@@ -755,16 +757,6 @@ const populateEnrichmentData = (pane: Element) => {
         { label: 'AV COUNTRY:', value: 'Iran (IR)' },
         { label: 'AV CITY:', value: 'Tehran' },
         { label: 'AV ASN:', value: 'AS44244' }
-      ]
-    },
-    {
-      id: 'freshness',
-      title: 'Data Freshness',
-      count: 3,
-      metrics: [
-        { label: 'SHODAN UPDATED:', value: '2025-02-10 14:32' },
-        { label: 'ALIENVAULT UPDATED:', value: '2025-02-10 10:15' },
-        { label: 'WHOIS UPDATED:', value: '2025-02-08 09:20' }
       ]
     }
   ];
@@ -1092,46 +1084,95 @@ export const DeviceDetails: Story = {
               {...args}
               isOpen={isOpen}
               onClose={onClose}
-              leadingIcon={<Smartphone size={24} />}
-              rightSlot={
-                <>
-                  <Button
-                    size="md"
-                    hierarchy="secondary"
-                    tone="black"
-                    function="action"
-                    trailingIconName="MapPin"
-                    showText={false}
-                    iconTrailing={true}
-                    iconLeading={false}
-                    ariaLabel="Locate on map"
-                    className="device-details-action-btn"
-                  />
-                  <Button
-                    size="md"
-                    hierarchy="secondary"
-                    tone="black"
-                    function="action"
-                    trailingIconName="Navigation"
-                    showText={false}
-                    iconTrailing={true}
-                    iconLeading={false}
-                    ariaLabel="View connections"
-                    className="device-details-action-btn"
-                  />
-                  <Button
-                    size="md"
-                    hierarchy="secondary"
-                    tone="black"
-                    function="action"
-                    trailingIconName="MoreVertical"
-                    showText={false}
-                    iconTrailing={true}
-                    iconLeading={false}
-                    ariaLabel="More options"
-                    className="device-details-action-btn"
-                  />
-                </>
+              header={
+                <header className="arkem-header arkem-header--secondary">
+                  <span className="arkem-header__leading-icon">
+                    <Smartphone size={24} />
+                  </span>
+                  <div style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
+                    <span className="arkem-header__label" style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-12)' }}>
+                      Device Details
+                      <Badge 
+                        variant="secondary"
+                        style={{ 
+                          fontSize: 'var(--fonts-semantic-xs)',
+                          paddingTop: 'var(--spacing-style-spacing-4px-1-4px)',
+                          paddingBottom: 'var(--spacing-style-spacing-4px-1-4px)',
+                          paddingLeft: 'var(--spacing-12)',
+                          paddingRight: 'var(--spacing-12)'
+                        }}
+                      >
+                        0251E342-6E4D-4207-A1AD-DD0C3D9BF553
+                      </Badge>
+                    </span>
+                  </div>
+                  <div className="arkem-header__slot">
+                    <Button
+                      size="md"
+                      hierarchy="secondary"
+                      tone="black"
+                      function="action"
+                      trailingIconName="MapPin"
+                      showText={false}
+                      iconTrailing={true}
+                      iconLeading={false}
+                      ariaLabel="Locate on map"
+                      className="device-details-action-btn"
+                    />
+                    <Button
+                      size="md"
+                      hierarchy="secondary"
+                      tone="black"
+                      function="action"
+                      trailingIconName="Navigation"
+                      showText={false}
+                      iconTrailing={true}
+                      iconLeading={false}
+                      ariaLabel="View connections"
+                      className="device-details-action-btn"
+                    />
+                    <Button
+                      size="md"
+                      hierarchy="secondary"
+                      tone="black"
+                      function="action"
+                      trailingIconName="MoreVertical"
+                      showText={false}
+                      iconTrailing={true}
+                      iconLeading={false}
+                      ariaLabel="More options"
+                      className="device-details-action-btn"
+                    />
+                    <Button
+                      size="md"
+                      hierarchy="secondary"
+                      tone="black"
+                      function="close"
+                      iconTrailing={true}
+                      trailingIconName="X"
+                      showText={false}
+                      iconLeading={false}
+                      ariaLabel="Close"
+                      onClick={onClose}
+                    />
+                  </div>
+                </header>
+              }
+              footer={
+                <div style={{ display: 'flex', gap: 'var(--spacing-16)' }}>
+                  <div className="arkem-modal__footer-item">
+                    <span className="arkem-modal__footer-label">SHODAN UPDATED:</span>
+                    <span className="arkem-modal__footer-value">2025-02-10 14:32</span>
+                  </div>
+                  <div className="arkem-modal__footer-item">
+                    <span className="arkem-modal__footer-label">ALIENVAULT UPDATED:</span>
+                    <span className="arkem-modal__footer-value">2025-02-10 10:15</span>
+                  </div>
+                  <div className="arkem-modal__footer-item">
+                    <span className="arkem-modal__footer-label">WHOIS UPDATED:</span>
+                    <span className="arkem-modal__footer-value">2025-02-08 09:20</span>
+                  </div>
+                </div>
               }
             />
           )}
