@@ -627,13 +627,14 @@ const populateDeviceTimeline = (pane: Element) => {
           <div
             key={idx}
             style={{
-              height: '70px',
-              padding: 'var(--radius-sm) var(--spacing-style-spacing-4px-1-5-6px)',
-              background: 'var(--color-fill-neutral-800)',
+              height: '56px',
+              padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-1-5-6px)',
+              background: 'var(--semantic-background-raised)',
               borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)',
               display: 'flex',
               flexDirection: 'column',
-              gap: 'var(--spacing-style-spacing-4px-1-5-6px)'
+              gap: 'var(--spacing-4)',
+              justifyContent: 'center'
             }}
           >
             <div style={{
@@ -886,10 +887,10 @@ const populateEnrichmentData = (pane: Element) => {
                           alignItems: 'center',
                           justifyContent: 'flex-end',
                           fontSize: 'var(--fonts-semantic-xs)',
-                          color: metric.critical
+                          color: (metric as any).critical
                             ? 'var(--semantic-feedback-error-base)'
                             : 'var(--semantic-text-primary)',
-                          fontWeight: metric.critical
+                          fontWeight: (metric as any).critical
                             ? 'var(--font-weight-semibold)'
                             : 'var(--font-weight-regular)',
                           textAlign: 'right'

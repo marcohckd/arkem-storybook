@@ -243,6 +243,50 @@
   gap: var(--spacing-style-spacing-4px-0-5-2px);
 }
 
+/* === DEVICE DETAILS ACTION BUTTONS === */
+/* Override border color for action buttons in Device Details story */
+.device-details-action-btn {
+  border-color: var(--semantic-border-ghosted) !important;
+}
+
+.device-details-action-btn:hover,
+.device-details-action-btn[data-forced-state="hover"] {
+  border-color: var(--semantic-border-muted) !important;
+}
+
+.device-details-action-btn:focus-visible,
+.device-details-action-btn[data-forced-state="focused"] {
+  border-color: var(--semantic-border-muted) !important;
+}
+
+/* === FOOTER === */
+.arkem-modal__footer {
+  padding: var(--spacing-12, 12px) var(--spacing-style-spacing-4px-4-16px);
+  border-top: var(--border-width-thin, 1px) solid var(--semantic-border-subtle);
+  background: var(--semantic-background-base);
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+}
+
+.arkem-modal__footer-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.arkem-modal__footer-label {
+  font-size: var(--fonts-semantic-xs);
+  color: var(--semantic-text-secondary);
+  text-transform: uppercase;
+}
+
+.arkem-modal__footer-value {
+  font-size: var(--fonts-semantic-xs);
+  color: var(--semantic-text-primary);
+}
+
 /* === RESPONSIVE === */
 @media (max-width: var(--breakpoint-md)) {
   .arkem-modal {
