@@ -1,0 +1,605 @@
+.arkem-map-pin {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-style-spacing-4px-1-4px);
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  /* Prevent size changes on zooming */
+  transform: scale(1);
+  will-change: auto;
+}
+
+.arkem-map-pin__marker {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  transition: all var(--transition-base);
+  position: relative;
+  /* Prevent size changes on zooming */
+  transform: scale(1);
+  flex-shrink: 0;
+}
+
+/* Pulse animation for active/live items */
+.arkem-map-pin[data-pulse="true"] .arkem-map-pin__marker::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: inherit;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(8);
+    opacity: 0;
+  }
+}
+
+.arkem-map-pin__label {
+  font-size: var(--fonts-semantic-xs);
+  line-height: var(--fonts-semantic-xs-line-height);
+  white-space: nowrap;
+  text-align: center;
+  font-weight: var(--font-weight-regular);
+  pointer-events: none;
+  padding: var(--spacing-style-spacing-4px-0-5-2px) var(--spacing-8);
+  border-radius: var(--radius-xs);
+  /* Allow typography to scale with zoom, only pin marker stays fixed */
+  position: relative;
+}
+
+.arkem-map-pin__label-text {
+  display: inline-block;
+}
+
+.arkem-map-pin__label-full {
+  display: none;
+}
+
+/* Device pin label expansion on hover */
+.arkem-map-pin[data-type="device"][data-hovered="true"] .arkem-map-pin__label-text,
+.arkem-map-pin[data-type="device"][data-state="hover"] .arkem-map-pin__label-text {
+  display: none;
+}
+
+.arkem-map-pin[data-type="device"][data-hovered="true"] .arkem-map-pin__label-full,
+.arkem-map-pin[data-type="device"][data-state="hover"] .arkem-map-pin__label-full {
+  display: inline-block;
+}
+
+/* Device Pins - Brand color */
+.arkem-map-pin[data-type="device"] .arkem-map-pin__marker {
+  background: var(--semantic-brand-base);
+}
+
+.arkem-map-pin[data-type="device"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--semantic-brand-base) 12%, transparent);
+  color: var(--semantic-brand-base);
+}
+
+.arkem-map-pin[data-type="device"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--semantic-brand-hover);
+}
+
+.arkem-map-pin[data-type="device"][data-state="hover"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--semantic-brand-hover) 12%, transparent);
+  color: var(--semantic-brand-hover);
+}
+
+.arkem-map-pin[data-type="device"][data-state="active"] .arkem-map-pin__marker {
+  background: var(--semantic-brand-active);
+}
+
+.arkem-map-pin[data-type="device"][data-state="active"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--semantic-brand-active) 12%, transparent);
+  color: var(--semantic-brand-active);
+}
+
+.arkem-map-pin[data-type="device"][data-state="selected"] .arkem-map-pin__marker {
+  background: var(--semantic-brand-base);
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="device"][data-state="dimmed"] .arkem-map-pin__marker {
+  background: var(--semantic-brand-base);
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="device"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--semantic-brand-base) 4%, transparent);
+  color: var(--semantic-brand-base);
+}
+
+/* POI Prison Pins - Reddish-Orange (#F25F5C) */
+.arkem-map-pin[data-type="poi-prison"] .arkem-map-pin__marker {
+  background: var(--poi-prison);
+}
+
+.arkem-map-pin[data-type="poi-prison"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--poi-prison) 12%, transparent);
+  color: var(--poi-prison);
+}
+
+.arkem-map-pin[data-type="poi-prison"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--poi-prison);
+  opacity: 0.8;
+}
+
+.arkem-map-pin[data-type="poi-prison"][data-state="selected"] .arkem-map-pin__marker {
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="poi-prison"][data-state="dimmed"] .arkem-map-pin__marker {
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="poi-prison"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--poi-prison) 4%, transparent);
+  color: var(--poi-prison);
+}
+
+/* POI Police Pins - Reddish-Orange (#F25F5C) */
+.arkem-map-pin[data-type="poi-police"] .arkem-map-pin__marker {
+  background: var(--poi-police);
+}
+
+.arkem-map-pin[data-type="poi-police"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--poi-police) 12%, transparent);
+  color: var(--poi-police);
+}
+
+.arkem-map-pin[data-type="poi-police"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--poi-police);
+  opacity: 0.8;
+}
+
+.arkem-map-pin[data-type="poi-police"][data-state="selected"] .arkem-map-pin__marker {
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="poi-police"][data-state="dimmed"] .arkem-map-pin__marker {
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="poi-police"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--poi-police) 4%, transparent);
+  color: var(--poi-police);
+}
+
+/* POI Courthouse Pins - Reddish-Orange (#F25F5C) */
+.arkem-map-pin[data-type="poi-courthouse"] .arkem-map-pin__marker {
+  background: var(--poi-courthouse);
+}
+
+.arkem-map-pin[data-type="poi-courthouse"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--poi-courthouse) 12%, transparent);
+  color: var(--poi-courthouse);
+}
+
+.arkem-map-pin[data-type="poi-courthouse"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--poi-courthouse);
+  opacity: 0.8;
+}
+
+.arkem-map-pin[data-type="poi-courthouse"][data-state="selected"] .arkem-map-pin__marker {
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="poi-courthouse"][data-state="dimmed"] .arkem-map-pin__marker {
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="poi-courthouse"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--poi-courthouse) 4%, transparent);
+  color: var(--poi-courthouse);
+}
+
+/* POI Nightclub Pins - Orange (#F2A65A) */
+.arkem-map-pin[data-type="poi-nightclub"] .arkem-map-pin__marker {
+  background: var(--poi-nightclub);
+}
+
+.arkem-map-pin[data-type="poi-nightclub"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--poi-nightclub) 12%, transparent);
+  color: var(--poi-nightclub);
+}
+
+.arkem-map-pin[data-type="poi-nightclub"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--poi-nightclub);
+  opacity: 0.8;
+}
+
+.arkem-map-pin[data-type="poi-nightclub"][data-state="selected"] .arkem-map-pin__marker {
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="poi-nightclub"][data-state="dimmed"] .arkem-map-pin__marker {
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="poi-nightclub"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--poi-nightclub) 4%, transparent);
+  color: var(--poi-nightclub);
+}
+
+/* POI Bar Pins - Orange (#F2A65A) */
+.arkem-map-pin[data-type="poi-bar"] .arkem-map-pin__marker {
+  background: var(--poi-bar);
+}
+
+.arkem-map-pin[data-type="poi-bar"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--poi-bar) 12%, transparent);
+  color: var(--poi-bar);
+}
+
+.arkem-map-pin[data-type="poi-bar"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--poi-bar);
+  opacity: 0.8;
+}
+
+.arkem-map-pin[data-type="poi-bar"][data-state="selected"] .arkem-map-pin__marker {
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="poi-bar"][data-state="dimmed"] .arkem-map-pin__marker {
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="poi-bar"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--poi-bar) 4%, transparent);
+  color: var(--poi-bar);
+}
+
+/* POI Stripclub Pins - Orange (#F2A65A) */
+.arkem-map-pin[data-type="poi-stripclub"] .arkem-map-pin__marker {
+  background: var(--poi-stripclub);
+}
+
+.arkem-map-pin[data-type="poi-stripclub"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--poi-stripclub) 12%, transparent);
+  color: var(--poi-stripclub);
+}
+
+.arkem-map-pin[data-type="poi-stripclub"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--poi-stripclub);
+  opacity: 0.8;
+}
+
+.arkem-map-pin[data-type="poi-stripclub"][data-state="selected"] .arkem-map-pin__marker {
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="poi-stripclub"][data-state="dimmed"] .arkem-map-pin__marker {
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="poi-stripclub"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--poi-stripclub) 4%, transparent);
+  color: var(--poi-stripclub);
+}
+
+/* POI Marketplace Pins - Light Green (#8BD17C) */
+.arkem-map-pin[data-type="poi-marketplace"] .arkem-map-pin__marker {
+  background: var(--poi-marketplace);
+}
+
+.arkem-map-pin[data-type="poi-marketplace"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--poi-marketplace) 12%, transparent);
+  color: var(--poi-marketplace);
+}
+
+.arkem-map-pin[data-type="poi-marketplace"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--poi-marketplace);
+  opacity: 0.8;
+}
+
+.arkem-map-pin[data-type="poi-marketplace"][data-state="selected"] .arkem-map-pin__marker {
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="poi-marketplace"][data-state="dimmed"] .arkem-map-pin__marker {
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="poi-marketplace"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--poi-marketplace) 4%, transparent);
+  color: var(--poi-marketplace);
+}
+
+/* POI Casino Pins - Light Green (#8BD17C) */
+.arkem-map-pin[data-type="poi-casino"] .arkem-map-pin__marker {
+  background: var(--poi-casino);
+}
+
+.arkem-map-pin[data-type="poi-casino"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--poi-casino) 12%, transparent);
+  color: var(--poi-casino);
+}
+
+.arkem-map-pin[data-type="poi-casino"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--poi-casino);
+  opacity: 0.8;
+}
+
+.arkem-map-pin[data-type="poi-casino"][data-state="selected"] .arkem-map-pin__marker {
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="poi-casino"][data-state="dimmed"] .arkem-map-pin__marker {
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="poi-casino"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--poi-casino) 4%, transparent);
+  color: var(--poi-casino);
+}
+
+/* POI Bus Station Pins - Light Green (#8BD17C) */
+.arkem-map-pin[data-type="poi-bus-station"] .arkem-map-pin__marker {
+  background: var(--poi-bus-station);
+}
+
+.arkem-map-pin[data-type="poi-bus-station"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--poi-bus-station) 12%, transparent);
+  color: var(--poi-bus-station);
+}
+
+.arkem-map-pin[data-type="poi-bus-station"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--poi-bus-station);
+  opacity: 0.8;
+}
+
+.arkem-map-pin[data-type="poi-bus-station"][data-state="selected"] .arkem-map-pin__marker {
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="poi-bus-station"][data-state="dimmed"] .arkem-map-pin__marker {
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="poi-bus-station"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--poi-bus-station) 4%, transparent);
+  color: var(--poi-bus-station);
+}
+
+/* POI Community Centre Pins - Light Blue/Grey (#AEB9C9) */
+.arkem-map-pin[data-type="poi-community-centre"] .arkem-map-pin__marker {
+  background: var(--poi-community-centre);
+}
+
+.arkem-map-pin[data-type="poi-community-centre"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--poi-community-centre) 12%, transparent);
+  color: var(--poi-community-centre);
+}
+
+.arkem-map-pin[data-type="poi-community-centre"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--poi-community-centre);
+  opacity: 0.8;
+}
+
+.arkem-map-pin[data-type="poi-community-centre"][data-state="selected"] .arkem-map-pin__marker {
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="poi-community-centre"][data-state="dimmed"] .arkem-map-pin__marker {
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="poi-community-centre"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--poi-community-centre) 4%, transparent);
+  color: var(--poi-community-centre);
+}
+
+/* POI Shelter Pins - Light Blue/Grey (#AEB9C9) */
+.arkem-map-pin[data-type="poi-shelter"] .arkem-map-pin__marker {
+  background: var(--poi-shelter);
+}
+
+.arkem-map-pin[data-type="poi-shelter"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--poi-shelter) 12%, transparent);
+  color: var(--poi-shelter);
+}
+
+.arkem-map-pin[data-type="poi-shelter"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--poi-shelter);
+  opacity: 0.8;
+}
+
+.arkem-map-pin[data-type="poi-shelter"][data-state="selected"] .arkem-map-pin__marker {
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="poi-shelter"][data-state="dimmed"] .arkem-map-pin__marker {
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="poi-shelter"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--poi-shelter) 4%, transparent);
+  color: var(--poi-shelter);
+}
+
+/* POI Place of Worship Pins - Light Blue/Grey (#AEB9C9) */
+.arkem-map-pin[data-type="poi-place-of-worship"] .arkem-map-pin__marker {
+  background: var(--poi-place-of-worship);
+}
+
+.arkem-map-pin[data-type="poi-place-of-worship"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--poi-place-of-worship) 12%, transparent);
+  color: var(--poi-place-of-worship);
+}
+
+.arkem-map-pin[data-type="poi-place-of-worship"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--poi-place-of-worship);
+  opacity: 0.8;
+}
+
+.arkem-map-pin[data-type="poi-place-of-worship"][data-state="selected"] .arkem-map-pin__marker {
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="poi-place-of-worship"][data-state="dimmed"] .arkem-map-pin__marker {
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="poi-place-of-worship"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--poi-place-of-worship) 4%, transparent);
+  color: var(--poi-place-of-worship);
+}
+
+/* POI Point Generic Pins - Light Purple (#C3A5DF) */
+.arkem-map-pin[data-type="poi-point-generic"] .arkem-map-pin__marker {
+  background: var(--poi-point-generic);
+}
+
+.arkem-map-pin[data-type="poi-point-generic"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--poi-point-generic) 12%, transparent);
+  color: var(--poi-point-generic);
+}
+
+.arkem-map-pin[data-type="poi-point-generic"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--poi-point-generic);
+  opacity: 0.8;
+}
+
+.arkem-map-pin[data-type="poi-point-generic"][data-state="selected"] .arkem-map-pin__marker {
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="poi-point-generic"][data-state="dimmed"] .arkem-map-pin__marker {
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="poi-point-generic"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--poi-point-generic) 4%, transparent);
+  color: var(--poi-point-generic);
+}
+
+/* Event Pins - White color */
+.arkem-map-pin[data-type="event"] .arkem-map-pin__marker {
+  background: var(--semantic-text-primary);
+}
+
+.arkem-map-pin[data-type="event"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--semantic-text-primary) 12%, transparent);
+  color: var(--semantic-text-primary);
+}
+
+.arkem-map-pin[data-type="event"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--semantic-text-hover);
+}
+
+.arkem-map-pin[data-type="event"][data-state="hover"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--semantic-text-hover) 12%, transparent);
+  color: var(--semantic-text-hover);
+}
+
+.arkem-map-pin[data-type="event"][data-state="active"] .arkem-map-pin__marker {
+  background: var(--semantic-text-primary);
+}
+
+.arkem-map-pin[data-type="event"][data-state="selected"] .arkem-map-pin__marker {
+  background: var(--semantic-text-primary);
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="event"][data-state="dimmed"] .arkem-map-pin__marker {
+  background: var(--semantic-text-primary);
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="event"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--semantic-text-primary) 4%, transparent);
+  color: var(--semantic-text-primary);
+}
+
+/* Incident Pins - Crime, emergency, security alerts - White color */
+.arkem-map-pin[data-type="incident-crime"] .arkem-map-pin__marker,
+.arkem-map-pin[data-type="incident-emergency"] .arkem-map-pin__marker,
+.arkem-map-pin[data-type="incident-security"] .arkem-map-pin__marker {
+  background: var(--semantic-text-primary);
+}
+
+.arkem-map-pin[data-type="incident-crime"] .arkem-map-pin__label,
+.arkem-map-pin[data-type="incident-emergency"] .arkem-map-pin__label,
+.arkem-map-pin[data-type="incident-security"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--semantic-text-primary) 12%, transparent);
+  color: var(--semantic-text-primary);
+}
+
+.arkem-map-pin[data-type="incident-crime"][data-state="hover"] .arkem-map-pin__marker,
+.arkem-map-pin[data-type="incident-emergency"][data-state="hover"] .arkem-map-pin__marker,
+.arkem-map-pin[data-type="incident-security"][data-state="hover"] .arkem-map-pin__marker {
+  background: var(--semantic-text-hover);
+}
+
+.arkem-map-pin[data-type="incident-crime"][data-state="hover"] .arkem-map-pin__label,
+.arkem-map-pin[data-type="incident-emergency"][data-state="hover"] .arkem-map-pin__label,
+.arkem-map-pin[data-type="incident-security"][data-state="hover"] .arkem-map-pin__label {
+  background: color-mix(in srgb, var(--semantic-text-hover) 12%, transparent);
+  color: var(--semantic-text-hover);
+}
+
+.arkem-map-pin[data-type="incident-crime"][data-state="active"] .arkem-map-pin__marker,
+.arkem-map-pin[data-type="incident-emergency"][data-state="active"] .arkem-map-pin__marker,
+.arkem-map-pin[data-type="incident-security"][data-state="active"] .arkem-map-pin__marker {
+  background: var(--semantic-text-primary);
+}
+
+.arkem-map-pin[data-type="incident-crime"][data-state="selected"] .arkem-map-pin__marker,
+.arkem-map-pin[data-type="incident-emergency"][data-state="selected"] .arkem-map-pin__marker,
+.arkem-map-pin[data-type="incident-security"][data-state="selected"] .arkem-map-pin__marker {
+  background: var(--semantic-text-primary);
+  box-shadow: 0 0 0 2px var(--semantic-focus-ring);
+}
+
+.arkem-map-pin[data-type="incident-crime"][data-state="dimmed"] .arkem-map-pin__marker,
+.arkem-map-pin[data-type="incident-emergency"][data-state="dimmed"] .arkem-map-pin__marker,
+.arkem-map-pin[data-type="incident-security"][data-state="dimmed"] .arkem-map-pin__marker {
+  background: var(--semantic-text-primary);
+  opacity: 0.3;
+}
+
+.arkem-map-pin[data-type="incident-crime"][data-state="dimmed"] .arkem-map-pin__label,
+.arkem-map-pin[data-type="incident-emergency"][data-state="dimmed"] .arkem-map-pin__label,
+.arkem-map-pin[data-type="incident-security"][data-state="dimmed"] .arkem-map-pin__label {
+  opacity: 0.3;
+  background: color-mix(in srgb, var(--semantic-text-primary) 4%, transparent);
+  color: var(--semantic-text-primary);
+}
+
+/* Focus styles for keyboard navigation */
+.arkem-map-pin:focus-visible {
+  outline: none;
+}
+
+.arkem-map-pin:focus-visible .arkem-map-pin__marker {
+  box-shadow: 0 0 0 3px var(--semantic-focus-ring);
+}
+
