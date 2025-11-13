@@ -489,13 +489,21 @@ const populateDeviceInformation = (pane: Element) => {
 
     const tabs = ['Identity', 'Specs', 'Geolocation', 'Observations'];
     
+    // Enrichment flags for conditional visibility
+    const enrichmentFlags = {
+      geo_country: true,
+      geo_city: true,
+    } as const;
+
+    // Metric type definition
+    type Metric = { key?: string; label: string; value?: string; error?: boolean; critical?: boolean };
+    
     // Define content for each tab
-    const tabContent: Record<string, Array<{ label: string; value: string; error?: boolean }>> = {
+    const tabContent: Record<string, Array<Metric>> = {
       Identity: [
         { label: 'DEVICE ID:', value: '0251E342-6E4D-4207-A1AD-DD0C3D9BF553' },
         { label: 'USER ID:', value: '6E4D' },
-        { label: 'IP ADDRESS:', value: '192.168.1.100' },
-        { label: 'CONSENT:', value: 'Unknown', error: true }
+        { label: 'IP ADDRESS:', value: '192.168.1.100' }
       ],
       Specs: [
         { label: 'DEVICE MODEL:', value: 'iPhone 13 Pro' },
@@ -503,16 +511,80 @@ const populateDeviceInformation = (pane: Element) => {
         { label: 'SCREEN SIZE:', value: '6.1 inches' }
       ],
       Geolocation: [
-        { label: 'WHOIS COUNTRY:', value: 'NL' },
-        { label: 'SHODAN COUNTRY:', value: 'IR' },
-        { label: 'AV COUNTRY:', value: 'Iran' },
-        { label: 'AV CITY:', value: 'Tehran' }
+        { key: 'geo_country', label: 'COUNTRY:', value: 'Iran' },
+        { key: 'geo_city', label: 'CITY:', value: 'Tehran' }
       ],
       Observations: [
         { label: 'FIRST SEEN:', value: '2024-01-15' },
         { label: 'LAST SEEN:', value: '2025-08-01' },
         { label: 'TOTAL EVENTS:', value: '247' }
       ]
+    };
+
+    // Render metric row with conditional visibility
+    const renderMetricRow = (
+      metric: Metric,
+      idx: number,
+      total: number,
+    ) => {
+      const isLast = idx === total - 1;
+      const key = metric.key;
+      const isAvailable = key ? enrichmentFlags[key as keyof typeof enrichmentFlags] : true;
+
+      const displayValue = isAvailable && metric.value ? metric.value : 'N/A';
+      const isEmpty = !isAvailable || !metric.value;
+
+      return (
+        <div
+          key={idx}
+          className={`arkem-modal__metric-row${isEmpty ? ' arkem-modal__metric-row--empty' : ''}`}
+          style={{
+            display: 'flex',
+            height: '42px',
+            background: 'var(--semantic-background-raised)',
+            borderBottom: !isLast
+              ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)'
+              : 'none',
+          }}
+        >
+          {/* label cell */}
+          <div
+            style={{
+              width: '100px',
+              padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: 'var(--fonts-semantic-xs)',
+              color: 'var(--semantic-text-secondary)',
+              textTransform: 'uppercase',
+            }}
+          >
+            {metric.label}
+          </div>
+          {/* value cell */}
+          <div
+            style={{
+              flex: 1,
+              padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              fontSize: 'var(--fonts-semantic-xs)',
+              color: isEmpty
+                ? 'var(--semantic-text-muted)'
+                : metric.error
+                  ? 'var(--semantic-feedback-error-base)'
+                  : 'var(--semantic-text-primary)',
+              fontWeight: metric.critical && !isEmpty
+                ? 'var(--font-weight-semibold)'
+                : 'var(--font-weight-regular)',
+              textAlign: 'right',
+            }}
+          >
+            {displayValue}
+          </div>
+        </div>
+      );
     };
 
     return (
@@ -584,44 +656,9 @@ const populateDeviceInformation = (pane: Element) => {
             overflowY: 'auto',
             overflowX: 'hidden'
           }}>
-            {tabContent[activeTab].map((metric, idx) => (
-              <div
-                key={idx}
-                style={{
-                  display: 'flex',
-                  height: '42px',
-                  borderBottom: idx < tabContent[activeTab].length - 1 
-                    ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)' 
-                    : 'none'
-                }}
-              >
-                <div style={{
-                  width: '100px',
-                  padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  fontSize: 'var(--fonts-semantic-xs)',
-                  color: 'var(--semantic-text-secondary)',
-                  textTransform: 'uppercase'
-                }}>
-                  {metric.label}
-                </div>
-                <div style={{
-                  flex: 1,
-                  padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-end',
-                  fontSize: 'var(--fonts-semantic-xs)',
-                  color: metric.error 
-                    ? 'var(--semantic-feedback-error-base)' 
-                    : 'var(--semantic-text-primary)',
-                  textTransform: 'uppercase'
-                }}>
-                  {metric.value}
-                </div>
-              </div>
-            ))}
+            {tabContent[activeTab].map((metric, idx) => 
+              renderMetricRow(metric, idx, tabContent[activeTab].length)
+            )}
           </div>
         </div>
       </div>
@@ -703,37 +740,39 @@ const populateEnrichmentData = (pane: Element) => {
     {
       id: 'threat',
       title: 'Threat Assessment',
-      count: 4,
+      count: 3,
       icon: 'AlertTriangle',
       metrics: [
         { 
+          key: 'threat_score',
           label: 'THREAT SCORE:', 
           value: '87/100 [HIGH]', 
           critical: true 
         },
         { 
+          key: 'honeypot',
           label: 'HONEYPOT:', 
           value: 'YES',
           critical: true 
         },
-        { label: 'HONEYPOT PROBABILITY:', value: '85%' },
-        { label: 'MALWARE SAMPLES:', value: '15 detected' }
+        { key: 'honeypot_probability', label: 'HONEYPOT PROBABILITY:', value: '85%' }
       ]
     },
     {
       id: 'intelligence',
       title: 'Threat Intelligence',
-      count: 8,
+      count: 9,
       icon: 'ShieldAlert',
       metrics: [
-        { label: 'PULSE COUNT:', value: '42 reports' },
-        { label: 'PASSIVE DNS COUNT:', value: '228 resolutions' },
-        { label: 'URL COUNT:', value: '34 URLs' },
-        { label: 'PRIMARY TAG:', value: 'malware-distribution' },
-        { label: 'TAGS:', value: 'vpn, proxy +2' },
-        { label: 'AV COUNTRY:', value: 'Iran (IR)' },
-        { label: 'AV CITY:', value: 'Tehran' },
-        { label: 'AV ASN:', value: 'AS44244' }
+        { key: 'pulse_count', label: 'PULSE COUNT:', value: '42 reports' },
+        { key: 'passive_dns_count', label: 'PASSIVE DNS COUNT:', value: '228 resolutions' },
+        { key: 'url_count', label: 'URL COUNT:', value: '34 URLs' },
+        { key: 'primary_tag', label: 'PRIMARY TAG:', value: 'malware-distribution' },
+        { key: 'tags', label: 'TAGS:', value: 'vpn, proxy +2' },
+        { key: 'country', label: 'COUNTRY:', value: 'Iran (IR)' },
+        { key: 'city', label: 'CITY:', value: 'Tehran' },
+        { key: 'asn', label: 'ASN:', value: 'AS44244' },
+        { key: 'malware_samples', label: 'MALWARE SAMPLES:', value: '15 detected' }
       ]
     },
     {
@@ -742,13 +781,13 @@ const populateEnrichmentData = (pane: Element) => {
       count: 7,
       icon: 'Network',
       metrics: [
-        { label: 'ORGANIZATION:', value: 'Iran Telecom PJS' },
-        { label: 'HOSTNAME:', value: 'mx.isp.ir' },
-        { label: 'ASN:', value: 'AS58224' },
-        { label: 'ISP:', value: 'Iran Telecom PJS' },
-        { label: 'NETWORK NAME:', value: 'RIPE-ERX-151' },
-        { label: 'WHOIS STATUS:', value: 'ASSIGNED PA' },
-        { label: 'IP OPERATING SYSTEM:', value: 'Linux 5.10' }
+        { key: 'organization', label: 'ORGANIZATION:', value: 'Iran Telecom PJS' },
+        { key: 'hostname', label: 'HOSTNAME:', value: 'mx.isp.ir' },
+        { key: 'network_asn', label: 'ASN:', value: 'AS58224' },
+        { key: 'isp', label: 'ISP:', value: 'Iran Telecom PJS' },
+        { key: 'network_name', label: 'NETWORK NAME:', value: 'RIPE-ERX-151' },
+        { key: 'registration_status', label: 'REGISTRATION STATUS:', value: 'ASSIGNED PA' },
+        { key: 'ip_os', label: 'IP OPERATING SYSTEM:', value: 'Linux 5.10' }
       ]
     },
     {
@@ -757,11 +796,11 @@ const populateEnrichmentData = (pane: Element) => {
       count: 5,
       icon: 'Server',
       metrics: [
-        { label: 'OPEN PORTS:', value: '[80, 443, 8080]' },
-        { label: 'SERVICES:', value: 'HTTP, HTTPS, SSH' },
-        { label: 'VULNERABILITIES:', value: '3 CVEs ↗' },
-        { label: 'DISCOVERED DOMAINS:', value: '2 domains ↗' },
-        { label: 'DISCOVERED URLS:', value: '4 URLs ↗' }
+        { key: 'open_ports', label: 'OPEN PORTS:', value: '[80, 443, 8080]' },
+        { key: 'services', label: 'SERVICES:', value: 'HTTP, HTTPS, SSH' },
+        { key: 'vulnerabilities', label: 'VULNERABILITIES:', value: '3 CVEs ↗' },
+        { key: 'discovered_domains', label: 'DISCOVERED DOMAINS:', value: '2 domains ↗' },
+        { key: 'discovered_urls', label: 'DISCOVERED URLS:', value: '4 URLs ↗' }
       ]
     }
   ];
@@ -792,6 +831,103 @@ const populateEnrichmentData = (pane: Element) => {
 
   const EnrichmentContent = () => {
     const [expanded, setExpanded] = React.useState<Set<string>>(new Set(['threat']));
+
+    // Enrichment flags for conditional visibility
+    const enrichmentFlags = {
+      threat_score: true,
+      honeypot: true,
+      honeypot_probability: true,
+      pulse_count: true,
+      passive_dns_count: true,
+      url_count: true,
+      primary_tag: true,
+      tags: true,
+      country: true,
+      city: true,
+      asn: true,
+      malware_samples: true,
+      organization: true,
+      hostname: true,
+      network_asn: true,
+      isp: true,
+      network_name: true,
+      registration_status: true,
+      ip_os: true,
+      open_ports: true,
+      services: true,
+      vulnerabilities: true,
+      discovered_domains: true,
+      discovered_urls: true,
+    } as const;
+
+    // Metric type definition
+    type Metric = { key?: string; label: string; value?: string; error?: boolean; critical?: boolean };
+
+    // Render metric row with conditional visibility
+    const renderMetricRow = (
+      metric: Metric,
+      idx: number,
+      total: number,
+    ) => {
+      const isLast = idx === total - 1;
+      const key = metric.key;
+      const isAvailable = key ? enrichmentFlags[key as keyof typeof enrichmentFlags] : true;
+
+      const displayValue = isAvailable && metric.value ? metric.value : 'N/A';
+      const isEmpty = !isAvailable || !metric.value;
+
+      return (
+        <div
+          key={idx}
+          className={`arkem-modal__metric-row${isEmpty ? ' arkem-modal__metric-row--empty' : ''}`}
+          style={{
+            display: 'flex',
+            height: '42px',
+            background: 'var(--semantic-background-raised)',
+            borderBottom: !isLast
+              ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)'
+              : 'none',
+          }}
+        >
+          {/* label cell */}
+          <div
+            style={{
+              width: '180px',
+              padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: 'var(--fonts-semantic-xs)',
+              color: 'var(--semantic-text-secondary)',
+              textTransform: 'uppercase',
+            }}
+          >
+            {metric.label}
+          </div>
+          {/* value cell */}
+          <div
+            style={{
+              flex: 1,
+              padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              fontSize: 'var(--fonts-semantic-xs)',
+              color: isEmpty
+                ? 'var(--semantic-text-muted)'
+                : metric.critical
+                  ? 'var(--semantic-feedback-error-base)'
+                  : 'var(--semantic-text-primary)',
+              fontWeight: metric.critical && !isEmpty
+                ? 'var(--font-weight-semibold)'
+                : 'var(--font-weight-regular)',
+              textAlign: 'right',
+            }}
+          >
+            {displayValue}
+          </div>
+        </div>
+      );
+    };
 
     const toggle = (id: string) => {
       setExpanded(prev => {
@@ -927,48 +1063,9 @@ const populateEnrichmentData = (pane: Element) => {
                 {/* Metrics (when expanded) */}
                 {isExpanded && (
                   <div>
-                    {section.metrics.map((metric, idx) => (
-                      <div
-                        key={idx}
-                        style={{
-                          display: 'flex',
-                          height: '42px',
-                          background: 'var(--semantic-background-raised)',
-                          borderBottom: idx < section.metrics.length - 1
-                            ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)'
-                            : 'none'
-                        }}
-                      >
-                        <div style={{
-                          width: '180px',
-                          padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          fontSize: 'var(--fonts-semantic-xs)',
-                          color: 'var(--semantic-text-secondary)',
-                          textTransform: 'uppercase'
-                        }}>
-                          {metric.label}
-                        </div>
-                        <div style={{
-                          flex: 1,
-                          padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'flex-end',
-                          fontSize: 'var(--fonts-semantic-xs)',
-                          color: (metric as any).critical
-                            ? 'var(--semantic-feedback-error-base)'
-                            : 'var(--semantic-text-primary)',
-                          fontWeight: (metric as any).critical
-                            ? 'var(--font-weight-semibold)'
-                            : 'var(--font-weight-regular)',
-                          textAlign: 'right'
-                        }}>
-                          {metric.value}
-                        </div>
-                      </div>
-                    ))}
+                    {section.metrics.map((metric, idx) => 
+                      renderMetricRow(metric as Metric, idx, section.metrics.length)
+                    )}
                   </div>
                 )}
               </div>
@@ -1083,7 +1180,7 @@ export const DeviceDetails: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Device details modal demonstrating the enrichment metrics display pattern. The left column contains Device Information (top) and Device Timeline (bottom), while the right column displays comprehensive threat intelligence and network infrastructure data from WHOIS, Shodan, and AlienVault organized into collapsible sections with proper tokenization.`,
+        story: `Device details modal demonstrating the enrichment metrics display pattern. The left column contains Device Information (top) and Device Timeline (bottom), while the right column displays comprehensive threat intelligence and network infrastructure data organized into collapsible sections with proper tokenization.`,
       },
     },
   },
@@ -1203,16 +1300,8 @@ export const DeviceDetails: Story = {
               footer={
                 <div style={{ display: 'flex', gap: 'var(--spacing-16)' }}>
                   <div className="arkem-modal__footer-item">
-                    <span className="arkem-modal__footer-label">SHODAN UPDATED:</span>
+                    <span className="arkem-modal__footer-label">IP UPDATED:</span>
                     <span className="arkem-modal__footer-value">2025-02-10 14:32</span>
-                  </div>
-                  <div className="arkem-modal__footer-item">
-                    <span className="arkem-modal__footer-label">ALIENVAULT UPDATED:</span>
-                    <span className="arkem-modal__footer-value">2025-02-10 10:15</span>
-                  </div>
-                  <div className="arkem-modal__footer-item">
-                    <span className="arkem-modal__footer-label">WHOIS UPDATED:</span>
-                    <span className="arkem-modal__footer-value">2025-02-08 09:20</span>
                   </div>
                 </div>
               }

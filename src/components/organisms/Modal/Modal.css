@@ -310,6 +310,13 @@
   color: var(--color-fill-neutral-100);
 }
 
+/* === EMPTY/N/A METRIC ROWS === */
+.arkem-modal__metric-row--empty .arkem-modal__footer-value,
+.arkem-modal__metric-row--empty div:last-child {
+  color: var(--semantic-text-muted);
+  font-style: italic;
+}
+
 /* === RESPONSIVE === */
 @media (max-width: var(--breakpoint-md)) {
   .arkem-modal {
