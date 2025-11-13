@@ -4,8 +4,23 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 import * as React from "react";
 import { createRoot } from "react-dom/client";
+import { 
+  Info, 
+  Clock, 
+  ShieldAlert,
+  ChevronRight,
+  AlertTriangle,
+  Smartphone,
+  Network,
+  Server,
+  Target,
+  LocateFixed,
+  Brain
+} from "lucide-react";
 
 import { Button } from "../../atoms/Button/Button";
+import { Badge } from "../../atoms/Badge/Badge";
+import { Header } from "../Header/Header";
 
 import { Modal, MODAL_FORMATS, type ModalFormat } from "./Modal";
 
@@ -458,6 +473,13 @@ const ModalWrapper: React.FC<{
 
 // Helper function to populate Device Information pane
 const populateDeviceInformation = (pane: Element) => {
+  // Override pane height to allow content wrapping
+  const paneElement = pane as HTMLElement;
+  paneElement.style.height = 'auto';
+  paneElement.style.alignSelf = 'start';
+  paneElement.style.overflowY = 'visible';
+  paneElement.style.overflowX = 'hidden';
+  
   const container = document.createElement('div');
   pane.appendChild(container);
   const root = createRoot(container);
@@ -465,29 +487,32 @@ const populateDeviceInformation = (pane: Element) => {
   const DeviceInformationContent = () => {
     const [activeTab, setActiveTab] = React.useState('Identity');
 
-    const tabs = ['Identity', 'Specs', 'Location', 'Network', 'Observations'];
+    const tabs = ['Identity', 'Specs', 'Geolocation', 'Observations'];
+    
+    // Enrichment flags for conditional visibility
+    const enrichmentFlags = {
+      geo_country: true,
+      geo_city: true,
+    } as const;
+
+    // Metric type definition
+    type Metric = { key?: string; label: string; value?: string; error?: boolean; critical?: boolean };
     
     // Define content for each tab
-    const tabContent: Record<string, Array<{ label: string; value: string; error?: boolean }>> = {
+    const tabContent: Record<string, Array<Metric>> = {
       Identity: [
         { label: 'DEVICE ID:', value: '0251E342-6E4D-4207-A1AD-DD0C3D9BF553' },
         { label: 'USER ID:', value: '6E4D' },
-        { label: 'CONSENT:', value: 'Unknown', error: true }
+        { label: 'IP ADDRESS:', value: '192.168.1.100' }
       ],
       Specs: [
         { label: 'DEVICE MODEL:', value: 'iPhone 13 Pro' },
         { label: 'OS VERSION:', value: 'iOS 16.5.1' },
         { label: 'SCREEN SIZE:', value: '6.1 inches' }
       ],
-      Location: [
-        { label: 'CITY:', value: 'Phoenix' },
-        { label: 'STATE:', value: 'Arizona' },
-        { label: 'COUNTRY:', value: 'USA' }
-      ],
-      Network: [
-        { label: 'IP ADDRESS:', value: '192.168.1.100' },
-        { label: 'CARRIER:', value: 'Verizon' },
-        { label: 'CONNECTION:', value: 'WiFi' }
+      Geolocation: [
+        { key: 'geo_country', label: 'COUNTRY:', value: 'Iran' },
+        { key: 'geo_city', label: 'CITY:', value: 'Tehran' }
       ],
       Observations: [
         { label: 'FIRST SEEN:', value: '2024-01-15' },
@@ -496,102 +521,145 @@ const populateDeviceInformation = (pane: Element) => {
       ]
     };
 
+    // Render metric row with conditional visibility
+    const renderMetricRow = (
+      metric: Metric,
+      idx: number,
+      total: number,
+    ) => {
+      const isLast = idx === total - 1;
+      const key = metric.key;
+      const isAvailable = key ? enrichmentFlags[key as keyof typeof enrichmentFlags] : true;
+
+      const displayValue = isAvailable && metric.value ? metric.value : 'N/A';
+      const isEmpty = !isAvailable || !metric.value;
+
+      return (
+        <div
+          key={idx}
+          className={`arkem-modal__metric-row${isEmpty ? ' arkem-modal__metric-row--empty' : ''}`}
+          style={{
+            display: 'flex',
+            height: '42px',
+            background: 'var(--semantic-background-raised)',
+            borderBottom: !isLast
+              ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)'
+              : 'none',
+          }}
+        >
+          {/* label cell */}
+          <div
+            style={{
+              width: '100px',
+              padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: 'var(--fonts-semantic-xs)',
+              color: 'var(--semantic-text-secondary)',
+              textTransform: 'uppercase',
+            }}
+          >
+            {metric.label}
+          </div>
+          {/* value cell */}
+          <div
+            style={{
+              flex: 1,
+              padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              fontSize: 'var(--fonts-semantic-xs)',
+              color: isEmpty
+                ? 'var(--semantic-text-muted)'
+                : metric.error
+                  ? 'var(--semantic-feedback-error-base)'
+                  : 'var(--semantic-text-primary)',
+              fontWeight: metric.critical && !isEmpty
+                ? 'var(--font-weight-semibold)'
+                : 'var(--font-weight-regular)',
+              textAlign: 'right',
+            }}
+          >
+            {displayValue}
+          </div>
+        </div>
+      );
+    };
+
     return (
-      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
         {/* Sticky Header */}
         <div className="arkem-modal__pane-header">
+          <Info className="arkem-modal__pane-header-icon" size={16} />
           <span className="arkem-modal__pane-header-text">Device Information</span>
         </div>
 
-        {/* Tabs */}
-        <div style={{
+        {/* Content Container */}
+        <div style={{ 
           display: 'flex',
-          borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)',
-          background: 'var(--semantic-background-raised)'
+          flexDirection: 'column'
         }}>
-          {tabs.map((tab, idx) => {
-            const [isHovered, setIsHovered] = React.useState(false);
-            const isActive = activeTab === tab;
-            
-            return (
-              <div
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                style={{
-                  flex: 1,
-                  height: '44px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  fontSize: 'var(--fonts-semantic-xs)',
-                  color: isActive 
-                    ? 'var(--semantic-text-primary)' 
-                    : isHovered 
-                      ? 'var(--semantic-text-hover)' 
-                      : 'var(--semantic-text-secondary)',
-                  background: isActive 
-                    ? 'var(--semantic-background-raised)' 
-                    : isHovered 
-                      ? 'var(--semantic-background-action-hover)' 
-                      : 'var(--semantic-background-base)',
-                  borderRight: idx < tabs.length - 1 
-                    ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)' 
-                    : 'none',
-                  cursor: 'pointer',
-                  transition: 'color var(--transition-fast), background var(--transition-fast)',
-                  fontWeight: isActive 
-                    ? 'var(--font-weight-medium)' 
-                    : 'var(--font-weight-regular)'
-                }}
-              >
-                {tab}
-              </div>
-            );
-          })}
-        </div>
+          {/* Tabs */}
+          <div style={{
+            display: 'flex',
+            borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)',
+            background: 'var(--semantic-background-raised)',
+            flexShrink: 0
+          }}>
+            {tabs.map((tab, idx) => {
+              const [isHovered, setIsHovered] = React.useState(false);
+              const isActive = activeTab === tab;
+              
+              return (
+                <div
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                  style={{
+                    flex: 1,
+                    height: '44px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 'var(--fonts-semantic-xs)',
+                    color: isActive 
+                      ? 'var(--semantic-text-primary)' 
+                      : isHovered 
+                        ? 'var(--semantic-text-hover)' 
+                        : 'var(--semantic-text-secondary-ii)',
+                    background: isActive 
+                      ? 'var(--semantic-background-raised)' 
+                      : isHovered 
+                        ? 'var(--semantic-background-action-hover)' 
+                        : 'var(--semantic-background-base)',
+                    borderRight: idx < tabs.length - 1 
+                      ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)' 
+                      : 'none',
+                    cursor: 'pointer',
+                    transition: 'color var(--transition-fast), background var(--transition-fast)',
+                    fontWeight: isActive 
+                      ? 'var(--font-weight-medium)' 
+                      : 'var(--font-weight-regular)'
+                  }}
+                >
+                  {tab}
+                </div>
+              );
+            })}
+          </div>
 
-        {/* Tab Content - Metric rows */}
-        <div style={{ background: 'var(--semantic-background-raised)' }}>
-          {tabContent[activeTab].map((metric, idx) => (
-            <div
-              key={idx}
-              style={{
-                display: 'flex',
-                height: '42px',
-                borderBottom: idx < tabContent[activeTab].length - 1 
-                  ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)' 
-                  : 'none'
-              }}
-            >
-              <div style={{
-                width: '100px',
-                padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
-                display: 'flex',
-                alignItems: 'center',
-                fontSize: 'var(--fonts-semantic-xs)',
-                color: 'var(--semantic-text-secondary)',
-                textTransform: 'uppercase'
-              }}>
-                {metric.label}
-              </div>
-              <div style={{
-                flex: 1,
-                padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'flex-end',
-                fontSize: 'var(--fonts-semantic-xs)',
-                color: metric.error 
-                  ? 'var(--semantic-feedback-error-base)' 
-                  : 'var(--semantic-text-primary)',
-                textTransform: 'uppercase'
-              }}>
-                {metric.value}
-              </div>
-            </div>
-          ))}
+          {/* Tab Content - Metric rows */}
+          <div style={{ 
+            background: 'var(--semantic-background-raised)',
+            overflowY: 'auto',
+            overflowX: 'hidden'
+          }}>
+            {tabContent[activeTab].map((metric, idx) => 
+              renderMetricRow(metric, idx, tabContent[activeTab].length)
+            )}
+          </div>
         </div>
       </div>
     );
@@ -617,19 +685,23 @@ const populateDeviceTimeline = (pane: Element) => {
     <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       {/* Sticky Header */}
       <div className="arkem-modal__pane-header">
+        <Clock className="arkem-modal__pane-header-icon" size={16} />
         <span className="arkem-modal__pane-header-text">Device Timeline</span>
         <span className="arkem-modal__pane-header-secondary">7 Observations</span>
       </div>
 
       {/* Timeline entries */}
-      <div className="arkem-modal__pane-content">
+      <div className="arkem-modal__pane-content" style={{ 
+        flex: 1,
+        minHeight: 0 
+      }}>
         {timelineEntries.map((entry, idx) => (
           <div
             key={idx}
             style={{
               height: '56px',
               padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-1-5-6px)',
-              background: 'var(--semantic-background-raised)',
+              background: 'var(--color-fill-neutral-800)',
               borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)',
               display: 'flex',
               flexDirection: 'column',
@@ -668,102 +740,194 @@ const populateEnrichmentData = (pane: Element) => {
     {
       id: 'threat',
       title: 'Threat Assessment',
-      count: 4,
-      threatLevel: 'critical',
+      count: 3,
+      icon: 'AlertTriangle',
       metrics: [
-        { label: 'THREAT SCORE:', value: '87/100 [HIGH]', critical: true },
-        { label: 'HONEYPOT:', value: 'YES ⚠️', critical: true },
-        { label: 'HONEYPOT PROBABILITY:', value: '85%' },
-        { label: 'MALWARE SAMPLES:', value: '15 detected' }
+        { 
+          key: 'threat_score',
+          label: 'THREAT SCORE:', 
+          value: '87/100 [HIGH]', 
+          critical: true 
+        },
+        { 
+          key: 'honeypot',
+          label: 'HONEYPOT:', 
+          value: 'YES',
+          critical: true 
+        },
+        { key: 'honeypot_probability', label: 'HONEYPOT PROBABILITY:', value: '85%' }
+      ]
+    },
+    {
+      id: 'intelligence',
+      title: 'Threat Intelligence',
+      count: 9,
+      icon: 'ShieldAlert',
+      metrics: [
+        { key: 'pulse_count', label: 'PULSE COUNT:', value: '42 reports' },
+        { key: 'passive_dns_count', label: 'PASSIVE DNS COUNT:', value: '228 resolutions' },
+        { key: 'url_count', label: 'URL COUNT:', value: '34 URLs' },
+        { key: 'primary_tag', label: 'PRIMARY TAG:', value: 'malware-distribution' },
+        { key: 'tags', label: 'TAGS:', value: 'vpn, proxy +2' },
+        { key: 'country', label: 'COUNTRY:', value: 'Iran (IR)' },
+        { key: 'city', label: 'CITY:', value: 'Tehran' },
+        { key: 'asn', label: 'ASN:', value: 'AS44244' },
+        { key: 'malware_samples', label: 'MALWARE SAMPLES:', value: '15 detected' }
       ]
     },
     {
       id: 'network',
       title: 'Network Infrastructure',
       count: 7,
+      icon: 'Network',
       metrics: [
-        { label: 'ORGANIZATION:', value: 'Iran Telecom PJS' },
-        { label: 'HOSTNAME:', value: 'mx.isp.ir' },
-        { label: 'ASN:', value: 'AS58224' },
-        { label: 'ISP:', value: 'Iran Telecom PJS' },
-        { label: 'NETWORK NAME:', value: 'RIPE-ERX-151' },
-        { label: 'WHOIS STATUS:', value: 'ASSIGNED PA' },
-        { label: 'IP OPERATING SYSTEM:', value: 'Linux 5.10' }
+        { key: 'organization', label: 'ORGANIZATION:', value: 'Iran Telecom PJS' },
+        { key: 'hostname', label: 'HOSTNAME:', value: 'mx.isp.ir' },
+        { key: 'network_asn', label: 'ASN:', value: 'AS58224' },
+        { key: 'isp', label: 'ISP:', value: 'Iran Telecom PJS' },
+        { key: 'network_name', label: 'NETWORK NAME:', value: 'RIPE-ERX-151' },
+        { key: 'registration_status', label: 'REGISTRATION STATUS:', value: 'ASSIGNED PA' },
+        { key: 'ip_os', label: 'IP OPERATING SYSTEM:', value: 'Linux 5.10' }
       ]
     },
     {
       id: 'services',
       title: 'Services & Exposure',
       count: 5,
+      icon: 'Server',
       metrics: [
-        { label: 'OPEN PORTS:', value: '[80, 443, 8080]' },
-        { label: 'SERVICES:', value: 'HTTP, HTTPS, SSH' },
-        { label: 'VULNERABILITIES:', value: '3 CVEs ↗' },
-        { label: 'DISCOVERED DOMAINS:', value: '2 domains ↗' },
-        { label: 'DISCOVERED URLS:', value: '4 URLs ↗' }
-      ]
-    },
-    {
-      id: 'intelligence',
-      title: 'Threat Intelligence',
-      count: 8,
-      metrics: [
-        { label: 'PULSE COUNT:', value: '42 reports' },
-        { label: 'PASSIVE DNS COUNT:', value: '228 resolutions' },
-        { label: 'URL COUNT:', value: '34 URLs' },
-        { label: 'PRIMARY TAG:', value: 'malware-distribution' },
-        { label: 'TAGS:', value: 'vpn, proxy +2' },
-        { label: 'AV COUNTRY:', value: 'Iran (IR)' },
-        { label: 'AV CITY:', value: 'Tehran' },
-        { label: 'AV ASN:', value: 'AS44244' }
-      ]
-    },
-    {
-      id: 'geolocation',
-      title: 'Geolocation (IP-based)',
-      count: 4,
-      metrics: [
-        { label: 'WHOIS COUNTRY:', value: 'NL' },
-        { label: 'SHODAN COUNTRY:', value: 'IR' },
-        { label: 'AV COUNTRY:', value: 'Iran' },
-        { label: 'AV CITY:', value: 'Tehran' }
-      ]
-    },
-    {
-      id: 'freshness',
-      title: 'Data Freshness',
-      count: 3,
-      metrics: [
-        { label: 'SHODAN UPDATED:', value: '2025-02-10 14:32' },
-        { label: 'ALIENVAULT UPDATED:', value: '2025-02-10 10:15' },
-        { label: 'WHOIS UPDATED:', value: '2025-02-08 09:20' }
+        { key: 'open_ports', label: 'OPEN PORTS:', value: '[80, 443, 8080]' },
+        { key: 'services', label: 'SERVICES:', value: 'HTTP, HTTPS, SSH' },
+        { key: 'vulnerabilities', label: 'VULNERABILITIES:', value: '3 CVEs ↗' },
+        { key: 'discovered_domains', label: 'DISCOVERED DOMAINS:', value: '2 domains ↗' },
+        { key: 'discovered_urls', label: 'DISCOVERED URLS:', value: '4 URLs ↗' }
       ]
     }
   ];
 
   // Helper function to get color based on threat level
-  const getThreatLevelColor = (level?: string): string => {
-    // If no threat level specified, return default white color
-    if (!level) {
-      return 'var(--semantic-text-primary)'; // #E5E5E5 - White
+  const getThreatLevelColor = (level?: string, isExpanded?: boolean): string => {
+    // For threat-level sections, always use the threat color regardless of state
+    if (level) {
+      switch (level) {
+        case 'critical':
+          return 'var(--semantic-feedback-error-base)'; // #C55F5F - Red
+        case 'high':
+          return 'var(--color-fill-feedback-warning-500)'; // #A88940 - Orange
+        case 'medium':
+          return 'var(--semantic-brand-base)'; // #E0DD5B - Yellow
+        case 'low':
+          return 'var(--semantic-text-secondary)'; // #838383 - Grey
+        default:
+          return 'var(--semantic-text-primary)'; // #E5E5E5 - White
+      }
     }
     
-    switch (level) {
-      case 'critical':
-        return 'var(--color-fill-feedback-error-500)'; // #9E4B4B - Red
-      case 'high':
-        return 'var(--color-fill-feedback-warning-500)'; // #A88940 - Orange
-      case 'medium':
-        return 'var(--semantic-brand-base)'; // #E0DD5B - Yellow
-      case 'low':
-        return 'var(--semantic-text-secondary)'; // #838383 - Grey
-      default:
-        return 'var(--semantic-text-primary)'; // #E5E5E5 - White
-    }
+    // For non-threat sections, use tab-style active/inactive colors
+    return isExpanded 
+      ? 'var(--semantic-text-primary)'        // Active - white
+      : 'var(--semantic-text-secondary-ii)';  // Inactive - brighter grey
   };
 
   const EnrichmentContent = () => {
     const [expanded, setExpanded] = React.useState<Set<string>>(new Set(['threat']));
+
+    // Enrichment flags for conditional visibility
+    const enrichmentFlags = {
+      threat_score: true,
+      honeypot: true,
+      honeypot_probability: true,
+      pulse_count: true,
+      passive_dns_count: true,
+      url_count: true,
+      primary_tag: true,
+      tags: true,
+      country: true,
+      city: true,
+      asn: true,
+      malware_samples: true,
+      organization: true,
+      hostname: true,
+      network_asn: true,
+      isp: true,
+      network_name: true,
+      registration_status: true,
+      ip_os: true,
+      open_ports: true,
+      services: true,
+      vulnerabilities: true,
+      discovered_domains: true,
+      discovered_urls: true,
+    } as const;
+
+    // Metric type definition
+    type Metric = { key?: string; label: string; value?: string; error?: boolean; critical?: boolean };
+
+    // Render metric row with conditional visibility
+    const renderMetricRow = (
+      metric: Metric,
+      idx: number,
+      total: number,
+    ) => {
+      const isLast = idx === total - 1;
+      const key = metric.key;
+      const isAvailable = key ? enrichmentFlags[key as keyof typeof enrichmentFlags] : true;
+
+      const displayValue = isAvailable && metric.value ? metric.value : 'N/A';
+      const isEmpty = !isAvailable || !metric.value;
+
+      return (
+        <div
+          key={idx}
+          className={`arkem-modal__metric-row${isEmpty ? ' arkem-modal__metric-row--empty' : ''}`}
+          style={{
+            display: 'flex',
+            height: '42px',
+            background: 'var(--semantic-background-raised)',
+            borderBottom: !isLast
+              ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)'
+              : 'none',
+          }}
+        >
+          {/* label cell */}
+          <div
+            style={{
+              width: '180px',
+              padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+              display: 'flex',
+              alignItems: 'center',
+              fontSize: 'var(--fonts-semantic-xs)',
+              color: 'var(--semantic-text-secondary)',
+              textTransform: 'uppercase',
+            }}
+          >
+            {metric.label}
+          </div>
+          {/* value cell */}
+          <div
+            style={{
+              flex: 1,
+              padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              fontSize: 'var(--fonts-semantic-xs)',
+              color: isEmpty
+                ? 'var(--semantic-text-muted)'
+                : metric.critical
+                  ? 'var(--semantic-feedback-error-base)'
+                  : 'var(--semantic-text-primary)',
+              fontWeight: metric.critical && !isEmpty
+                ? 'var(--font-weight-semibold)'
+                : 'var(--font-weight-regular)',
+              textAlign: 'right',
+            }}
+          >
+            {displayValue}
+          </div>
+        </div>
+      );
+    };
 
     const toggle = (id: string) => {
       setExpanded(prev => {
@@ -781,7 +945,8 @@ const populateEnrichmentData = (pane: Element) => {
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
         {/* Sticky Header */}
         <div className="arkem-modal__pane-header">
-          <span className="arkem-modal__pane-header-text">Enrichment Data</span>
+          <Network className="arkem-modal__pane-header-icon" size={16} />
+          <span className="arkem-modal__pane-header-text">Device Infrastructure</span>
         </div>
 
         {/* Sections */}
@@ -807,6 +972,7 @@ const populateEnrichmentData = (pane: Element) => {
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     height: '44px',
+                    boxSizing: 'border-box',
                     padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-4-16px)',
                     background: isExpanded 
                       ? 'var(--semantic-background-raised)' 
@@ -817,88 +983,89 @@ const populateEnrichmentData = (pane: Element) => {
                     transition: 'background var(--transition-fast)'
                   }}
                 >
-                  {/* Left side: Title and count */}
+                  {/* Left side: Icon (if present), Title and count */}
                   <div style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: 'var(--spacing-8)',
                     flex: 1
                   }}>
+                    {(section as any).icon && (
+                      <>
+                        {(section as any).icon === 'AlertTriangle' ? (
+                          <AlertTriangle 
+                            size={16} 
+                            style={{ 
+                              color: getThreatLevelColor((section as any).threatLevel, isExpanded),
+                              flexShrink: 0
+                            }} 
+                          />
+                        ) : (section as any).icon === 'ShieldAlert' ? (
+                          <ShieldAlert 
+                            size={16} 
+                            style={{ 
+                              color: getThreatLevelColor((section as any).threatLevel, isExpanded),
+                              flexShrink: 0
+                            }} 
+                          />
+                        ) : (section as any).icon === 'Network' ? (
+                          <Network 
+                            size={16} 
+                            style={{ 
+                              color: getThreatLevelColor((section as any).threatLevel, isExpanded),
+                              flexShrink: 0
+                            }} 
+                          />
+                        ) : (section as any).icon === 'Server' ? (
+                          <Server 
+                            size={16} 
+                            style={{ 
+                              color: getThreatLevelColor((section as any).threatLevel, isExpanded),
+                              flexShrink: 0
+                            }} 
+                          />
+                        ) : null}
+                      </>
+                    )}
                     <span style={{
-                      fontSize: 'var(--fonts-semantic-sm)',
-                      color: getThreatLevelColor(section.threatLevel),
-                      fontWeight: section.threatLevel ? 'var(--font-weight-medium)' : 'var(--font-weight-regular)'
+                      fontSize: 'var(--fonts-semantic-xs)',
+                      color: getThreatLevelColor((section as any).threatLevel, isExpanded),
+                      fontWeight: isExpanded 
+                        ? 'var(--font-weight-medium)' 
+                        : 'var(--font-weight-regular)',
+                      transition: 'font-weight var(--transition-fast), color var(--transition-fast)'
                     }}>
                       {section.title}
                     </span>
                     <span style={{
                       fontSize: 'var(--fonts-semantic-xs)',
-                      color: 'var(--semantic-text-secondary)'
+                      color: 'var(--semantic-text-muted)'
                     }}>
                       • {section.count} metrics
                     </span>
                   </div>
                   
                   {/* Right side: Expand/collapse arrow */}
-                  <span style={{
-                    fontSize: 'var(--fonts-semantic-sm)',
-                    color: isExpanded 
-                      ? 'var(--semantic-text-primary)' 
-                      : isHovered 
-                        ? 'var(--semantic-text-hover)' 
-                        : 'var(--semantic-text-secondary)',
-                    marginLeft: 'var(--spacing-8)',
-                    transition: 'color var(--transition-fast)'
-                  }}>
-                    {isExpanded ? '▼' : '▶'}
-                  </span>
+                  <ChevronRight
+                    className={`arkem-modal__chevron-icon ${isExpanded ? 'arkem-modal__chevron-icon--expanded' : ''}`}
+                    size={16}
+                    style={{
+                      color: isExpanded 
+                        ? 'var(--semantic-text-primary)' 
+                        : isHovered 
+                          ? 'var(--semantic-text-hover)' 
+                          : 'var(--semantic-text-secondary-ii)',
+                      marginLeft: 'var(--spacing-8)'
+                    }}
+                  />
                 </div>
 
                 {/* Metrics (when expanded) */}
                 {isExpanded && (
                   <div>
-                    {section.metrics.map((metric, idx) => (
-                      <div
-                        key={idx}
-                        style={{
-                          display: 'flex',
-                          height: '42px',
-                          background: 'var(--semantic-background-raised)',
-                          borderBottom: idx < section.metrics.length - 1
-                            ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)'
-                            : 'none'
-                        }}
-                      >
-                        <div style={{
-                          width: '180px',
-                          padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          fontSize: 'var(--fonts-semantic-xs)',
-                          color: 'var(--semantic-text-secondary)',
-                          textTransform: 'uppercase'
-                        }}>
-                          {metric.label}
-                        </div>
-                        <div style={{
-                          flex: 1,
-                          padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'flex-end',
-                          fontSize: 'var(--fonts-semantic-xs)',
-                          color: (metric as any).critical
-                            ? 'var(--semantic-feedback-error-base)'
-                            : 'var(--semantic-text-primary)',
-                          fontWeight: (metric as any).critical
-                            ? 'var(--font-weight-semibold)'
-                            : 'var(--font-weight-regular)',
-                          textAlign: 'right'
-                        }}>
-                          {metric.value}
-                        </div>
-                      </div>
-                    ))}
+                    {section.metrics.map((metric, idx) => 
+                      renderMetricRow(metric as Metric, idx, section.metrics.length)
+                    )}
                   </div>
                 )}
               </div>
@@ -1008,12 +1175,12 @@ export const DeviceDetails: Story = {
     title: "Device Details",
     showA: true,  // Device Information (top left)
     showB: true,  // Device Timeline (bottom left)
-    showC: true,  // Enrichment Data (right)
+    showC: true,  // Device Infrastructure (right)
   },
   parameters: {
     docs: {
       description: {
-        story: `Device details modal demonstrating the enrichment metrics display pattern. The left column contains Device Information (top) and Device Timeline (bottom), while the right column displays comprehensive threat intelligence and network infrastructure data from WHOIS, Shodan, and AlienVault organized into collapsible sections with proper tokenization.`,
+        story: `Device details modal demonstrating the enrichment metrics display pattern. The left column contains Device Information (top) and Device Timeline (bottom), while the right column displays comprehensive threat intelligence and network infrastructure data organized into collapsible sections with proper tokenization.`,
       },
     },
   },
@@ -1024,13 +1191,19 @@ export const DeviceDetails: Story = {
       React.useEffect(() => {
         if (isOpen) {
           const timer = setTimeout(() => {
+            // Override left-panes grid to allow first pane to wrap content
+            const leftPanes = document.querySelector('.arkem-modal__left-panes') as HTMLElement;
+            if (leftPanes) {
+              leftPanes.style.gridTemplateRows = 'auto 1fr';
+            }
+            
             const panes = document.querySelectorAll('.arkem-modal__pane');
             if (panes.length === 3) {
               // Pane A: Device Information
               const paneA = panes[0];
               // Pane B: Device Timeline
               const paneB = panes[1];
-              // Pane C: Enrichment Data
+              // Pane C: Device Infrastructure
               const paneC = panes[2];
 
               // Populate each pane with content
@@ -1050,31 +1223,87 @@ export const DeviceDetails: Story = {
               {...args}
               isOpen={isOpen}
               onClose={onClose}
-              rightSlot={
-                <>
-                  <Button
-                    size="md"
-                    hierarchy="secondary"
-                    tone="black"
-                    function="action"
-                    trailingIconName="MapPin"
-                    showText={false}
-                    iconTrailing={true}
-                    iconLeading={false}
-                    ariaLabel="Locate on map"
-                  />
-                  <Button
-                    size="md"
-                    hierarchy="secondary"
-                    tone="black"
-                    function="action"
-                    trailingIconName="Navigation"
-                    showText={false}
-                    iconTrailing={true}
-                    iconLeading={false}
-                    ariaLabel="View connections"
-                  />
-                </>
+              header={
+                <header className="arkem-header arkem-header--secondary">
+                  <span className="arkem-header__leading-icon">
+                    <Smartphone size={24} />
+                  </span>
+                  <div style={{ flex: 1, display: 'flex', alignItems: 'center' }}>
+                    <span className="arkem-header__label" style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-12)' }}>
+                      Device Details
+                      <Badge 
+                        variant="secondary"
+                        style={{ 
+                          fontSize: 'var(--fonts-semantic-xs)',
+                          paddingTop: 'var(--spacing-style-spacing-4px-1-4px)',
+                          paddingBottom: 'var(--spacing-style-spacing-4px-1-4px)',
+                          paddingLeft: 'var(--spacing-12)',
+                          paddingRight: 'var(--spacing-12)'
+                        }}
+                      >
+                        0251E342-6E4D-4207-A1AD-DD0C3D9BF553
+                      </Badge>
+                    </span>
+                  </div>
+                  <div className="arkem-header__slot">
+                    <Button
+                      size="md"
+                      hierarchy="secondary"
+                      tone="black"
+                      function="action"
+                      trailingIconName="Network"
+                      showText={false}
+                      iconTrailing={true}
+                      iconLeading={false}
+                      ariaLabel="Network actions"
+                      className="device-details-action-btn"
+                    />
+                    <Button
+                      size="md"
+                      hierarchy="secondary"
+                      tone="black"
+                      function="action"
+                      trailingIconName="LocateFixed"
+                      showText={false}
+                      iconTrailing={true}
+                      iconLeading={false}
+                      ariaLabel="View connections"
+                      className="device-details-action-btn"
+                    />
+                    <Button
+                      size="md"
+                      hierarchy="secondary"
+                      tone="black"
+                      function="action"
+                      trailingIconName="Brain"
+                      showText={false}
+                      iconTrailing={true}
+                      iconLeading={false}
+                      ariaLabel="AI Assistant"
+                      className="device-details-action-btn"
+                    />
+                    <Button
+                      size="md"
+                      hierarchy="secondary"
+                      tone="black"
+                      function="close"
+                      iconTrailing={true}
+                      trailingIconName="X"
+                      showText={false}
+                      iconLeading={false}
+                      ariaLabel="Close"
+                      onClick={onClose}
+                    />
+                  </div>
+                </header>
+              }
+              footer={
+                <div style={{ display: 'flex', gap: 'var(--spacing-16)' }}>
+                  <div className="arkem-modal__footer-item">
+                    <span className="arkem-modal__footer-label">IP UPDATED:</span>
+                    <span className="arkem-modal__footer-value">2025-02-10 14:32</span>
+                  </div>
+                </div>
               }
             />
           )}

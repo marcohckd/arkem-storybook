@@ -9,6 +9,8 @@ export type HeaderProps = {
   hierarchy?: "primary" | "secondary";
   /** Header label text */
   label: string;
+  /** Optional leading icon for header */
+  leadingIcon?: React.ReactNode;
   /** Content to display in the right slot */
   rightSlot?: React.ReactNode;
   /** Number of feature buttons to display */
@@ -22,6 +24,7 @@ export type HeaderProps = {
 export const Header: React.FC<HeaderProps> = ({
   hierarchy = "primary",
   label,
+  leadingIcon,
   rightSlot,
   featureCount = 0,
   functionCount = 0,
@@ -37,6 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className={`arkem-header arkem-header--${hierarchy}`}>
+      {leadingIcon && <span className="arkem-header__leading-icon">{leadingIcon}</span>}
       <span className="arkem-header__label">{label}</span>
       <div className="arkem-header__slot">
         {rightSlot}

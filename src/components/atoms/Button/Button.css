@@ -514,7 +514,7 @@
   color: var(--semantic-brand-base);
 }
 
-/* Action function: More subtle - no border, muted icon color, subtle hover background */
+/* Action function: More subtle - no border, brand icon color, subtle hover background */
 .arkem-btn[data-function="action"] {
   border: none;
   background: transparent;
@@ -522,12 +522,12 @@
 }
 
 .arkem-btn[data-function="action"] .arkem-btn__icon svg {
-  color: var(--semantic-text-subtle);
+  color: var(--semantic-brand-base);
 }
 
 .arkem-btn[data-function="action"]:hover,
 .arkem-btn[data-function="action"][data-forced-state="hover"] {
-  background: var(--semantic-background-action-hover);
+  background: var(--semantic-background-raised);
   color: var(--semantic-text-secondary);
   border: none;
 }
@@ -536,7 +536,7 @@
 .arkem-btn[data-function="action"][data-forced-state="hover"]
   .arkem-btn__icon
   svg {
-  color: var(--semantic-text-secondary);
+  color: var(--semantic-brand-base);
 }
 
 .arkem-btn[data-function="action"]:focus-visible,
@@ -554,7 +554,7 @@
 .arkem-btn[data-function="action"][data-forced-state="focused"]
   .arkem-btn__icon
   svg {
-  color: var(--semantic-text-secondary);
+  color: var(--semantic-brand-base);
 }
 
 .arkem-btn[data-function="action"]:disabled,

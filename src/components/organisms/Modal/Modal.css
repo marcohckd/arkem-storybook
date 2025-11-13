@@ -110,6 +110,8 @@
   overflow-y: auto;
   overflow-x: hidden;
   min-height: 0;
+  margin: 0; /* ensure no margin */
+  padding: 0; /* ensure no padding on wrapper itself */
   
   /* Scrollbar styling - same as Scrollbar component (vertical only) */
   /* Firefox scrollbar styling */
@@ -125,7 +127,7 @@
 
 .arkem-modal__pane-content::-webkit-scrollbar-track {
   background: var(--semantic-background-base);
-  border-radius: var(--radius-sm);
+  border-radius: 0; /* removes rounded corners - scrollbar touches header */
 }
 
 .arkem-modal__pane-content::-webkit-scrollbar-thumb {
@@ -150,10 +152,31 @@
   height: 44px;
   display: flex;
   align-items: center;
+  gap: var(--spacing-8); /* space between icon and text */
   padding: var(--spacing-8) var(--spacing-style-spacing-4px-4-16px);
   background: var(--semantic-background-base);
   border-bottom: var(--border-width-thin, 1px) solid var(--semantic-border-muted);
   box-sizing: border-box;
+}
+
+/* Pane header icon */
+.arkem-modal__pane-header-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--semantic-text-secondary);
+}
+
+/* Chevron icons for expand/collapse */
+.arkem-modal__chevron-icon {
+  width: 16px;
+  height: 16px;
+  color: inherit;
+  transition: transform var(--transition-fast);
+}
+
+.arkem-modal__chevron-icon--expanded {
+  transform: rotate(90deg);
 }
 
 /* Header text styling */
@@ -278,13 +301,20 @@
 
 .arkem-modal__footer-label {
   font-size: var(--fonts-semantic-xs);
-  color: var(--semantic-text-secondary);
+  color: var(--color-fill-neutral-50);
   text-transform: uppercase;
 }
 
 .arkem-modal__footer-value {
   font-size: var(--fonts-semantic-xs);
-  color: var(--semantic-text-primary);
+  color: var(--color-fill-neutral-100);
+}
+
+/* === EMPTY/N/A METRIC ROWS === */
+.arkem-modal__metric-row--empty .arkem-modal__footer-value,
+.arkem-modal__metric-row--empty div:last-child {
+  color: var(--semantic-text-muted);
+  font-style: italic;
 }
 
 /* === RESPONSIVE === */
