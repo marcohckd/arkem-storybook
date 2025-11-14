@@ -36,59 +36,64 @@ const meta: Meta<typeof Modal> = {
     backgrounds: { default: "arkem-base" },
     docs: {
       description: {
-        component: `> **Device Details Modal Template — A comprehensive multi-pane modal for displaying device information, timeline, and enrichment data**
+        component: `**Device Details Modal** — 2+1 layout: Left (Device Info tabs + Timeline) | Right (Infrastructure sections)
 
----
+## Quick Reference
 
-## Overview
+**Layout:** \`<Modal format="2+1" showA={true} showB={true} showC={true} />\`
 
-The Device Details modal is a complex template that demonstrates how to use the Modal component with a 2+1 layout format to display comprehensive device information. It showcases:
+**Key Tokens:**
+- Backgrounds: \`--semantic-background-base\` (\`#080808\`), \`--semantic-background-raised\` (\`#121212\`)
+- Text: \`--semantic-text-primary\` (\`#e5e5e5\`), \`--semantic-text-secondary\` (\`#838383\`), \`--semantic-text-muted\` (\`#6b6b6b\`)
+- Typography: \`--fonts-semantic-xs\` (\`12px\`), \`--fonts-semantic-sm\` (\`14px\`)
+- Spacing: \`--spacing-8\` (\`8px\`), \`--spacing-12\` (\`12px\`), \`--spacing-16\` (\`16px\`)
+- Dimensions: Modal \`1000px × 700px\`, Row height \`42px\`, Tab height \`44px\`, Label widths: Info \`100px\`, Enrich \`180px\`
 
-- **Device Information** (top left pane): Tabbed interface with Identity, Specs, Geolocation, and Observations
-- **Device Timeline** (bottom left pane): Chronological list of device observations
-- **Device Infrastructure** (right pane): Collapsible sections for Threat Assessment, Threat Intelligence, Network Infrastructure, and Services & Exposure
+## Conditional Visibility
 
-This template demonstrates proper tokenization, conditional visibility handling, and complex content organization patterns.
+\\\`\\\`\\\`typescript
+type Metric = { key?: string; label: string; value?: string; critical?: boolean };
+const enrichmentFlags = { geo_country: true, threat_score: true, /* ... */ } as const;
 
----
+const renderMetricRow = (metric: Metric, idx: number, total: number) => {
+  const isAvailable = metric.key ? enrichmentFlags[metric.key] : true;
+  const displayValue = isAvailable && metric.value ? metric.value : 'N/A';
+  const isEmpty = !isAvailable || !metric.value;
+  return (
+    <div className={\`arkem-modal__metric-row\${isEmpty ? ' arkem-modal__metric-row--empty' : ''}\`}
+      style={{ height: '42px', background: 'var(--semantic-background-raised)',
+        borderBottom: idx < total - 1 ? 'var(--border-widths-mode-1-border-width-hairline) solid var(--semantic-border-muted)' : 'none' }}>
+      <div style={{ width: '100px', padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+        fontSize: 'var(--fonts-semantic-xs)', color: 'var(--semantic-text-secondary)', textTransform: 'uppercase' }}>
+        {metric.label}
+      </div>
+      <div style={{ flex: 1, padding: 'var(--spacing-style-spacing-4px-3-12px) var(--spacing-style-spacing-4px-4-16px)',
+        fontSize: 'var(--fonts-semantic-xs)', color: isEmpty ? 'var(--semantic-text-muted)' : metric.critical ? 'var(--semantic-feedback-error-base)' : 'var(--semantic-text-primary)',
+        fontWeight: metric.critical && !isEmpty ? 'var(--font-weight-semibold)' : 'var(--font-weight-regular)', textAlign: 'right' }}>
+        {displayValue}
+      </div>
+    </div>
+  );
+};
+\\\`\\\`\\\`
 
-## Features
+**Rules:** Metrics with \`key\` use flags; without \`key\` always show. Empty → "N/A" (\`#6b6b6b\`). Critical → error color (\`#C55F5F\`) + semibold.
 
-- Multi-pane layout (2+1 format)
-- Tabbed content navigation
-- Collapsible enrichment sections
-- Conditional visibility for enrichment data
-- Custom header with action buttons
-- Footer with metadata
-- Proper tokenization throughout
+## Panes
 
----
+**Pane 1 (Device Info):** Tabs: Identity, Specs, Geolocation, Observations. Label width \`100px\`. Use AV data only.
 
-## Usage
+**Pane 2 (Timeline):** Entries \`{ date, location, id, coords }\`. Height \`56px\`, bg \`var(--color-fill-neutral-800)\`.
 
-\`\`\`tsx
-import { Modal } from "../../organisms/Modal/Modal";
+**Pane 3 (Infrastructure):** Sections: Threat Assessment, Threat Intelligence, Network Infrastructure, Services & Exposure. Label width \`180px\`. Default expanded: \`'threat'\`.
 
-<Modal
-  title="Device Details"
-  format="2+1"
-  isOpen={isOpen}
-  onClose={onClose}
-  showA={true}
-  showB={true}
-  showC={true}
-/>
-\`\`\`
+**Header:** Badge + action buttons. **Footer:** "IP UPDATED:" timestamp (\`YYYY-MM-DD HH:mm\`).
 
----
+## Checklist
 
-## Token Usage
+Enrichment flags | renderMetricRow | Device Info tabs | Timeline | Infrastructure sections | Remove source prefixes | AV-only geolocation | Footer timestamp | Test N/A | Verify tokens
 
-All styling uses semantic design tokens:
-- Colors: \`var(--semantic-background-base)\`, \`var(--semantic-text-primary)\`, etc.
-- Spacing: \`var(--spacing-8)\`, \`var(--spacing-12)\`, etc.
-- Typography: \`var(--fonts-semantic-xs)\`, \`var(--fonts-semantic-sm)\`, etc.
-- Borders: \`var(--semantic-border-muted)\`, \`var(--border-width-thin)\`, etc.`,
+**Reference:** See story implementation for complete example.`,
       },
     },
   },
@@ -727,7 +732,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: `Device details modal demonstrating the enrichment metrics display pattern. The left column contains Device Information (top) and Device Timeline (bottom), while the right column displays comprehensive threat intelligence and network infrastructure data organized into collapsible sections with proper tokenization.`,
+        story: `Device details modal demonstrating the enrichment metrics display pattern. The left column contains Device Information (top) and Device Timeline (bottom), while the right column displays comprehensive threat intelligence and network infrastructure data organized into collapsible sections with proper tokenization. All styling uses semantic design tokens as documented in the component documentation above.`,
       },
     },
   },
@@ -861,4 +866,3 @@ export const Default: Story = {
     return <DeviceDetailsModal />;
   },
 };
-
