@@ -57,7 +57,7 @@
 .arkem-list__item {
   height: 56px;
   padding: var(--spacing-8) var(--spacing-style-spacing-4px-1-5-6px);
-  background: var(--color-fill-neutral-800);
+  background: var(--semantic-background-raised);
   border-bottom: var(--border-width-thin) solid var(--semantic-border-muted);
   display: flex;
   flex-direction: column;

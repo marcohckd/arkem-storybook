@@ -342,7 +342,7 @@ const populateDeviceTimeline = (pane: Element) => {
             style={{
               height: '56px',
               padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-1-5-6px)',
-              background: 'var(--semantic-background-muted)',
+              background: 'var(--semantic-background-raised)',
               borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)',
               display: 'flex',
               flexDirection: 'column',
