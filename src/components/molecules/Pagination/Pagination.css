@@ -1,0 +1,15 @@
+/* === PAGINATION === */
+.arkem-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-16);
+  padding: var(--spacing-12);
+  margin-top: var(--spacing-16);
+}
+
+.arkem-pagination__info {
+  font-size: var(--fonts-semantic-sm);
+  color: var(--semantic-text-secondary);
+}
+
