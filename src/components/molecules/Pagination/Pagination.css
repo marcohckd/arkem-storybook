@@ -6,6 +6,7 @@
   gap: var(--spacing-16);
   padding: var(--spacing-12);
   margin-top: var(--spacing-16);
+  background: var(--semantic-background-raised);
 }
 
 .arkem-pagination__info {
