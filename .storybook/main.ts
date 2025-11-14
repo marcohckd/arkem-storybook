@@ -148,6 +148,8 @@ const config: StorybookConfig & { autodocs?: string } = {
     
     // Faster HMR with optimized settings
     config.server = config.server || {};
+    // Explicitly set port to 6006
+    config.server.port = 6006;
     config.server.hmr = {
       ...(typeof config.server.hmr === 'object' && config.server.hmr ? config.server.hmr : {}),
       overlay: false, // Disable error overlay for faster HMR

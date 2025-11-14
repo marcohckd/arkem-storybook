@@ -9,6 +9,10 @@ export interface TableCellProps {
   stickyOffset?: number;
   /** Whether sticky positioning is on the right side */
   stickyRight?: boolean;
+  /** Number of columns this cell spans */
+  colSpan?: number;
+  /** Number of rows this cell spans */
+  rowSpan?: number;
   /** Additional CSS class name */
   className?: string;
   /** Inline styles */
@@ -20,6 +24,8 @@ export const TableCell: React.FC<TableCellProps> = ({
   sticky = false,
   stickyOffset,
   stickyRight = false,
+  colSpan,
+  rowSpan,
   className,
   style,
 }) => {
@@ -43,7 +49,12 @@ export const TableCell: React.FC<TableCellProps> = ({
     : {};
 
   return (
-    <td className={classes} style={{ ...stickyStyle, ...style }}>
+    <td
+      className={classes}
+      style={{ ...stickyStyle, ...style }}
+      colSpan={colSpan}
+      rowSpan={rowSpan}
+    >
       {children}
     </td>
   );

@@ -21,18 +21,22 @@ const meta: Meta<typeof Input> = {
 **Input is a pure atom component** - it handles only the input element itself. For labels, error messages, and help text, use the **FormField molecule** component which composes Input + Label + error handling.
 
 \`\`\`tsx
-// ✅ Recommended: Use FormField for labels
+// ✅ Recommended: Use FormField for labels, error messages, and character count
 <FormField
   label="Username"
   placeholder="Enter username"
   value={value}
   onChange={(e) => setValue(e.target.value)}
+  showCharacterCount
+  maxLength={20}
 />
 
-// ⚠️ Deprecated: Input with label prop (kept for backward compatibility)
+// ✅ Pure atom: Use Input directly for simple inputs without labels
 <Input
-  label="Username"  // Use FormField instead
   placeholder="Enter username"
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  ariaLabel="Username"
 />
 \`\`\`
 
@@ -43,7 +47,7 @@ const meta: Meta<typeof Input> = {
 - **Colors**: Uses semantic color tokens matching Button styling
 - **Icons**: Support for leading and trailing icons
 - **States**: Default, error, success, disabled
-- **Labels & Character Count**: Use FormField molecule for labels and character count (Input's label prop is deprecated)
+- **Labels & Character Count**: Use FormField molecule for labels, error messages, and character count. Input is a pure atom component.
 - **Multiline**: Textarea support for longer text input
 - **Accessible**: Full ARIA support and keyboard navigation
 
@@ -173,10 +177,6 @@ Use the **Playground** to customize all input properties, or view the **States**
       control: "text",
       description: "ARIA label for accessibility",
     },
-    label: {
-      control: "text",
-      description: "Label text above input",
-    },
     state: {
       control: "radio",
       options: ["default", "error", "success"],
@@ -184,7 +184,7 @@ Use the **Playground** to customize all input properties, or view the **States**
     },
     maxLength: {
       control: "number",
-      description: "Maximum character length (shows character count)",
+      description: "Maximum character length (native HTML validation)",
     },
     multiline: {
       control: "boolean",
@@ -418,27 +418,16 @@ export const FullWidth: Story = {
   },
 };
 
-export const WithLabelAndCharacterCount: Story = {
-  tags: ['!dev'],
-  render: () => {
-    const [value, setValue] = useState("");
-    return (
-      <div style={{ width: "300px" }}>
-        <Input
-          label="Username"
-          placeholder="Enter username"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          maxLength={20}
-          iconLeading={<User />}
-        />
-      </div>
-    );
-  },
-};
 
 export const InputStates: Story = {
   tags: ['!dev'],
+  parameters: {
+    docs: {
+      description: {
+        story: "Input states (default, error, success). For labels and error messages, use the FormField molecule component.",
+      },
+    },
+  },
   render: () => {
     const [defaultValue, setDefaultValue] = useState("Arsindesigners");
     const [errorValue, setErrorValue] = useState("Invalid username");
@@ -446,43 +435,63 @@ export const InputStates: Story = {
     const [emptyValue, setEmptyValue] = useState("");
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-style-spacing-4px-5-20px)", width: "300px" }}>
-        <Input
-          label="Username"
-          placeholder="Enter username"
-          value={defaultValue}
-          onChange={(e) => setDefaultValue(e.target.value)}
-          maxLength={20}
-          iconLeading={<User />}
-          state="default"
-        />
-        <Input
-          label="Username"
-          placeholder="Enter username"
-          value={emptyValue}
-          onChange={(e) => setEmptyValue(e.target.value)}
-          maxLength={20}
-          iconLeading={<User />}
-          state="default"
-        />
-        <Input
-          label="Username"
-          placeholder="Enter username"
-          value={errorValue}
-          onChange={(e) => setErrorValue(e.target.value)}
-          maxLength={20}
-          iconLeading={<User />}
-          state="error"
-        />
-        <Input
-          label="Username"
-          placeholder="Enter username"
-          value={successValue}
-          onChange={(e) => setSuccessValue(e.target.value)}
-          maxLength={20}
-          iconLeading={<User />}
-          iconTrailing={<Check />}
-          state="success"
-        />
+        <div>
+          <label style={{ display: "block", marginBottom: "var(--spacing-8)", fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-secondary)" }}>
+            Default
+          </label>
+          <Input
+            placeholder="Enter username"
+            value={defaultValue}
+            onChange={(e) => setDefaultValue(e.target.value)}
+            maxLength={20}
+            iconLeading={<User />}
+            state="default"
+            ariaLabel="Username"
+          />
+        </div>
+        <div>
+          <label style={{ display: "block", marginBottom: "var(--spacing-8)", fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-secondary)" }}>
+            Empty
+          </label>
+          <Input
+            placeholder="Enter username"
+            value={emptyValue}
+            onChange={(e) => setEmptyValue(e.target.value)}
+            maxLength={20}
+            iconLeading={<User />}
+            state="default"
+            ariaLabel="Username"
+          />
+        </div>
+        <div>
+          <label style={{ display: "block", marginBottom: "var(--spacing-8)", fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-secondary)" }}>
+            Error
+          </label>
+          <Input
+            placeholder="Enter username"
+            value={errorValue}
+            onChange={(e) => setErrorValue(e.target.value)}
+            maxLength={20}
+            iconLeading={<User />}
+            state="error"
+            ariaLabel="Username"
+          />
+        </div>
+        <div>
+          <label style={{ display: "block", marginBottom: "var(--spacing-8)", fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-secondary)" }}>
+            Success
+          </label>
+          <Input
+            placeholder="Enter username"
+            value={successValue}
+            onChange={(e) => setSuccessValue(e.target.value)}
+            maxLength={20}
+            iconLeading={<User />}
+            iconTrailing={<Check />}
+            state="success"
+            ariaLabel="Username"
+          />
+        </div>
       </div>
     );
   },
@@ -490,17 +499,24 @@ export const InputStates: Story = {
 
 export const MultilineTextarea: Story = {
   tags: ['!dev'],
+  parameters: {
+    docs: {
+      description: {
+        story: "Multiline textarea input. For labels and character count, use the FormField molecule component.",
+      },
+    },
+  },
   render: () => {
     const [value, setValue] = useState("Sample text typed here. Sample text typed here. Sample text typed here. Sample text typed here. Sample text typed here.");
     return (
       <div style={{ width: "300px" }}>
         <Input
-          label="Description"
           placeholder="Enter description..."
           value={value}
           onChange={(e) => setValue(e.target.value)}
           multiline
           rows={6}
+          ariaLabel="Description"
         />
       </div>
     );

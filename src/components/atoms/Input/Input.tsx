@@ -15,11 +15,6 @@ export type InputProps = {
   maxLength?: number;
   multiline?: boolean;
   rows?: number;
-  /**
-   * @deprecated Use FormField molecule instead. This prop is kept for backward compatibility only.
-   * Input is a pure atom component - use FormField for labels, error messages, and help text.
-   */
-  label?: string;
 } & Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "size"> &
   Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange" | "size">;
 
@@ -33,47 +28,26 @@ export const Input: React.FC<InputProps> = ({
   ariaLabel,
   iconLeading,
   iconTrailing,
-  label,
   state = "default",
   maxLength,
   multiline = false,
   rows = 4,
   ...rest
 }) => {
-  // Backward compatibility: support label prop but prefer FormField molecule
-  // Note: Input is a pure atom - FormField should be used for labels
-  const currentLength = value?.toString().length || 0;
-  const showCharacterCount = maxLength !== undefined;
-  const hasLabelOrCount = label || showCharacterCount;
-
-  const wrapperClasses = [
-    hasLabelOrCount ? "arkem-input-field" : "",
-    state !== "default" && hasLabelOrCount && `arkem-input-field--${state}`,
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   const inputClasses = [
     "arkem-input",
     `arkem-input--${size}`,
     state !== "default" && `arkem-input--${state}`,
     disabled && "arkem-input--disabled",
     multiline && "arkem-input--multiline",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  const labelClasses = [
-    "arkem-input__label",
-    state !== "default" && `arkem-input__label--${state}`,
+    className,
   ]
     .filter(Boolean)
     .join(" ");
 
   const InputComponent = multiline ? "textarea" : "input";
 
-  const inputElement = (
+  return (
     <div
       className="arkem-input-wrapper"
       data-has-leading={iconLeading ? "true" : "false"}
@@ -92,7 +66,7 @@ export const Input: React.FC<InputProps> = ({
         value,
         onChange,
         disabled,
-        "aria-label": ariaLabel || label,
+        "aria-label": ariaLabel,
         maxLength,
         rows: multiline ? rows : undefined,
         ...rest,
@@ -104,33 +78,5 @@ export const Input: React.FC<InputProps> = ({
       )}
     </div>
   );
-
-  // Backward compatibility: wrap with label/count if provided
-  if (hasLabelOrCount) {
-    return (
-      <div className={wrapperClasses}>
-        <div className="arkem-input__header">
-          {label && (
-            <label className={labelClasses} htmlFor={rest.id}>
-              {label}
-            </label>
-          )}
-          {showCharacterCount && (
-            <span
-              className={`arkem-input__count ${
-                state !== "default" ? `arkem-input__count--${state}` : ""
-              }`}
-            >
-              {currentLength}/{maxLength}
-            </span>
-          )}
-        </div>
-        {inputElement}
-      </div>
-    );
-  }
-
-  // Pure atom: return just the input element
-  return inputElement;
 };
 

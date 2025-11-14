@@ -3,7 +3,7 @@ import { DataTable, type DataTableColumn } from "./DataTable";
 import { Badge } from "../../atoms/Badge";
 
 const meta: Meta<typeof DataTable> = {
-  title: "Organisms/Table",
+  title: "Templates/DataTable",
   component: DataTable,
   parameters: {
     layout: "fullscreen",
@@ -160,3 +160,4 @@ export const EmptyState: Story = {
     </div>
   ),
 };
+

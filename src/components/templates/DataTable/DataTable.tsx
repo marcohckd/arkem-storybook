@@ -7,7 +7,7 @@ import {
   TableRow,
   TableHead,
   TableCell,
-} from ".";
+} from "../../organisms/Table";
 import { Checkbox } from "../../atoms/Checkbox";
 import "./DataTable.css";
 

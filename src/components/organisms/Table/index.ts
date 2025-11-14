@@ -10,10 +10,4 @@ export { TableHead } from "./TableHead";
 export type { TableHeadProps } from "./TableHead";
 export { TableCell } from "./TableCell";
 export type { TableCellProps } from "./TableCell";
-export { DataTable } from "./DataTable";
-export type {
-  DataTableProps,
-  DataTableColumn,
-  DataTableBatchAction,
-} from "./DataTable";
 
