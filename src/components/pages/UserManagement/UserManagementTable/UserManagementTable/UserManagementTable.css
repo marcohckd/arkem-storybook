@@ -3,8 +3,47 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  padding: var(--spacing-style-spacing-4px-6-24px);
+  padding: var(--spacing-16);
   overflow: hidden;
+}
+
+/* === HEADER WRAPPER === */
+.arkem-user-table__header-wrapper {
+  position: relative;
+  margin-left: calc(-1 * var(--spacing-16));
+  margin-right: calc(-1 * var(--spacing-16));
+  margin-top: calc(-1 * var(--spacing-16));
+  margin-bottom: var(--spacing-16);
+  width: calc(100% + 2 * var(--spacing-16));
+}
+
+.arkem-user-table__back-button {
+  position: absolute;
+  left: var(--spacing-16);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Add left padding to header label when back button is present */
+.arkem-user-table__header-wrapper:has(.arkem-user-table__back-button) .arkem-header__label {
+  padding-left: calc(40px + var(--spacing-8));
+}
+
+.arkem-user-table__header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.arkem-user-table__header-search {
+  min-width: 240px;
+}
+
+.arkem-user-table__header-filter {
+  min-width: 140px;
 }
 
 /* === BATCH ACTIONS TOOLBAR === */
@@ -134,11 +173,39 @@
   gap: var(--spacing-12);
 }
 
+/* === ROLE CELL === */
+.arkem-user-table__role-cell {
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.arkem-user-table__role-cell > * {
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
 /* === EMPTY STATE === */
 .arkem-user-table__empty {
   text-align: center;
   padding: var(--spacing-style-spacing-4px-12-48px) 0;
   color: var(--semantic-text-muted);
   font-size: var(--fonts-semantic-md);
+}
+
+/* === PAGINATION === */
+.arkem-user-table__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-16);
+  padding: var(--spacing-12);
+  margin-top: var(--spacing-16);
+}
+
+.arkem-user-table__pagination-info {
+  font-size: var(--fonts-semantic-sm);
+  color: var(--semantic-text-secondary);
 }
 

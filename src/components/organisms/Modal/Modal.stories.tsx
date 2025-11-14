@@ -1080,7 +1080,7 @@ const populateEnrichmentData = (pane: Element) => {
 };
 
 export const Single: Story = {
-  tags: ['!dev'],
+  tags: ["autodocs"],
   args: {
     format: "single",
   },
@@ -1098,7 +1098,7 @@ export const Single: Story = {
 };
 
 export const Format1Plus1Vertical: Story = {
-  tags: ['!dev'],
+  tags: ["autodocs"],
   args: {
     format: "1+1-vertical",
   },
@@ -1116,7 +1116,7 @@ export const Format1Plus1Vertical: Story = {
 };
 
 export const Format1Plus1Horizontal: Story = {
-  tags: ['!dev'],
+  tags: ["autodocs"],
   args: {
     format: "1+1-horizontal",
   },
@@ -1134,7 +1134,7 @@ export const Format1Plus1Horizontal: Story = {
 };
 
 export const Format2Plus1: Story = {
-  tags: ['!dev'],
+  tags: ["autodocs"],
   args: {
     format: "2+1",
   },
@@ -1152,7 +1152,7 @@ export const Format2Plus1: Story = {
 };
 
 export const Format1Plus2: Story = {
-  tags: ['!dev'],
+  tags: ["autodocs"],
   args: {
     format: "1+2",
   },
@@ -1170,6 +1170,7 @@ export const Format1Plus2: Story = {
 };
 
 export const DeviceDetails: Story = {
+  tags: ["autodocs"],
   args: {
     format: "2+1",
     title: "Device Details",
@@ -1316,7 +1317,7 @@ export const DeviceDetails: Story = {
 };
 
 export const Default: Story = {
-  tags: ['!dev'],
+  tags: ["autodocs"],
   render: (args) => (
     <ModalWrapper>
       {({ isOpen, onClose }) => (
@@ -1332,7 +1333,7 @@ export const Default: Story = {
 
 
 export const WithSubHeader: Story = {
-  tags: ['!dev'],
+  tags: ["autodocs"],
   render: (args) => (
     <ModalWrapper>
       {({ isOpen, onClose }) => (
@@ -1352,7 +1353,7 @@ export const WithSubHeader: Story = {
 };
 
 export const WithRightSlot: Story = {
-  tags: ['!dev'],
+  tags: ["autodocs"],
   render: (args) => (
     <ModalWrapper>
       {({ isOpen, onClose }) => (
@@ -1380,7 +1381,7 @@ export const WithRightSlot: Story = {
 };
 
 export const Responsive: Story = {
-  tags: ['!dev'],
+  tags: ["autodocs"],
   parameters: {
     layout: "fullscreen",
   },
@@ -1420,7 +1421,7 @@ export const Playground: Story = {
 };
 
 export const PaneVisibilityToggle: Story = {
-  tags: ['!dev'],
+  tags: ["autodocs"],
   args: {
     format: "1+1-horizontal",
     title: "Pane Visibility Toggle Demo",
@@ -1439,7 +1440,7 @@ export const PaneVisibilityToggle: Story = {
 };
 
 export const LongContent: Story = {
-  tags: ['!dev'],
+  tags: ["autodocs"],
   parameters: {
     docs: {
       description: {

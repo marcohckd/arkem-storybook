@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
 
 import { Button } from "../../atoms/Button/Button";
-import { UserManagementTable, User } from "../../pages/UserManagementTable/UserManagementTable";
+import { UserManagementTable, User } from "../../pages/UserManagement/UserManagementTable/UserManagementTable";
 
 import { Drawer } from "./Drawer";
 
