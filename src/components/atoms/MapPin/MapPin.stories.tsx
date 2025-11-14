@@ -838,7 +838,7 @@ export const MapContext: Story = {
           style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(135deg, #0a0a0a 0%, #121212 50%, #0d0d0d 100%)",
+            background: "linear-gradient(135deg, var(--semantic-background-base) 0%, var(--semantic-background-raised) 50%, var(--semantic-background-base) 100%)",
             opacity: 0.8,
           }}
         />
@@ -847,7 +847,7 @@ export const MapContext: Story = {
             position: "relative",
             width: "800px",
             height: "600px",
-            background: "var(--color-fill-neutral-900)",
+            background: "var(--semantic-background-base)",
             border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
             borderRadius: "var(--radius-md)",
             display: "flex",
@@ -1091,7 +1091,7 @@ export const MultiLayerVisualization: Story = {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: "var(--color-fill-neutral-900)",
+            background: "var(--semantic-background-base)",
           }}
         >
           {/* Grid pattern */}
@@ -1469,7 +1469,7 @@ export const IntelligenceWorkflow: Story = {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            background: "var(--color-fill-neutral-900)",
+            background: "var(--semantic-background-base)",
           }}
         >
           {/* Grid pattern */}

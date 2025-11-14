@@ -101,10 +101,10 @@ export const WithValue: Story = {
 export const States: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-16)", width: "300px" }}>
-      <Textarea placeholder="Default state" rows={3} />
-      <Textarea placeholder="Error state" state="error" rows={3} />
-      <Textarea placeholder="Success state" state="success" rows={3} />
-      <Textarea placeholder="Disabled" disabled rows={3} />
+      <Textarea size="md" placeholder="Default state" rows={3} />
+      <Textarea size="md" placeholder="Error state" state="error" rows={3} />
+      <Textarea size="md" placeholder="Success state" state="success" rows={3} />
+      <Textarea size="md" placeholder="Disabled" disabled rows={3} />
     </div>
   ),
 };
@@ -112,9 +112,9 @@ export const States: Story = {
 export const Sizes: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-16)", width: "300px" }}>
-      <Textarea size="sm" placeholder="Small" rows={3} />
-      <Textarea size="md" placeholder="Medium" rows={3} />
-      <Textarea size="lg" placeholder="Large" rows={3} />
+      <Textarea size="sm" placeholder="Small - Compact" rows={3} />
+      <Textarea size="md" placeholder="Medium - Default" rows={3} />
+      <Textarea size="lg" placeholder="Large - Prominent" rows={3} />
     </div>
   ),
 };

@@ -287,9 +287,9 @@ export const InteractiveStates: Story = {
           style={{
             color: "var(--semantic-text-secondary)",
             fontSize: "var(--fonts-semantic-sm)",
-            margin: 0,
+            margin: "var(--spacing-0)",
             paddingLeft: "var(--spacing-20)",
-            lineHeight: "1.6",
+            lineHeight: "var(--fonts-semantic-sm-line-height)",
           }}
         >
           <li>
@@ -400,8 +400,8 @@ export const LongContent: Story = {
                   style={{
                     color: "var(--semantic-text-secondary)",
                     fontSize: "var(--fonts-semantic-sm)",
-                    margin: 0,
-                    lineHeight: "1.6",
+                    margin: "var(--spacing-0)",
+                    lineHeight: "var(--fonts-semantic-sm-line-height)",
                   }}
                 >
                   This is a longer content section to demonstrate vertical scrolling with the custom scrollbar.
@@ -581,8 +581,8 @@ export const AccessibilityExample: Story = {
                   style={{
                     color: "var(--semantic-text-secondary)",
                     fontSize: "var(--fonts-semantic-sm)",
-                    margin: 0,
-                    lineHeight: "1.6",
+                    margin: "var(--spacing-0)",
+                    lineHeight: "var(--fonts-semantic-sm-line-height)",
                   }}
                 >
                   This scrollable region supports keyboard navigation. Use Arrow keys, Page Up/Down, or Home/End to navigate.

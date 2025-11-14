@@ -68,6 +68,59 @@ Hardcoded values in token definition files are **required** and acceptable:
 - Use letter-spacing tokens (e.g., `var(--letter-spacing-tight)`, `var(--letter-spacing-normal)`)
 - Never hardcode letter-spacing values like `0.2%` or `0.5px` directly
 
+### Table Row Backgrounds
+- All table row background colors must use semantic table tokens
+- Use table row tokens for alternating row colors (zebra striping), hover states, and selected states
+- Never hardcode table row background colors directly
+
+**Table Row Background Tokens:**
+- `--semantic-table-row-even`: Background color for even rows (default: `#0d0d0d`)
+- `--semantic-table-row-odd`: Background color for odd rows (default: `#0c0c0c`)
+- `--semantic-table-row-hover`: Background color when row is hovered (applies to both even and odd rows)
+- `--semantic-table-row-selected`: Background color when row is selected (applies to both even and odd rows)
+
+**Usage Pattern:**
+- Use `isEven` prop on `TableRow` component to apply alternating backgrounds
+- Even rows (index % 2 === 0) use `--semantic-table-row-even`
+- Odd rows (index % 2 === 1) use `--semantic-table-row-odd`
+- Hover state overrides both with `--semantic-table-row-hover`
+- Selected state overrides both with `--semantic-table-row-selected`
+
+**✅ Good - Using Table Row Tokens**
+```css
+.arkem-table__row--even {
+  background: var(--semantic-table-row-even);
+}
+
+.arkem-table__row--odd {
+  background: var(--semantic-table-row-odd);
+}
+
+.arkem-table__row:hover {
+  background: var(--semantic-table-row-hover);
+}
+
+.arkem-table__row--selected {
+  background: var(--semantic-table-row-selected);
+}
+```
+
+**❌ Bad - Hardcoded Table Row Colors**
+```css
+/* ❌ Don't hardcode table row colors */
+.arkem-table__row--even {
+  background: #0d0d0d; /* Should use var(--semantic-table-row-even) */
+}
+
+.arkem-table__row--odd {
+  background: #0c0c0c; /* Should use var(--semantic-table-row-odd) */
+}
+
+.arkem-table__row:hover {
+  background: #181818; /* Should use var(--semantic-table-row-hover) */
+}
+```
+
 ## Examples
 
 ### ✅ Good - Using Tokens
@@ -208,6 +261,9 @@ When reviewing code for tokenization:
 - [ ] All z-index values use z-index tokens
 - [ ] All animations/transitions use animation tokens
 - [ ] All letter-spacing uses letter-spacing tokens
+- [ ] All table row backgrounds use table row tokens (`--semantic-table-row-*`)
+- [ ] All components with size props default to `md` in implementation
+- [ ] All story files explicitly use `size="md"` when showing default behavior
 - [ ] Component-specific dimensions are documented
 - [ ] Story files use tokens for layout values
 
@@ -229,6 +285,17 @@ When reviewing code for tokenization:
 ### Letter Spacing Tokens
 - `--letter-spacing-tight`: Tight letter spacing (0.2%) - for table headers, uppercase text
 - `--letter-spacing-normal`: Normal letter spacing (0.5px) - for labels, filters
+
+### Table Row Background Tokens
+- `--semantic-table-row-even`: Background color for even rows (`#0d0d0d`) - Used for zebra striping
+- `--semantic-table-row-odd`: Background color for odd rows (`#0c0c0c`) - Used for zebra striping
+- `--semantic-table-row-hover`: Background color when row is hovered - Overrides even/odd on hover
+- `--semantic-table-row-selected`: Background color when row is selected - Overrides even/odd when selected
+
+**Usage:**
+- Apply `isEven` prop to `TableRow` component to toggle between even/odd backgrounds
+- Hover and selected states automatically override the base background
+- See "Table Row Backgrounds" section for complete tokenization rules
 
 ## Standard Component Patterns
 
@@ -372,6 +439,394 @@ For consistent typography in story files, use these standardized font size token
 - `--fonts-semantic-lg`: 18px - Reserved for component content, not story UI
 - `--fonts-semantic-xl`: 20px - Reserved for component content, not story UI
 
+### Typography in Components
+
+**See also:** Typography.tokens.stories.tsx document for detailed typography scale documentation.
+
+**Key alignment:**
+- Display scale (24px-72px): Used for headings and hero sections only
+- Semantic scale (10px-20px): Used for ALL UI components and interactive elements
+- Component typography MUST use semantic scale, never display scale (except Header Secondary which uses display-xs)
+
+**Component Typography Matrix:**
+
+| Component | Size | Token Used | Actual Size | Line Height |
+|-----------|------|-----------|-------------|-------------|
+| Button sm | sm | semantic-sm | 12px | 16px |
+| Button md | md | semantic-md | 14px | 20px |
+| Button lg | lg | semantic-lg | 16px | 24px |
+| Input sm | sm | semantic-sm | 12px | 16px |
+| Input md | md | semantic-md | 14px | 20px |
+| Input lg | lg | semantic-lg | 16px | 24px |
+| Label | - | semantic-sm | 12px | 16px |
+| Badge | - | semantic-xs | 12px | 16px |
+| Body Text | - | semantic-md | 14px | 20px |
+| Header Primary | - | semantic-sm | 12px | 16px |
+| Header Secondary | - | display-xs | 24px | 32px |
+
+## Component Size Normalization
+
+### Universal Size Scale
+
+All interactive components (Button, Input, Dropdown, SearchBox, Textarea, Link, Spinner) use a standardized 3-size scale:
+
+**Size Scale:**
+- `sm`: 32px height - Compact UI, dense layouts, secondary actions
+- `md`: 40px height - Standard UI, **default size for all components**
+- `lg`: 48px height - Prominent UI, primary actions, hero sections
+
+### Default Size Rule
+
+**CRITICAL: `md` is the default size for all components with size props.**
+
+**Component Implementation:**
+- All components MUST have `size = "md"` as the default value in their TypeScript interface
+- Example: `size?: "sm" | "md" | "lg"` with default `size = "md"`
+
+**Story Files:**
+- When showing default behavior, explicitly use `size="md"` for clarity
+- When comparing sizes, show all three sizes (sm, md, lg) with md labeled as "(Default)"
+- When size is not specified in a story, it should default to `md` (via component default)
+- Exception: Primary buttons may use `size="lg"` in their dedicated stories as that's their intended use case
+
+**✅ Good - Explicit Default Size in Stories**
+```tsx
+// Showing default behavior
+<Button size="md">Default Button</Button>
+<Input size="md" placeholder="Default input" />
+
+// Size comparison
+<div>
+  <Button size="sm">Small</Button>
+  <Button size="md">Medium (Default)</Button>
+  <Button size="lg">Large</Button>
+</div>
+```
+
+**✅ Good - Using Component Default (also acceptable)**
+```tsx
+// Component default is md, so this is fine
+<Button>Default Button</Button>
+<Input placeholder="Default input" />
+```
+
+**❌ Bad - Missing Size When Showing Default**
+```tsx
+// ❌ Unclear - is this showing default or just forgot to specify?
+<Button>Button</Button>
+// Should be: <Button size="md">Button</Button> for clarity
+```
+
+**Typography Scale by Size:**
+- `sm`: `var(--fonts-semantic-sm)` (12px)
+- `md`: `var(--fonts-semantic-md)` (14px)
+- `lg`: `var(--fonts-semantic-lg)` (16px)
+
+**Icon Scale by Size:**
+- `sm`: `var(--icon-size-sm)` (16px)
+- `md`: `var(--icon-size-md)` (20px)
+- `lg`: `var(--icon-size-lg)` (24px)
+
+**Padding Scale by Size:**
+- `sm`: `var(--spacing-8)` horizontal (8px)
+- `md`: `var(--spacing-12)` horizontal (12px)
+- `lg`: `var(--spacing-16)` horizontal (16px)
+
+### Size Token Mapping
+
+Create component-agnostic size tokens for consistency:
+```css
+/* Component Heights */
+--component-height-sm: 32px;
+--component-height-md: 40px;
+--component-height-lg: 48px;
+
+/* Component Typography */
+--component-text-sm: var(--fonts-semantic-sm);
+--component-text-md: var(--fonts-semantic-md);
+--component-text-lg: var(--fonts-semantic-lg);
+
+/* Component Icons */
+--component-icon-sm: var(--icon-size-sm);
+--component-icon-md: var(--icon-size-md);
+--component-icon-lg: var(--icon-size-lg);
+
+/* Component Padding Horizontal */
+--component-padding-h-sm: var(--spacing-8);
+--component-padding-h-md: var(--spacing-12);
+--component-padding-h-lg: var(--spacing-16);
+```
+
+### Atomic Design Component Size Matrix
+
+| Component | sm | md | lg | Notes |
+|-----------|----|----|----|----|
+| Button | 32px | 40px | 48px | All hierarchies follow same heights |
+| Input | 32px | 40px | 48px | Matches button sizes exactly |
+| Dropdown | 32px | 40px | 48px | Matches button/input sizes |
+| SearchBox | 32px | 40px | 48px | Inherits from Input |
+| FormField | 32px | 40px | 48px | Inherits from Input |
+
+### Example Implementation
+
+```tsx
+// ✅ Good - Consistent sizing across components
+<Button size="md">Submit</Button>
+<Input size="md" />
+<Dropdown size="md" />
+
+// All components are 40px height with matching typography and icons
+
+// ❌ Bad - Mixed sizes
+<Button size="lg">Submit</Button>  // 48px
+<Input size="md" />    // 40px
+<Dropdown size="sm" /> // 32px
+
+// Misaligned heights create visual inconsistency
+```
+
+## Border Consistency
+
+### Standard Border Radius
+
+All components use consistent border radius values based on component type:
+
+**Border Radius Tokens:**
+- `--radius-xs`: 4px - Inputs, Textareas, Dropdowns, SearchBox (form elements)
+- `--radius-sm`: 6px - (Reserved for future use)
+- `--radius-md`: 8px - Buttons, Cards, Panels, NavMenu items, Badges
+- `--radius-lg`: 12px - Modals, Drawers (large containers)
+- `--radius-xl`: 16px - (Reserved for future use)
+- `--radius-full`: 999px - Avatars, Pills, Switches
+
+**Component Border Radius Matrix:**
+
+| Component Category | Radius Token | Value | Rationale |
+|-------------------|--------------|-------|-----------|
+| Form Elements (Input, Dropdown, Textarea) | `--radius-xs` | 4px | Subtle, form-focused |
+| Interactive Elements (Button, Badge) | `--radius-md` | 8px | Clear interactivity |
+| Containers (Card, Panel, Modal) | `--radius-md` | 8px | Consistent with buttons |
+| Large Surfaces (Modal, Drawer) | `--radius-lg` | 12px | Softer, prominent |
+| Circular (Avatar, Pills) | `--radius-full` | 999px | Perfect circles |
+
+### Border Width Consistency
+
+**Border Width Tokens:**
+- `--border-width-thin`: 1px - Default borders (cards, panels, form elements)
+- `--border-width-medium`: 2px - Focus rings, emphasized borders
+- `--border-width-thick`: 3px - (Reserved for future use)
+
+**Usage Guidelines:**
+- Form elements: Always use `--border-width-thin` (1px)
+- Focus states: Always use `--border-width-medium` (2px)
+- Never mix border widths within the same component variant
+
+### Border Color Consistency
+
+**Border Color Tokens:**
+- `--semantic-border-subtle`: Default borders (cards, panels, dividers)
+- `--semantic-border-muted`: Very subtle borders (hover states)
+- `--semantic-border-strong`: Emphasized borders (focus, active)
+- `--semantic-border-error`: Error state borders
+- `--semantic-border-success`: Success state borders
+
+**State-Based Border Colors:**
+```css
+/* ✅ Good - Consistent border color usage */
+.component {
+  border: var(--border-width-thin) solid var(--semantic-border-subtle);
+}
+
+.component:hover {
+  border-color: var(--semantic-border-muted);
+}
+
+.component:focus {
+  border-color: var(--semantic-border-strong);
+  border-width: var(--border-width-medium);
+}
+
+.component[data-state="error"] {
+  border-color: var(--semantic-border-error);
+}
+```
+
+### Example: Consistent Form Row
+
+```tsx
+// ✅ Good - All form elements aligned with consistent borders
+<Input 
+  size="md" 
+  style={{ borderRadius: "var(--radius-xs)" }}  // 4px
+/>
+<Dropdown 
+  size="md"
+  style={{ borderRadius: "var(--radius-xs)" }}  // 4px
+/>
+<Button 
+  size="md"
+  style={{ borderRadius: "var(--radius-md)" }}  // 8px
+/>
+
+// Heights: 40px, Typography: 14px, Icons: 20px
+// Form elements: 4px radius, Button: 8px radius
+```
+
+## Typography Hierarchy
+
+### Component Typography Standards
+
+All components follow a strict typography hierarchy based on size and purpose:
+
+**Interactive Component Text (Buttons, Inputs, Dropdowns):**
+- `sm`: `var(--fonts-semantic-sm)` (12px / 16px line-height)
+- `md`: `var(--fonts-semantic-md)` (14px / 20px line-height)
+- `lg`: `var(--fonts-semantic-lg)` (16px / 24px line-height)
+
+**Font Weight Standards:**
+- Labels, Headers: `var(--font-weight-medium)` (500)
+- Body Text: `var(--font-weight-regular)` (400)
+- Emphasis: `var(--font-weight-semibold)` (600)
+- Strong Emphasis: `var(--font-weight-bold)` (700)
+
+**Component-Specific Typography:**
+
+| Component | Size | Typography Token | Font Weight | Notes |
+|-----------|------|-----------------|-------------|-------|
+| Button (all) | sm/md/lg | Matches size | Medium (500) | Consistent across hierarchies |
+| Input | sm/md/lg | Matches size | Regular (400) | User input text |
+| Dropdown | sm/md/lg | Matches size | Regular (400) | Selected value |
+| Label | - | semantic-sm | Medium (500) | Form labels |
+| Badge | - | semantic-xs | Medium (500) | Status indicators |
+| Header Primary | - | semantic-sm | Medium (500) | Compact headers |
+| Header Secondary | - | display-xs | Regular (400) | Prominent headers |
+
+**Typography Alignment Rules:**
+1. All components of the same size use the same typography tokens
+2. Font weight distinguishes interactive elements (medium) from content (regular)
+3. Never use custom font sizes - always use semantic or display tokens
+4. Line heights are automatically applied via tokens
+
+### Example: Typography Consistency
+
+```tsx
+// ✅ Good - Consistent typography across size
+<Label>Name</Label>  // 12px, weight 500
+<Input size="md" />    // 14px, weight 400
+<Button size="md">Submit</Button>  // 14px, weight 500
+
+// ✅ Good - Larger size maintains consistency
+<Label>Name</Label>  // 12px, weight 500 (labels don't scale)
+<Input size="lg" />    // 16px, weight 400
+<Button size="lg">Submit</Button>  // 16px, weight 500
+
+// ❌ Bad - Mixed typography sizes
+<Label>Name</Label>  // 12px
+<Input size="md" />    // Wrong size
+<Button size="md">Submit</Button>  // 12px - size mismatch
+
+```
+
+## Component Composition Guidelines
+
+### Atomic Design Size Matching
+
+When composing components together, **always match sizes** for visual harmony:
+
+**Form Compositions:**
+```tsx
+// ✅ Good - All components match size
+<FormField size="md">
+  <Label>Name</Label>
+  <Input size="md" />
+</FormField>
+<Button size="md">Submit</Button>
+
+// ❌ Bad - Size mismatch
+<FormField size="md">
+  <Label>Name</Label>
+  <Input size="lg" />    // Doesn't match parent
+</FormField>
+<Button size="sm">Submit</Button>  // Doesn't match form
+```
+
+**Search Compositions:**
+```tsx
+// ✅ Good - Search box and button match
+<SearchBox size="md" />
+<Button size="md">Filters</Button>
+
+// ❌ Bad - Size mismatch creates visual imbalance
+<SearchBox size="lg" />    // 48px
+<Button size="md">Filters</Button>  // 40px
+
+```
+
+**Table Action Compositions:**
+```tsx
+// ✅ Good - Action buttons match row height context
+<TableRow>
+  <TableCell>
+    <Button size="sm" hierarchy="action">Edit</Button>
+  </TableCell>
+</TableRow>
+
+// Row height: 48px, Button: 32px (sm) - appropriate for in-cell action
+```
+
+### Molecular Pattern: Form Row
+
+Standard pattern for horizontal form layouts:
+```tsx
+// ✅ Standard Form Row Pattern
+<div style={{ 
+  display: "flex", 
+  gap: "var(--spacing-8)",  // 8px between fields
+  alignItems: "end"  // Align to bottom (for labels)
+}}>
+  <FormField size="md">
+    <Label>First Name</Label>
+    <Input size="md" />
+  </FormField>
+  <FormField size="md">
+    <Label>Last Name</Label>
+    <Input size="md" />
+  </FormField>
+  <Button size="md">Save</Button>
+</div>
+```
+
+### Size Selection Guidelines
+
+**When to use each size:**
+
+- **Small (sm - 32px):**
+  - Dense UIs (tables, compact forms)
+  - Secondary actions in tight spaces
+  - Mobile-optimized interfaces
+  - Table row actions
+  
+- **Medium (md - 40px):**
+  - Default for most UIs
+  - Standard forms and inputs
+  - Dashboard controls
+  - Content management interfaces
+  
+- **Large (lg - 48px):**
+  - Primary landing page actions
+  - Hero sections
+  - Accessibility-focused UIs (larger touch targets)
+  - Marketing/promotional interfaces
+
+### Migration Checklist: Component Composition
+
+- [ ] All components in a composition use matching sizes
+- [ ] Form elements (Input, Dropdown, Button) align to same height
+- [ ] Typography scales consistently with component size
+- [ ] Icons scale consistently with component size
+- [ ] Gap spacing uses spacing tokens
+- [ ] Border radius matches component category (form vs interactive)
+
 ## Avoid Grey Backgrounds
 
 **Never use grey/neutral backgrounds in components** (except buttons which have a grey tone option). Always use semantic background tokens instead of `--color-fill-neutral-*` tokens for component backgrounds.
@@ -413,42 +868,48 @@ This section documents all component variants, sizes, and specifications from th
 
 #### Button
 
+**Universal Size System:**
+All button hierarchies now follow the universal 3-size scale for consistency:
+
+- `sm`: 32px height, `var(--fonts-semantic-sm)` (12px), 16px icons
+- `md`: 40px height, `var(--fonts-semantic-md)` (14px), 20px icons  
+- `lg`: 48px height, `var(--fonts-semantic-lg)` (16px), 24px icons
+
 **Hierarchies:**
-- **Primary**: Large buttons (lg, 48px height) for primary actions
-  - Typography: `var(--fonts-display-sm)` (14px) with `var(--font-weight-medium)` (500)
-  - Sizes: `lg` only
+
+- **Primary**: Large, prominent actions
+  - **UPDATED**: Now supports all sizes (sm, md, lg) instead of lg only
+  - Typography: Size-appropriate (sm: 12px, md: 14px, lg: 16px) with `var(--font-weight-medium)` (500)
   - Tones: `grey`, `black`, `color` (brand)
   - States: `default`, `hover`, `focused`, `disabled`
   
-- **Secondary**: Medium buttons (sm: 32px, md: 40px height) for secondary actions
-  - Typography: `var(--fonts-semantic-sm)` (12px) or `var(--fonts-semantic-md)` (16px) with `var(--font-weight-medium)` (500)
-  - Sizes: `sm`, `md`
+- **Secondary**: Standard actions
+  - **UPDATED**: Now supports all sizes (sm, md, lg) instead of sm/md only
+  - Typography: Size-appropriate (sm: 12px, md: 14px, lg: 16px) with `var(--font-weight-medium)` (500)
   - Tones: `grey`, `black`, `color` (brand)
   - States: `default`, `hover`, `focused`, `disabled`
   
-- **Mode**: Specialized buttons for interface mode selection
-  - Typography: Varies by size (sm: 12px, md: 16px, lg: 16px) with `var(--font-weight-medium)` (500)
+- **Mode**: Interface mode selection
+  - Typography: Size-appropriate (sm: 12px, md: 14px, lg: 16px) with `var(--font-weight-medium)` (500)
   - Sizes: `sm`, `md`, `lg`
   - Tones: `black` only (enforced)
   - States: `default`, `hover`, `focused`, `disabled`
+
+**Rationale:** Removing size restrictions per hierarchy allows for flexible composition while maintaining consistent sizing across all interactive components.
 
 **Action Buttons (Icon-only):**
 - **Function variants**: `feature`, `action`, `table-action`, `borderless`, `close`
 - **Sizes**: `sm` (32px), `md` (40px), `lg` (48px)
 - **Icon sizes**: 16px (sm), 20px (md), 24px (lg)
-- **Group spacing**: 2px gap between grouped buttons
+- **Group spacing**: `var(--spacing-style-spacing-4px-0-5-2px)` (2px) gap between grouped buttons
 - **Close button**: Always uses "X" icon
-
-**Component-Specific Dimensions:**
-- Button heights: `32px` (sm), `40px` (md), `48px` (lg)
-- Icon sizes: `16px` (sm), `20px` (md), `24px` (lg)
 
 #### Input
 
 **Sizes:**
 - `sm`: 32px height, `var(--fonts-semantic-sm)` (12px)
-- `md`: 40px height, `var(--fonts-semantic-md)` (16px)
-- `lg`: 48px height, `var(--fonts-semantic-lg)` (18px)
+- `md`: 40px height, `var(--fonts-semantic-md)` (14px)
+- `lg`: 48px height, `var(--fonts-semantic-lg)` (16px)
 
 **States:**
 - `default`, `error`, `success`, `disabled`
@@ -595,8 +1056,8 @@ This section documents all component variants, sizes, and specifications from th
 
 **Sizes:**
 - `sm`: 32px height, `var(--fonts-semantic-sm)` (12px)
-- `md`: 40px height, `var(--fonts-semantic-md)` (16px)
-- `lg`: 48px height, `var(--fonts-semantic-lg)` (18px)
+- `md`: 40px height, `var(--fonts-semantic-md)` (14px)
+- `lg`: 48px height, `var(--fonts-semantic-lg)` (16px)
 
 **States:**
 - `default`, `hover`, `focused`, `disabled`, `open`
@@ -741,10 +1202,15 @@ This section documents all component variants, sizes, and specifications from th
 - Column widths: Various (68px, 120px, 280px, 48px) - component-specific
 
 **Row States:**
-- `isEven`: Even row background (`var(--semantic-background-muted)`)
-- `isOdd`: Odd row background (`var(--semantic-background-base)`)
-- `isSelected`: Selected row background (`var(--semantic-background-interactive)`)
-- `hover`: Hover state
+- `isEven`: Even row background (`var(--semantic-table-row-even)`) - Default: `#0d0d0d`
+- `isOdd`: Odd row background (`var(--semantic-table-row-odd)`) - Default: `#0c0c0c`
+- `isSelected`: Selected row background (`var(--semantic-table-row-selected)`) - Overrides even/odd
+- `hover`: Hover state (`var(--semantic-table-row-hover)`) - Overrides even/odd
+
+**Table Row Background Tokenization:**
+- Always use `--semantic-table-row-*` tokens for row backgrounds
+- Never use generic background tokens (`--semantic-background-*`) for table rows
+- See "Table Row Backgrounds" section in tokenization guidelines for complete rules
 
 **Features:**
 - Sticky column support with `sticky` and `stickyOffset` props
@@ -1173,6 +1639,3 @@ If you're unsure whether a value should be tokenized:
 1. Check if it appears in multiple components
 2. Check if it represents a design system concept
 3. When in doubt, tokenize it - it's easier to remove a token than to add one later
-
-
-

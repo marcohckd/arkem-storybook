@@ -342,7 +342,7 @@ const populateDeviceTimeline = (pane: Element) => {
             style={{
               height: '56px',
               padding: 'var(--spacing-8) var(--spacing-style-spacing-4px-1-5-6px)',
-              background: 'var(--color-fill-neutral-800)',
+              background: 'var(--semantic-background-muted)',
               borderBottom: 'var(--border-width-thin) solid var(--semantic-border-muted)',
               display: 'flex',
               flexDirection: 'column',
@@ -454,7 +454,7 @@ const populateEnrichmentData = (pane: Element) => {
         case 'critical':
           return 'var(--semantic-feedback-error-base)'; // #C55F5F - Red
         case 'high':
-          return 'var(--color-fill-feedback-warning-500)'; // #A88940 - Orange
+          return 'var(--semantic-feedback-warning-base)'; // #A88940 - Orange
         case 'medium':
           return 'var(--semantic-brand-base)'; // #E0DD5B - Yellow
         case 'low':

@@ -217,7 +217,7 @@ export const Sizes: Story = {
           ]}
           value={smValue}
           onChange={setSmValue}
-          placeholder="Small (32px)"
+          placeholder="Small (32px) - Compact"
         />
         <Dropdown
           size="md"
@@ -227,7 +227,7 @@ export const Sizes: Story = {
           ]}
           value={mdValue}
           onChange={setMdValue}
-          placeholder="Medium (40px)"
+          placeholder="Medium (40px) - Default"
         />
         <Dropdown
           size="lg"
@@ -237,7 +237,7 @@ export const Sizes: Story = {
           ]}
           value={lgValue}
           onChange={setLgValue}
-          placeholder="Large (48px)"
+          placeholder="Large (48px) - Prominent"
         />
       </div>
     );
@@ -251,6 +251,7 @@ export const WithManyOptions: Story = {
     return (
       <div style={{ width: "300px" }}>
         <Dropdown
+          size="md"
           options={[
             { value: "1", label: "First Option" },
             { value: "2", label: "Second Option" },
@@ -279,6 +280,7 @@ export const WithDisabledOptions: Story = {
     return (
       <div style={{ width: "300px" }}>
         <Dropdown
+          size="md"
           options={[
             { value: "active", label: "Active" },
             { value: "pending", label: "Pending", disabled: true },
@@ -307,6 +309,7 @@ export const States: Story = {
             Default (no selection)
           </label>
           <Dropdown
+            size="md"
             options={[
               { value: "option1", label: "Option 1" },
               { value: "option2", label: "Option 2" },
@@ -321,6 +324,7 @@ export const States: Story = {
             With Selection
           </label>
           <Dropdown
+            size="md"
             options={[
               { value: "option1", label: "Option 1" },
               { value: "option2", label: "Option 2" },
@@ -336,6 +340,7 @@ export const States: Story = {
             Disabled
           </label>
           <Dropdown
+            size="md"
             options={[
               { value: "option1", label: "Option 1" },
               { value: "option2", label: "Option 2" },
@@ -412,7 +417,7 @@ export const AllVariations: Story = {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-24)", maxWidth: "400px" }}>
         <div>
-          <h3 style={{ marginBottom: "var(--spacing-12)", fontSize: "var(--fonts-semantic-sm)", fontWeight: 500, color: "var(--semantic-text-primary)" }}>
+          <h3 style={{ marginBottom: "var(--spacing-12)", fontSize: "var(--fonts-semantic-sm)", fontWeight: "var(--font-weight-medium)", color: "var(--semantic-text-primary)" }}>
             Small (32px)
           </h3>
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
@@ -439,7 +444,7 @@ export const AllVariations: Story = {
           </div>
         </div>
         <div>
-          <h3 style={{ marginBottom: "var(--spacing-12)", fontSize: "var(--fonts-semantic-sm)", fontWeight: 500, color: "var(--semantic-text-primary)" }}>
+          <h3 style={{ marginBottom: "var(--spacing-12)", fontSize: "var(--fonts-semantic-sm)", fontWeight: "var(--font-weight-medium)", color: "var(--semantic-text-primary)" }}>
             Medium (40px)
           </h3>
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
@@ -466,7 +471,7 @@ export const AllVariations: Story = {
           </div>
         </div>
         <div>
-          <h3 style={{ marginBottom: "var(--spacing-12)", fontSize: "var(--fonts-semantic-sm)", fontWeight: 500, color: "var(--semantic-text-primary)" }}>
+          <h3 style={{ marginBottom: "var(--spacing-12)", fontSize: "var(--fonts-semantic-sm)", fontWeight: "var(--font-weight-medium)", color: "var(--semantic-text-primary)" }}>
             Large (48px)
           </h3>
           <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
@@ -539,7 +544,7 @@ export const EmptyState: Story = {
               style={{
                 fontSize: "var(--fonts-semantic-sm)",
                 color: "var(--semantic-text-secondary)",
-                margin: 0,
+                margin: "var(--spacing-0)",
                 textAlign: "center",
               }}
             >

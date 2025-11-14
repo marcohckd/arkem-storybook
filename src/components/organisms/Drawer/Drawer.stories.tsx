@@ -151,7 +151,7 @@ export const Default: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
     return (
-      <div style={{ padding: "var(--spacing-12, 12px)" }}>
+      <div style={{ padding: "var(--spacing-12)" }}>
         <Button
           onClick={() => setOpen(!open)}
           size="md"
@@ -178,7 +178,7 @@ export const WithUserData: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
     return (
-      <div style={{ padding: "var(--spacing-12, 12px)" }}>
+      <div style={{ padding: "var(--spacing-12)" }}>
         <Button
           onClick={() => setOpen(!open)}
           size="md"
@@ -220,11 +220,11 @@ export const SlideEffect: Story = {
   render: () => {
     const [open, setOpen] = useState(false);
     return (
-      <div style={{ padding: "var(--spacing-12, 12px)" }}>
+      <div style={{ padding: "var(--spacing-12)" }}>
         <div
           style={{
-            marginBottom: "var(--spacing-16, 16px)",
-            padding: "var(--spacing-16, 16px)",
+            marginBottom: "var(--spacing-16)",
+            padding: "var(--spacing-16)",
             background: "var(--semantic-background-muted)",
             border: "1px solid var(--semantic-border-subtle)",
             borderRadius: "var(--radius-md)",
@@ -235,7 +235,7 @@ export const SlideEffect: Story = {
               fontSize: "var(--fonts-semantic-lg)",
               fontWeight: "var(--font-weight-medium)",
               color: "var(--semantic-text-primary)",
-              marginBottom: "var(--spacing-8, 8px)",
+              marginBottom: "var(--spacing-8)",
             }}
           >
             Smooth Slide Animation
@@ -244,7 +244,7 @@ export const SlideEffect: Story = {
             style={{
               fontSize: "var(--fonts-semantic-sm)",
               color: "var(--semantic-text-secondary)",
-              marginBottom: "var(--spacing-12, 12px)",
+              marginBottom: "var(--spacing-12)",
             }}
           >
             Click the button below to see the drawer slide in from the right with a smooth animation.
@@ -278,8 +278,8 @@ export const TabNavigation: Story = {
     const [open, setOpen] = useState(true);
     const [activeTab, setActiveTab] = useState("modules");
     return (
-      <div style={{ padding: "var(--spacing-12, 12px)" }}>
-        <div style={{ marginBottom: "var(--spacing-12, 12px)", display: "flex", gap: "var(--spacing-8, 8px)" }}>
+      <div style={{ padding: "var(--spacing-12)" }}>
+        <div style={{ marginBottom: "var(--spacing-12)", display: "flex", gap: "var(--spacing-8)" }}>
           <Button
             onClick={() => {
               setOpen(true);
@@ -344,7 +344,7 @@ export const SaveCallback: Story = {
     const [open, setOpen] = useState(false);
     const [lastSave, setLastSave] = useState<any>(null);
     return (
-      <div style={{ padding: "var(--spacing-12, 12px)" }}>
+      <div style={{ padding: "var(--spacing-12)" }}>
         <Button
           onClick={() => setOpen(true)}
           size="md"
@@ -356,14 +356,14 @@ export const SaveCallback: Story = {
         {lastSave && (
           <div
             style={{
-              marginTop: "var(--spacing-12, 12px)",
-              padding: "var(--spacing-12, 12px)",
+              marginTop: "var(--spacing-12)",
+              padding: "var(--spacing-12)",
               background: "var(--semantic-background-muted)",
               border: "1px solid var(--semantic-border-subtle)",
               borderRadius: "var(--radius-md)",
             }}
           >
-            <h3 style={{ color: "var(--semantic-text-primary)", marginBottom: "var(--spacing-8, 8px)" }}>
+            <h3 style={{ color: "var(--semantic-text-primary)", marginBottom: "var(--spacing-8)" }}>
               Last Save Payload:
             </h3>
             <pre
@@ -429,7 +429,7 @@ export const IntegratedWithTable: Story = {
     ];
 
     return (
-      <div style={{ padding: "var(--spacing-12, 12px)" }}>
+      <div style={{ padding: "var(--spacing-12)" }}>
         <UserManagementTable
           users={mockUsers}
           modules={mockModules}
@@ -463,7 +463,7 @@ export const EmptyState: Story = {
   render: () => {
     const [open, setOpen] = useState(true);
     return (
-      <div style={{ padding: "var(--spacing-12, 12px)" }}>
+      <div style={{ padding: "var(--spacing-12)" }}>
           <Button
           onClick={() => setOpen(true)}
             size="md"

@@ -297,13 +297,13 @@ export const ExpandedVsCollapsed: Story = {
   render: () => (
     <div style={{ display: "flex", gap: "var(--spacing-style-spacing-4px-8-32px)" }}>
       <div style={{ width: "256px" }}>
-        <h3 style={{ color: "var(--color-text-primary)", fontSize: "var(--fonts-semantic-sm)", marginBottom: "var(--spacing-16)", fontWeight: 600 }}>
+        <h3 style={{ color: "var(--semantic-text-primary)", fontSize: "var(--fonts-semantic-sm)", marginBottom: "var(--spacing-16)", fontWeight: "var(--font-weight-semibold)" }}>
           Expanded
         </h3>
         <NavMenu items={defaultItems} collapsed={false} />
       </div>
       <div style={{ width: "64px" }}>
-        <h3 style={{ color: "var(--color-text-primary)", fontSize: "var(--fonts-semantic-sm)", marginBottom: "var(--spacing-16)", fontWeight: 600 }}>
+        <h3 style={{ color: "var(--semantic-text-primary)", fontSize: "var(--fonts-semantic-sm)", marginBottom: "var(--spacing-16)", fontWeight: "var(--font-weight-semibold)" }}>
           Collapsed
         </h3>
         <NavMenu items={defaultItems} collapsed={true} />

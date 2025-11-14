@@ -716,8 +716,8 @@ export const LongContent: Story = {
                     style={{
                       fontSize: "var(--fonts-semantic-sm)",
                       color: "var(--semantic-text-secondary)",
-                      margin: 0,
-                      lineHeight: "1.6",
+                      margin: "var(--spacing-0)",
+                      lineHeight: "var(--fonts-semantic-sm-line-height)",
                     }}
                   >
                     This is section {i + 1} of a long content modal. The modal body scrolls independently while the header remains fixed at the top. This ensures that the close button and title are always accessible, even when scrolling through extensive content.

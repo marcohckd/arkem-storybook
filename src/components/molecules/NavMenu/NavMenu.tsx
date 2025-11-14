@@ -40,12 +40,12 @@ export const NavMenu: React.FC<NavMenuProps> = ({
                 display: "flex",
                 alignItems: "center",
                 justifyContent: collapsed ? "center" : "flex-start",
-                gap: collapsed ? "0" : "var(--spacing-12)",
+                gap: collapsed ? "var(--spacing-0)" : "var(--spacing-12)",
                 padding: "var(--spacing-8) var(--spacing-12)",
                 borderRadius: "var(--radius-md)",
                 border: "none",
                 backgroundColor: "var(--semantic-background-muted)",
-                color: "var(--color-text-primary)",
+                color: "var(--semantic-text-primary)",
                 cursor: "pointer",
                 transition: "background-color var(--transition-base)",
               }}
@@ -90,9 +90,9 @@ export const NavMenu: React.FC<NavMenuProps> = ({
                   ) : (
                     <span
                       style={{
-                        color: "var(--color-text-primary)",
+                        color: "var(--semantic-text-primary)",
                         fontSize: "var(--fonts-semantic-sm)",
-                        fontWeight: 500,
+                        fontWeight: "var(--font-weight-medium)",
                       }}
                     >
                       {item.label
@@ -110,7 +110,7 @@ export const NavMenu: React.FC<NavMenuProps> = ({
                       right: "-2px",
                       width: "12px",
                       height: "12px",
-                      backgroundColor: "#10b981",
+                      backgroundColor: "var(--semantic-feedback-success-base)",
                       borderRadius: "50%",
                       border: "2px solid var(--semantic-border-subtle)",
                     }}
@@ -123,8 +123,8 @@ export const NavMenu: React.FC<NavMenuProps> = ({
                     <div
                       style={{
                         fontSize: "var(--fonts-semantic-sm)",
-                        fontWeight: 600,
-                        color: "var(--color-text-primary)",
+                        fontWeight: "var(--font-weight-semibold)",
+                        color: "var(--semantic-text-primary)",
                       }}
                     >
                       {item.label}
@@ -133,7 +133,7 @@ export const NavMenu: React.FC<NavMenuProps> = ({
                       <div
                         style={{
                           fontSize: "var(--fonts-semantic-xs)",
-                          color: "var(--color-text-secondary)",
+                          color: "var(--semantic-text-secondary)",
                         }}
                       >
                         {item.email}
@@ -170,21 +170,21 @@ export const NavMenu: React.FC<NavMenuProps> = ({
                 ? "var(--semantic-background-muted)"
                 : "transparent",
               color: item.isActive
-                ? "var(--color-text-primary)"
-                : "var(--color-text-secondary)",
+                ? "var(--semantic-text-primary)"
+                : "var(--semantic-text-secondary)",
               cursor: "pointer",
               transition: "all var(--transition-base)",
             }}
             onMouseEnter={(e) => {
               if (!item.isActive) {
                 e.currentTarget.style.backgroundColor = "var(--semantic-background-interactive)";
-                e.currentTarget.style.color = "var(--color-text-primary)";
+                e.currentTarget.style.color = "var(--semantic-text-primary)";
               }
             }}
             onMouseLeave={(e) => {
               if (!item.isActive) {
                 e.currentTarget.style.backgroundColor = "transparent";
-                e.currentTarget.style.color = "var(--color-text-secondary)";
+                e.currentTarget.style.color = "var(--semantic-text-secondary)";
               }
             }}
           >

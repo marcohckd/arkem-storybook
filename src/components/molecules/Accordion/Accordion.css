@@ -37,6 +37,11 @@
   background: var(--semantic-background-raised);
 }
 
+.arkem-accordion__header[data-expanded="true"]:hover,
+.arkem-accordion__header[data-expanded="true"][data-hovered="true"] {
+  background: var(--semantic-background-raised);
+}
+
 .arkem-accordion__header:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px var(--semantic-focus-ring);
@@ -108,17 +113,16 @@
   transition: transform var(--transition-fast), color var(--transition-fast);
   margin-left: var(--spacing-8);
   flex-shrink: 0;
-}
-
-.arkem-accordion__header[data-expanded="true"] .arkem-accordion__chevron {
-  transform: rotate(90deg);
+  transform-origin: center;
 }
 
 .arkem-accordion__header[data-hovered="true"] .arkem-accordion__chevron {
   color: var(--semantic-text-hover);
 }
 
-.arkem-accordion__header[data-expanded="true"] .arkem-accordion__chevron {
+.arkem-accordion__header[data-expanded="true"] .arkem-accordion__chevron,
+.arkem-accordion__chevron--expanded {
+  transform: rotate(270deg);
   color: var(--semantic-text-primary);
 }
 

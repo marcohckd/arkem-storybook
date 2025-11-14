@@ -26,7 +26,7 @@ const meta: Meta<typeof UserManagementTable> = {
   ],
   parameters: {
     layout: "fullscreen",
-    padding: 0,
+    padding: "var(--spacing-0)",
     backgrounds: { default: "arkem-base" },
     docs: {
       description: {

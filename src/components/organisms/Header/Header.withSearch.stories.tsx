@@ -1,11 +1,10 @@
 // src/components/Header/Header.withSearch.stories.tsx
 
 import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Search, Filter } from "lucide-react";
 
 import { Header } from "./Header";
-import { Input } from "../../atoms/Input/Input";
 import { Dropdown } from "../../molecules/Dropdown/Dropdown";
 
 const meta: Meta<typeof Header> = {
@@ -48,7 +47,7 @@ Perfect for:
   label="Users"
   rightSlot={
     <>
-      <Input
+      <NativeInput
         size="md"
         placeholder="Search users..."
         iconLeading={<Search />}
@@ -165,6 +164,130 @@ Tokens follow a three-tier hierarchy:
 export default meta;
 type Story = StoryObj<typeof Header>;
 
+// Input styles using ARKEM tokens
+const getInputStyles = (size: "sm" | "md" | "lg"): React.CSSProperties => {
+  const baseStyles: React.CSSProperties = {
+    width: "100%",
+    boxSizing: "border-box",
+    fontFamily: "var(--font-family-base)",
+    color: "var(--semantic-text-primary)",
+    background: "var(--semantic-background-base)",
+    border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
+    borderRadius: "var(--radius-md)",
+    outline: "none",
+    transition: "border-color var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base), font-weight var(--transition-base)",
+  };
+
+  if (size === "sm") {
+    return {
+      ...baseStyles,
+      height: "32px",
+      fontSize: "var(--fonts-semantic-sm)",
+      lineHeight: "var(--fonts-semantic-sm-line-height)",
+      padding: "var(--spacing-style-spacing-4px-1-5-6px)",
+      paddingLeft: "calc(var(--spacing-style-spacing-4px-1-5-6px) + 16px + var(--spacing-8))",
+    };
+  } else if (size === "md") {
+    return {
+      ...baseStyles,
+      height: "40px",
+      fontSize: "var(--fonts-semantic-md)",
+      lineHeight: "var(--fonts-semantic-md-line-height)",
+      padding: "var(--spacing-8)",
+      paddingLeft: "calc(var(--spacing-8) + 20px + var(--spacing-8))",
+    };
+  } else {
+    return {
+      ...baseStyles,
+      height: "48px",
+      fontSize: "var(--fonts-semantic-lg)",
+      lineHeight: "var(--fonts-semantic-lg-line-height)",
+      padding: "var(--spacing-style-spacing-4px-3-12px)",
+      paddingLeft: "calc(var(--spacing-style-spacing-4px-3-12px) + 24px + var(--spacing-8))",
+    };
+  }
+};
+
+const inputFocusStyles: React.CSSProperties = {
+  borderColor: "var(--semantic-brand-base)",
+  boxShadow: "0 0 0 3px var(--semantic-focus-ring)",
+  background: "var(--semantic-background-muted)",
+  fontWeight: "var(--font-weight-medium)",
+};
+
+const resetInputStyles = (element: HTMLInputElement, size: "sm" | "md" | "lg") => {
+  const baseStyles = getInputStyles(size);
+  element.style.borderColor = "var(--semantic-border-subtle)";
+  element.style.boxShadow = "";
+  element.style.background = baseStyles.background as string;
+  element.style.fontWeight = "";
+};
+
+// Native input component with icon support
+const NativeInput = ({
+  size = "md",
+  placeholder,
+  value,
+  onChange,
+  iconLeading,
+  ariaLabel,
+}: {
+  size?: "sm" | "md" | "lg";
+  placeholder?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  iconLeading?: React.ReactNode;
+  ariaLabel?: string;
+}) => {
+  const iconSize = size === "sm" ? 16 : size === "md" ? 20 : 24;
+  const iconLeft = size === "sm" ? "var(--spacing-style-spacing-4px-1-5-6px)" : size === "md" ? "var(--spacing-8)" : "var(--spacing-style-spacing-4px-3-12px)";
+
+  return (
+    <div style={{ position: "relative", width: "100%" }}>
+      {iconLeading && (
+        <span
+          style={{
+            position: "absolute",
+            left: iconLeft,
+            top: "50%",
+            transform: "translateY(-50%)",
+            display: "flex",
+            alignItems: "center",
+            color: "var(--semantic-text-secondary)",
+            pointerEvents: "none",
+            zIndex: 1,
+          }}
+          aria-hidden="true"
+        >
+          {React.cloneElement(iconLeading as React.ReactElement, { size: iconSize })}
+        </span>
+      )}
+      <input
+        type="text"
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        aria-label={ariaLabel}
+        style={getInputStyles(size)}
+        onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+        onBlur={(e) => resetInputStyles(e.currentTarget, size)}
+        onMouseEnter={(e) => {
+          if (document.activeElement !== e.currentTarget) {
+            e.currentTarget.style.borderColor = "var(--semantic-border-strong)";
+            e.currentTarget.style.background = "var(--semantic-background-muted)";
+            e.currentTarget.style.fontWeight = "var(--font-weight-medium)";
+          }
+        }}
+        onMouseLeave={(e) => {
+          if (document.activeElement !== e.currentTarget) {
+            resetInputStyles(e.currentTarget, size);
+          }
+        }}
+      />
+    </div>
+  );
+};
+
 // Interactive wrapper component for stories
 const HeaderWithSearchWrapper = ({
   hierarchy,
@@ -203,9 +326,9 @@ const HeaderWithSearchWrapper = ({
       functionCount={functionCount}
       close={close}
       rightSlot={
-        <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8, 8px)", minWidth: "300px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "var(--spacing-8)", minWidth: "300px" }}>
           <div style={{ flex: "1", minWidth: "200px" }}>
-            <Input
+            <NativeInput
               size={inputSize}
               placeholder={searchPlaceholder}
               value={searchValue}
@@ -300,7 +423,7 @@ export const MinimalSearch: Story = {
         label="Search"
         rightSlot={
           <div style={{ minWidth: "300px" }}>
-            <Input
+            <NativeInput
               size="md"
               placeholder="Search anything..."
               value={searchValue}
@@ -350,7 +473,7 @@ export const States: Story = {
     layout: "fullscreen",
   },
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0", width: "100%" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-0)", width: "100%" }}>
       <div style={{ width: "100%" }}>
         <HeaderWithSearchWrapper
           hierarchy="secondary"

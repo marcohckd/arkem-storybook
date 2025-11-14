@@ -155,7 +155,7 @@ export const Default: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Default accordion with collapsible sections. Click section headers to expand or collapse content.",
+        story: "Default accordion with collapsible sections showing metric rows. Click section headers to expand or collapse content.",
       },
     },
   },
@@ -163,37 +163,76 @@ export const Default: Story = {
     const sections: AccordionSection[] = [
       {
         id: "section1",
-        title: "Section 1",
+        title: "Threat Assessment",
         count: 3,
+        icon: AlertTriangle,
         children: (
           <div>
-            <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
-              Content for Section 1
-            </div>
+            {[
+              { 
+                key: 'threat_score',
+                label: 'THREAT SCORE:', 
+                value: '87/100 [HIGH]', 
+                critical: true 
+              },
+              { 
+                key: 'honeypot',
+                label: 'HONEYPOT:', 
+                value: 'YES',
+                critical: true 
+              },
+              { 
+                key: 'honeypot_probability', 
+                label: 'HONEYPOT PROBABILITY:', 
+                value: '85%' 
+              },
+            ].map((metric, idx) => 
+              renderMetricRow(metric, idx, 3)
+            )}
           </div>
         ),
       },
       {
         id: "section2",
-        title: "Section 2",
-        count: 5,
+        title: "Threat Intelligence",
+        count: 9,
+        icon: ShieldAlert,
         children: (
           <div>
-            <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
-              Content for Section 2
-            </div>
+            {[
+              { key: 'pulse_count', label: 'PULSE COUNT:', value: '42 reports' },
+              { key: 'passive_dns_count', label: 'PASSIVE DNS COUNT:', value: '228 resolutions' },
+              { key: 'url_count', label: 'URL COUNT:', value: '34 URLs' },
+              { key: 'primary_tag', label: 'PRIMARY TAG:', value: 'malware-distribution' },
+              { key: 'tags', label: 'TAGS:', value: 'vpn, proxy +2' },
+              { key: 'country', label: 'COUNTRY:', value: 'Iran (IR)' },
+              { key: 'city', label: 'CITY:', value: 'Tehran' },
+              { key: 'asn', label: 'ASN:', value: 'AS44244' },
+              { key: 'malware_samples', label: 'MALWARE SAMPLES:', value: '15 detected' },
+            ].map((metric, idx) => 
+              renderMetricRow(metric, idx, 9)
+            )}
           </div>
         ),
       },
       {
         id: "section3",
-        title: "Section 3",
-        count: 2,
+        title: "Network Infrastructure",
+        count: 7,
+        icon: Network,
         children: (
           <div>
-            <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
-              Content for Section 3
-            </div>
+            {[
+              { key: 'organization', label: 'ORGANIZATION:', value: 'Iran Telecom PJS' },
+              { key: 'hostname', label: 'HOSTNAME:', value: 'mx.isp.ir' },
+              { key: 'network_asn', label: 'ASN:', value: 'AS58224' },
+              { key: 'isp', label: 'ISP:', value: 'Iran Telecom PJS' },
+              { key: 'network_name', label: 'NETWORK NAME:', value: 'RIPE-ERX-151' },
+              { key: 'registration_status', label: 'REGISTRATION STATUS:', value: 'ASSIGNED PA' },
+              { key: 'ip_os', label: 'IP OPERATING SYSTEM:', value: 'Linux 5.10' },
+            ].map((metric, idx) => 
+              renderMetricRow(metric, idx, 7)
+            )}
           </div>
         ),
       },
@@ -341,25 +380,55 @@ export const Controlled: Story = {
     const sections: AccordionSection[] = [
       {
         id: "section1",
-        title: "Section 1",
-        count: 2,
+        title: "Threat Assessment",
+        count: 3,
+        icon: AlertTriangle,
         children: (
           <div>
-            <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
-              Content for Section 1 (Currently expanded: {expanded.join(", ")})
-            </div>
+            {[
+              { 
+                key: 'threat_score',
+                label: 'THREAT SCORE:', 
+                value: '87/100 [HIGH]', 
+                critical: true 
+              },
+              { 
+                key: 'honeypot',
+                label: 'HONEYPOT:', 
+                value: 'YES',
+                critical: true 
+              },
+              { 
+                key: 'honeypot_probability', 
+                label: 'HONEYPOT PROBABILITY:', 
+                value: '85%' 
+              },
+            ].map((metric, idx) => 
+              renderMetricRow(metric, idx, 3)
+            )}
           </div>
         ),
       },
       {
         id: "section2",
-        title: "Section 2",
-        count: 3,
+        title: "Threat Intelligence",
+        count: 9,
+        icon: ShieldAlert,
         children: (
           <div>
-            <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
-              Content for Section 2 (Currently expanded: {expanded.join(", ")})
-            </div>
+            {[
+              { key: 'pulse_count', label: 'PULSE COUNT:', value: '42 reports' },
+              { key: 'passive_dns_count', label: 'PASSIVE DNS COUNT:', value: '228 resolutions' },
+              { key: 'url_count', label: 'URL COUNT:', value: '34 URLs' },
+              { key: 'primary_tag', label: 'PRIMARY TAG:', value: 'malware-distribution' },
+              { key: 'tags', label: 'TAGS:', value: 'vpn, proxy +2' },
+              { key: 'country', label: 'COUNTRY:', value: 'Iran (IR)' },
+              { key: 'city', label: 'CITY:', value: 'Tehran' },
+              { key: 'asn', label: 'ASN:', value: 'AS44244' },
+              { key: 'malware_samples', label: 'MALWARE SAMPLES:', value: '15 detected' },
+            ].map((metric, idx) => 
+              renderMetricRow(metric, idx, 9)
+            )}
           </div>
         ),
       },
@@ -381,7 +450,7 @@ export const WithIcons: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Accordion sections with icons. Icons are displayed next to section titles and can be color-coded based on threat levels.",
+        story: "Accordion sections with icons and threat level color coding. Icons are displayed next to section titles and sections are color-coded based on threat levels.",
       },
     },
   },
@@ -395,9 +464,37 @@ export const WithIcons: Story = {
         threatLevel: "critical",
         children: (
           <div>
-            <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
-              Critical alerts content
-            </div>
+            {[
+              { 
+                key: 'alert_1',
+                label: 'ALERT TYPE:', 
+                value: 'Malware Detected', 
+                critical: true 
+              },
+              { 
+                key: 'alert_2',
+                label: 'SEVERITY:', 
+                value: 'CRITICAL',
+                critical: true 
+              },
+              { 
+                key: 'alert_3',
+                label: 'AFFECTED SYSTEMS:', 
+                value: '15 systems' 
+              },
+              { 
+                key: 'alert_4',
+                label: 'LAST DETECTED:', 
+                value: '2 minutes ago' 
+              },
+              { 
+                key: 'alert_5',
+                label: 'STATUS:', 
+                value: 'Active' 
+              },
+            ].map((metric, idx) => 
+              renderMetricRow(metric, idx, 5)
+            )}
           </div>
         ),
       },
@@ -409,9 +506,25 @@ export const WithIcons: Story = {
         threatLevel: "high",
         children: (
           <div>
-            <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
-              High priority content
-            </div>
+            {[
+              { 
+                key: 'priority_1',
+                label: 'PRIORITY TYPE:', 
+                value: 'Security Warning' 
+              },
+              { 
+                key: 'priority_2',
+                label: 'AFFECTED SYSTEMS:', 
+                value: '8 systems' 
+              },
+              { 
+                key: 'priority_3',
+                label: 'LAST DETECTED:', 
+                value: '1 hour ago' 
+              },
+            ].map((metric, idx) => 
+              renderMetricRow(metric, idx, 3)
+            )}
           </div>
         ),
       },
@@ -422,9 +535,20 @@ export const WithIcons: Story = {
         icon: Network,
         children: (
           <div>
-            <div style={{ padding: "var(--spacing-12)", color: "var(--semantic-text-primary)" }}>
-              Normal content
-            </div>
+            {[
+              { 
+                key: 'normal_1',
+                label: 'SYSTEM STATUS:', 
+                value: 'Operational' 
+              },
+              { 
+                key: 'normal_2',
+                label: 'LAST CHECKED:', 
+                value: '5 minutes ago' 
+              },
+            ].map((metric, idx) => 
+              renderMetricRow(metric, idx, 2)
+            )}
           </div>
         ),
       },

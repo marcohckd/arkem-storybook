@@ -123,6 +123,7 @@
   --font-weight-medium: var(--typography-mode-1-font-weight-medium);
   --font-weight-semibold: var(--typography-mode-1-font-weight-semibold);
   --font-weight-bold: var(--typography-mode-1-font-weight-bold);
+  --spacing-0: 0;
   --spacing-8: var(--spacing-style-spacing-4px-2-8px);
   --spacing-12: var(--spacing-style-spacing-4px-3-12px);
   --spacing-16: var(--spacing-style-spacing-4px-4-16px);

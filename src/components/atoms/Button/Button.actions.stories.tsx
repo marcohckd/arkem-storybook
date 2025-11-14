@@ -435,7 +435,7 @@ export const InlineComposition: Story = {
       className="actions-inline"
       style={{
         display: "flex",
-        gap: "var(--spacing-style-spacing-4px-0-5-2px, 2px)",
+        gap: "var(--spacing-style-spacing-4px-0-5-2px)",
         alignItems: "center",
       }}
     >

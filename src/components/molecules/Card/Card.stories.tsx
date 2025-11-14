@@ -56,7 +56,7 @@ export const WithHeader: Story = {
     <div style={{ width: "400px" }}>
       <Card>
         <CardHeader>
-          <h3 style={{ margin: 0, fontSize: "var(--fonts-semantic-md)", fontWeight: "var(--font-weight-semibold)" }}>
+          <h3 style={{ margin: "var(--spacing-0)", fontSize: "var(--fonts-semantic-md)", fontWeight: "var(--font-weight-semibold)" }}>
             Card Title
           </h3>
         </CardHeader>
@@ -74,7 +74,7 @@ export const Complete: Story = {
     <div style={{ width: "400px" }}>
       <Card>
         <CardHeader>
-          <h3 style={{ margin: 0, fontSize: "var(--fonts-semantic-md)", fontWeight: "var(--font-weight-semibold)" }}>
+          <h3 style={{ margin: "var(--spacing-0)", fontSize: "var(--fonts-semantic-md)", fontWeight: "var(--font-weight-semibold)" }}>
             Card Title
           </h3>
         </CardHeader>
@@ -105,7 +105,7 @@ export const EmptyState: Story = {
     <div style={{ width: "400px" }}>
       <Card>
         <CardHeader>
-          <h3 style={{ margin: 0, fontSize: "var(--fonts-semantic-md)", fontWeight: "var(--font-weight-semibold)" }}>
+          <h3 style={{ margin: "var(--spacing-0)", fontSize: "var(--fonts-semantic-md)", fontWeight: "var(--font-weight-semibold)" }}>
             Empty Card
           </h3>
         </CardHeader>
@@ -133,7 +133,7 @@ export const EmptyState: Story = {
               style={{
                 fontSize: "var(--fonts-semantic-sm)",
                 color: "var(--semantic-text-muted)",
-                margin: 0,
+                margin: "var(--spacing-0)",
               }}
             >
               This card is currently empty.
@@ -163,7 +163,7 @@ export const WithForm: Story = {
       <div style={{ width: "400px" }}>
         <Card>
           <CardHeader>
-            <h3 style={{ margin: 0, fontSize: "var(--fonts-semantic-md)", fontWeight: "var(--font-weight-semibold)" }}>
+            <h3 style={{ margin: "var(--spacing-0)", fontSize: "var(--fonts-semantic-md)", fontWeight: "var(--font-weight-semibold)" }}>
               User Registration
             </h3>
           </CardHeader>
@@ -226,10 +226,10 @@ export const WithTable: Story = {
       <>
         <style>{`
           .arkem-card__header--no-padding {
-            padding: 0 !important;
+            padding: var(--spacing-0) !important;
           }
           .arkem-card__body--no-padding {
-            padding: 0 !important;
+            padding: var(--spacing-0) !important;
           }
         `}</style>
         <div style={{ width: "600px" }}>
@@ -237,7 +237,7 @@ export const WithTable: Story = {
             <CardHeader className="arkem-card__header--no-padding">
               <h3
                 style={{
-                  margin: 0,
+                  margin: "var(--spacing-0)",
                   padding: "var(--spacing-16)",
                   fontSize: "var(--fonts-semantic-md)",
                   lineHeight: "var(--fonts-semantic-lg-line-height)",

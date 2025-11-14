@@ -237,7 +237,7 @@ export const AllButtonTypes: Story = {
     layout: "padded",
   },
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-0)" }}>
       <Header hierarchy="secondary" label="Feature only" featureCount={1} />
       <Header hierarchy="secondary" label="Function only" functionCount={1} />
       <Header hierarchy="secondary" label="Close only" close={true} />

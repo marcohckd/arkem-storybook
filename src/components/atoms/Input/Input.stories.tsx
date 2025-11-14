@@ -1,225 +1,136 @@
-// src/components/Input/Input.stories.tsx
+// src/components/atoms/Input/Input.stories.tsx
+// Form input stories using native HTML elements styled with ARKEM tokens
+// Following Radix UI accessibility patterns
 
 import type { Meta, StoryObj } from "@storybook/react";
 import { useState } from "react";
-import { Search, X, Mail, Lock, User, Check } from "lucide-react";
+import { Search, Mail, Lock, User, Check, Eye, EyeOff, X } from "lucide-react";
+import { Label } from "../Label/Label";
 
-import { Input } from "./Input";
-
-const meta: Meta<typeof Input> = {
+const meta: Meta = {
   title: "Atoms/Input",
-  component: Input,
   parameters: {
     layout: "centered",
     backgrounds: { default: "arkem-base" },
     docs: {
       description: {
-        component: `Text input fields for user data entry, styled with ARKEM Design System tokens to match Button typography and color tokens.
+        component: `Form input fields using native HTML elements styled with ARKEM Design System tokens.
 
-## Component Architecture
+## Approach
 
-**Input is a pure atom component** - it handles only the input element itself. For labels, error messages, and help text, use the **FormField molecule** component which composes Input + Label + error handling.
+These stories demonstrate form inputs using native HTML \`<input>\` and \`<textarea>\` elements styled with ARKEM tokens, following Radix UI accessibility patterns:
 
-\`\`\`tsx
-// ✅ Recommended: Use FormField for labels, error messages, and character count
-<FormField
-  label="Username"
-  placeholder="Enter username"
-  value={value}
-  onChange={(e) => setValue(e.target.value)}
-  showCharacterCount
-  maxLength={20}
-/>
+- **Native HTML elements**: Use standard \`<input>\` and \`<textarea>\` for maximum compatibility
+- **ARKEM tokens**: All styling uses semantic design tokens
+- **Accessibility**: Proper label association, ARIA attributes, and keyboard navigation
+- **Label component**: Uses the ARKEM Label component for consistent styling
 
-// ✅ Pure atom: Use Input directly for simple inputs without labels
-<Input
-  placeholder="Enter username"
-  value={value}
-  onChange={(e) => setValue(e.target.value)}
-  ariaLabel="Username"
-/>
-\`\`\`
+## Token Usage
 
-## Features
-
-- **Three sizes**: \`sm\` (32px), \`md\` (40px), \`lg\` (48px) - matching Button sizes
-- **Typography**: Uses semantic font scale matching Button component
-- **Colors**: Uses semantic color tokens matching Button styling
-- **Icons**: Support for leading and trailing icons
-- **States**: Default, error, success, disabled
-- **Labels & Character Count**: Use FormField molecule for labels, error messages, and character count. Input is a pure atom component.
-- **Multiline**: Textarea support for longer text input
-- **Accessible**: Full ARIA support and keyboard navigation
-
-## Token Hierarchy
-
-Tokens follow a three-tier hierarchy:
-
-**Semantic Tokens (Usage level)** - \`var(--semantic-*)\`
-- Describe the purpose: \`--semantic-text-primary\`, \`--semantic-background-base\`
-- Should always be used in components
-
-**Primitive Tokens (System level)** - \`var(--color-*)\`, \`var(--spacing-*)\`
-- Define the actual values: \`--color-neutral-100\`, \`--spacing-4\`
-- Referenced by semantic tokens
-
-**Raw Values (Reference only)**
-- Actual CSS values: \`#FFFFFF\`, \`16px\`, \`rgba(224, 13, 91, 0.29)\`
-- Never used directly in components
-
-## Typography & Colors
-
-- **Font**: \`var(--font-family-base)\` -> \`var(--typography-mode-1-font-family-ibm-plex-sans)\` -> IBM Plex Sans
-- **Font Size**: \`var(--fonts-semantic-sm/md/lg)\` based on size
-  - \`sm\`: \`var(--fonts-semantic-sm)\` -> \`var(--typography-mode-1-font-size-12)\` -> 12px
-  - \`md\`: \`var(--fonts-semantic-md)\` -> \`var(--typography-mode-1-font-size-16)\` -> 16px
-  - \`lg\`: \`var(--fonts-semantic-lg)\` -> \`var(--typography-mode-1-font-size-18)\` -> 18px
-- **Font Weight**: \`var(--font-weight-regular)\` -> \`var(--typography-mode-1-font-weight-regular)\` -> 400 (default), \`var(--font-weight-medium)\` -> \`var(--typography-mode-1-font-weight-medium)\` -> 500 (on hover/focus)
-- **Text Color**: \`var(--semantic-text-primary)\` -> \`var(--color-text-primary)\` -> #E5E5E5
-- **Background**: \`var(--semantic-background-interactive)\` -> #5A5A5A
-- **Border**: \`var(--semantic-border-subtle)\` -> #2D2D2D with brand focus ring
-
-## Usage
-
-\\\`\\\`\\\`tsx
-// Basic input
-<Input placeholder="Enter text..." />
-
-// With search icon
-<Input 
-  placeholder="Search..." 
-  iconLeading={<Search />}
-/>
-
-// Controlled input
-<Input 
-  value={value}
-  onChange={(e) => setValue(e.target.value)}
-  placeholder="Email"
-  iconLeading={<Mail />}
-/>
-\\\`\\\`\\\`
+All inputs use ARKEM semantic tokens:
+- Colors: \`var(--semantic-text-primary)\`, \`var(--semantic-background-base)\`, \`var(--semantic-border-subtle)\`
+- Typography: \`var(--fonts-semantic-sm/md/lg)\` based on size
+- Spacing: \`var(--spacing-8)\`, \`var(--spacing-12)\` for padding
+- Focus: \`var(--semantic-focus-ring)\` for focus indicators
+- States: \`var(--semantic-feedback-error-base)\`, \`var(--semantic-feedback-success-base)\`
 
 ## Accessibility
 
-- Full keyboard navigation support
-- Focus ring visible on keyboard focus (\`var(--semantic-focus-ring)\`)
-- ARIA labels supported via \`ariaLabel\` prop
-- Label association via \`htmlFor\` prop
+- Proper label association via \`htmlFor\` and \`id\`
+- ARIA labels for inputs without visible labels
 - Error states announced to screen readers
-- Disabled state properly announced
-
-## Design Tokens
-
-### Token Reference Table
-
-| Property | Semantic Token | Primitive Token | Value |
-|----------|---------------|-----------------|--------|
-| Font Family | \`--font-family-base\` | \`--typography-mode-1-font-family-ibm-plex-sans\` | IBM Plex Sans |
-| Font Size (sm) | \`--fonts-semantic-sm\` | \`--typography-mode-1-font-size-12\` | 12px |
-| Font Size (md) | \`--fonts-semantic-md\` | \`--typography-mode-1-font-size-16\` | 16px |
-| Font Size (lg) | \`--fonts-semantic-lg\` | \`--typography-mode-1-font-size-18\` | 18px |
-| Font Weight (regular) | \`--font-weight-regular\` | \`--typography-mode-1-font-weight-regular\` | 400 |
-| Font Weight (medium) | \`--font-weight-medium\` | \`--typography-mode-1-font-weight-medium\` | 500 |
-| Text | \`--semantic-text-primary\` | \`--color-text-primary\` | #E5E5E5 |
-| Background | \`--semantic-background-interactive\` | — | #5A5A5A |
-| Border | \`--semantic-border-subtle\` | — | #2D2D2D |
-| Focus Ring | \`--semantic-focus-ring\` | — | rgba(224, 221, 91, 0.35) |
-| Error Border | \`--semantic-feedback-error-base\` | — | #9E4B4B |
-| Success Border | \`--semantic-feedback-success-base\` | — | #5F7B52 |
-| Border Radius | \`--radius-xs\` | \`--radius-mode-1-radius-xs\` | 4px |
-
-### Key Tokens Used
-
-- \`--fonts-semantic-sm/md/lg\`: Input text sizes
-- \`--font-weight-regular/medium\`: Text weights
-- \`--semantic-text-primary\`: Text color
-- \`--semantic-background-interactive\`: Background color
-- \`--semantic-border-subtle\`: Border color
-- \`--semantic-focus-ring\`: Focus indicator
-- \`--semantic-feedback-error-base\`: Error state color
-- \`--semantic-feedback-success-base\`: Success state color
-- \`--spacing-*\`: Internal padding
-- \`--radius-xs\`: Border radius
-
-Use the **Playground** to customize all input properties, or view the **States** story to see all interaction states.`,
+- Keyboard navigation support
+- Focus indicators visible`,
       },
     },
   },
   tags: ["autodocs"],
-  argTypes: {
-    size: {
-      control: "radio",
-      options: ["sm", "md", "lg"],
-      description: "Input size (matches Button sizes)",
-    },
-    placeholder: {
-      control: "text",
-      description: "Placeholder text",
-    },
-    value: {
-      control: "text",
-      description: "Input value (controlled)",
-    },
-    disabled: {
-      control: "boolean",
-      description: "Disable the input",
-    },
-    iconLeading: {
-      control: false,
-      description: "Leading icon (left side)",
-    },
-    iconTrailing: {
-      control: false,
-      description: "Trailing icon (right side)",
-    },
-    ariaLabel: {
-      control: "text",
-      description: "ARIA label for accessibility",
-    },
-    state: {
-      control: "radio",
-      options: ["default", "error", "success"],
-      description: "Input state",
-    },
-    maxLength: {
-      control: "number",
-      description: "Maximum character length (native HTML validation)",
-    },
-    multiline: {
-      control: "boolean",
-      description: "Render as textarea",
-    },
-    rows: {
-      control: "number",
-      description: "Number of rows for textarea",
-    },
-  },
-  args: {
-    size: "md",
-    placeholder: "Enter text...",
-    disabled: false,
-    state: "default",
-    multiline: false,
-  },
 };
 
 export default meta;
-type Story = StoryObj<typeof Input>;
+type Story = StoryObj;
+
+// Base input styles using ARKEM tokens
+const inputBaseStyles: React.CSSProperties = {
+  width: "100%",
+  boxSizing: "border-box",
+  fontFamily: "var(--font-family-base)",
+  fontSize: "var(--fonts-semantic-md)",
+  fontWeight: "var(--font-weight-regular)",
+  lineHeight: "var(--fonts-semantic-md-line-height)",
+  color: "var(--semantic-text-primary)",
+  background: "var(--semantic-background-base)",
+  border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
+  borderRadius: "var(--radius-md)",
+  padding: "var(--spacing-8)",
+  outline: "none",
+  transition: "border-color var(--transition-base), box-shadow var(--transition-base), background-color var(--transition-base), font-weight var(--transition-base)",
+};
+
+const inputHoverStyles: React.CSSProperties = {
+  borderColor: "var(--semantic-border-strong)",
+  background: "var(--semantic-background-muted)",
+  fontWeight: "var(--font-weight-medium)",
+};
+
+const inputFocusStyles: React.CSSProperties = {
+  borderColor: "var(--semantic-brand-base)",
+  boxShadow: "0 0 0 3px var(--semantic-focus-ring)",
+  background: "var(--semantic-background-muted)",
+  fontWeight: "var(--font-weight-medium)",
+};
+
+const inputErrorStyles: React.CSSProperties = {
+  borderColor: "var(--semantic-feedback-error-base)",
+};
+
+const inputSuccessStyles: React.CSSProperties = {
+  borderColor: "var(--semantic-feedback-success-base)",
+};
+
+const inputDisabledStyles: React.CSSProperties = {
+  opacity: 0.5,
+  cursor: "not-allowed",
+  background: "var(--semantic-background-muted)",
+};
+
+// Helper function to reset input styles to base
+const resetInputStyles = (element: HTMLInputElement | HTMLTextAreaElement) => {
+  element.style.borderColor = "var(--semantic-border-subtle)";
+  element.style.boxShadow = "";
+  element.style.background = inputBaseStyles.background as string;
+  element.style.fontWeight = inputBaseStyles.fontWeight as string;
+};
 
 export const Playground: Story = {
   parameters: {
     docs: {
       description: {
-        story: "Interactive playground to customize all input properties. Use the Controls panel to experiment with different configurations.",
+        story: "Interactive playground to experiment with input properties. Use the Controls panel to customize the input.",
       },
     },
   },
-  render: (args) => {
+  render: () => {
     const [value, setValue] = useState("");
     return (
       <div style={{ width: "300px" }}>
-        <Input {...args} value={value} onChange={(e) => setValue(e.target.value)} />
+        <input
+          type="text"
+          placeholder="Enter text..."
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          style={inputBaseStyles}
+          onMouseEnter={(e) => Object.assign(e.currentTarget.style, inputHoverStyles)}
+          onMouseLeave={(e) => {
+            if (document.activeElement !== e.currentTarget) {
+              e.currentTarget.style.borderColor = "var(--semantic-border-subtle)";
+              e.currentTarget.style.background = inputBaseStyles.background as string;
+              e.currentTarget.style.fontWeight = inputBaseStyles.fontWeight as string;
+            }
+          }}
+          onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+          onBlur={(e) => resetInputStyles(e.currentTarget)}
+        />
       </div>
     );
   },
@@ -231,10 +142,52 @@ export const Default: Story = {
     const [value, setValue] = useState("");
     return (
       <div style={{ width: "300px" }}>
-        <Input
+        <input
+          type="text"
           placeholder="Enter text..."
           value={value}
           onChange={(e) => setValue(e.target.value)}
+          style={inputBaseStyles}
+          onMouseEnter={(e) => Object.assign(e.currentTarget.style, inputHoverStyles)}
+          onMouseLeave={(e) => {
+            if (document.activeElement !== e.currentTarget) {
+              e.currentTarget.style.borderColor = "var(--semantic-border-subtle)";
+              e.currentTarget.style.background = inputBaseStyles.background as string;
+              e.currentTarget.style.fontWeight = inputBaseStyles.fontWeight as string;
+            }
+          }}
+          onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+          onBlur={(e) => resetInputStyles(e.currentTarget)}
+        />
+      </div>
+    );
+  },
+};
+
+export const WithLabel: Story = {
+  tags: ['!dev'],
+  render: () => {
+    const [email, setEmail] = useState("");
+    return (
+      <div style={{ width: "300px", display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+        <Label htmlFor="email-input">Email Address</Label>
+        <input
+          id="email-input"
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          style={inputBaseStyles}
+          onMouseEnter={(e) => Object.assign(e.currentTarget.style, inputHoverStyles)}
+          onMouseLeave={(e) => {
+            if (document.activeElement !== e.currentTarget) {
+              e.currentTarget.style.borderColor = "var(--semantic-border-subtle)";
+              e.currentTarget.style.background = inputBaseStyles.background as string;
+              e.currentTarget.style.fontWeight = inputBaseStyles.fontWeight as string;
+            }
+          }}
+          onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+          onBlur={(e) => resetInputStyles(e.currentTarget)}
         />
       </div>
     );
@@ -247,87 +200,52 @@ export const Sizes: Story = {
     const [smValue, setSmValue] = useState("");
     const [mdValue, setMdValue] = useState("");
     const [lgValue, setLgValue] = useState("");
+    
+    const smStyles = { ...inputBaseStyles, height: "32px", fontSize: "var(--fonts-semantic-sm)", padding: "var(--spacing-style-spacing-4px-1-5-6px)" };
+    const mdStyles = { ...inputBaseStyles, height: "40px", fontSize: "var(--fonts-semantic-md)", padding: "var(--spacing-8)" };
+    const lgStyles = { ...inputBaseStyles, height: "48px", fontSize: "var(--fonts-semantic-lg)", padding: "var(--spacing-style-spacing-4px-3-12px)" };
+    
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-style-spacing-4px-4-16px)", width: "300px" }}>
-        <Input
-          size="sm"
-          placeholder="Small (32px)"
-          value={smValue}
-          onChange={(e) => setSmValue(e.target.value)}
-        />
-        <Input
-          size="md"
-          placeholder="Medium (40px)"
-          value={mdValue}
-          onChange={(e) => setMdValue(e.target.value)}
-        />
-        <Input
-          size="lg"
-          placeholder="Large (48px)"
-          value={lgValue}
-          onChange={(e) => setLgValue(e.target.value)}
-        />
-      </div>
-    );
-  },
-};
-
-export const WithIcons: Story = {
-  tags: ['!dev'],
-  render: () => {
-    const [searchValue, setSearchValue] = useState("");
-    const [emailValue, setEmailValue] = useState("");
-    const [passwordValue, setPasswordValue] = useState("");
-    const [clearableValue, setClearableValue] = useState("");
-    return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-style-spacing-4px-4-16px)", width: "300px" }}>
-        <Input
-          placeholder="Search..."
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          iconLeading={<Search />}
-          ariaLabel="Search"
-        />
-        <Input
-          placeholder="Email"
-          type="email"
-          value={emailValue}
-          onChange={(e) => setEmailValue(e.target.value)}
-          iconLeading={<Mail />}
-          ariaLabel="Email"
-        />
-        <Input
-          placeholder="Password"
-          type="password"
-          value={passwordValue}
-          onChange={(e) => setPasswordValue(e.target.value)}
-          iconLeading={<Lock />}
-          ariaLabel="Password"
-        />
-        <Input
-          placeholder="Clearable input"
-          value={clearableValue}
-          onChange={(e) => setClearableValue(e.target.value)}
-          iconTrailing={
-            clearableValue ? (
-              <button
-                onClick={() => setClearableValue("")}
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: 0,
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                aria-label="Clear"
-              >
-                <X />
-              </button>
-            ) : null
-          }
-          ariaLabel="Clearable input"
-        />
+      <div style={{ width: "300px", display: "flex", flexDirection: "column", gap: "var(--spacing-style-spacing-4px-4-16px)" }}>
+        <div>
+          <Label htmlFor="input-sm">Small (32px)</Label>
+          <input
+            id="input-sm"
+            type="text"
+            placeholder="Small input"
+            value={smValue}
+            onChange={(e) => setSmValue(e.target.value)}
+            style={smStyles}
+            onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+            onBlur={(e) => resetInputStyles(e.currentTarget)}
+          />
+        </div>
+        <div>
+          <Label htmlFor="input-md">Medium (40px)</Label>
+          <input
+            id="input-md"
+            type="text"
+            placeholder="Medium input"
+            value={mdValue}
+            onChange={(e) => setMdValue(e.target.value)}
+            style={mdStyles}
+            onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+            onBlur={(e) => resetInputStyles(e.currentTarget)}
+          />
+        </div>
+        <div>
+          <Label htmlFor="input-lg">Large (48px)</Label>
+          <input
+            id="input-lg"
+            type="text"
+            placeholder="Large input"
+            value={lgValue}
+            onChange={(e) => setLgValue(e.target.value)}
+            style={lgStyles}
+            onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+            onBlur={(e) => resetInputStyles(e.currentTarget)}
+          />
+        </div>
       </div>
     );
   },
@@ -337,47 +255,162 @@ export const States: Story = {
   tags: ['!dev'],
   render: () => {
     const [defaultValue, setDefaultValue] = useState("");
-    const [focusedValue, setFocusedValue] = useState("");
-    const [disabledValue] = useState("Disabled value");
+    const [errorValue, setErrorValue] = useState("Invalid input");
+    const [successValue, setSuccessValue] = useState("Valid input");
+    const disabledValue = "Disabled value";
+    
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-style-spacing-4px-4-16px)", width: "300px" }}>
+      <div style={{ width: "300px", display: "flex", flexDirection: "column", gap: "var(--spacing-style-spacing-4px-4-16px)" }}>
         <div>
-          <label style={{ display: "block", marginBottom: "var(--spacing-8)", fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-secondary)" }}>
-            Default
-          </label>
-          <Input
-            placeholder="Default state"
+          <Label htmlFor="input-default">Default</Label>
+          <input
+            id="input-default"
+            type="text"
+            placeholder="Enter text..."
             value={defaultValue}
             onChange={(e) => setDefaultValue(e.target.value)}
+            style={inputBaseStyles}
+            onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+            onBlur={(e) => resetInputStyles(e.currentTarget)}
           />
         </div>
         <div>
-          <label style={{ display: "block", marginBottom: "var(--spacing-8)", fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-secondary)" }}>
-            With Value
-          </label>
-          <Input
+          <Label htmlFor="input-error">Error</Label>
+          <input
+            id="input-error"
+            type="text"
             placeholder="Enter text..."
-            value="Sample text"
-            onChange={() => {}}
+            value={errorValue}
+            onChange={(e) => setErrorValue(e.target.value)}
+            style={{ ...inputBaseStyles, ...inputErrorStyles }}
+            aria-invalid="true"
+            aria-describedby="error-message"
+            onFocus={(e) => {
+              e.currentTarget.style.boxShadow = "0 0 0 3px color-mix(in srgb, var(--semantic-feedback-error-base) 30%, transparent)";
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.boxShadow = "";
+            }}
+          />
+          <p
+            id="error-message"
+            style={{
+              fontSize: "var(--fonts-semantic-xs)",
+              color: "var(--semantic-feedback-error-base)",
+              marginTop: "var(--spacing-4)",
+              marginBottom: 0,
+            }}
+          >
+            This field has an error
+          </p>
+        </div>
+        <div>
+          <Label htmlFor="input-success">Success</Label>
+          <input
+            id="input-success"
+            type="text"
+            placeholder="Enter text..."
+            value={successValue}
+            onChange={(e) => setSuccessValue(e.target.value)}
+            style={{ ...inputBaseStyles, ...inputSuccessStyles }}
+            onFocus={(e) => {
+              e.currentTarget.style.boxShadow = "0 0 0 3px color-mix(in srgb, var(--semantic-feedback-success-base) 30%, transparent)";
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.boxShadow = "";
+            }}
           />
         </div>
         <div>
-          <label style={{ display: "block", marginBottom: "var(--spacing-8)", fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-secondary)" }}>
-            Disabled
-          </label>
-          <Input
+          <Label htmlFor="input-disabled">Disabled</Label>
+          <input
+            id="input-disabled"
+            type="text"
             placeholder="Disabled input"
             value={disabledValue}
             disabled
+            style={{ ...inputBaseStyles, ...inputDisabledStyles }}
+          />
+        </div>
+      </div>
+    );
+  },
+};
+
+export const InputTypes: Story = {
+  tags: ['!dev'],
+  render: () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [tel, setTel] = useState("");
+    const [url, setUrl] = useState("");
+    const [number, setNumber] = useState("");
+    
+    return (
+      <div style={{ width: "300px", display: "flex", flexDirection: "column", gap: "var(--spacing-style-spacing-4px-4-16px)" }}>
+        <div>
+          <Label htmlFor="input-email">Email</Label>
+          <input
+            id="input-email"
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            style={inputBaseStyles}
+            onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+            onBlur={(e) => resetInputStyles(e.currentTarget)}
           />
         </div>
         <div>
-          <label style={{ display: "block", marginBottom: "var(--spacing-8)", fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-secondary)" }}>
-            Disabled (empty)
-          </label>
-          <Input
-            placeholder="Disabled placeholder"
-            disabled
+          <Label htmlFor="input-password">Password</Label>
+          <input
+            id="input-password"
+            type="password"
+            placeholder="Enter your password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={inputBaseStyles}
+            onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+            onBlur={(e) => resetInputStyles(e.currentTarget)}
+          />
+        </div>
+        <div>
+          <Label htmlFor="input-tel">Phone Number</Label>
+          <input
+            id="input-tel"
+            type="tel"
+            placeholder="Enter your phone number"
+            value={tel}
+            onChange={(e) => setTel(e.target.value)}
+            style={inputBaseStyles}
+            onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+            onBlur={(e) => resetInputStyles(e.currentTarget)}
+          />
+        </div>
+        <div>
+          <Label htmlFor="input-url">Website URL</Label>
+          <input
+            id="input-url"
+            type="url"
+            placeholder="https://example.com"
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            style={inputBaseStyles}
+            onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+            onBlur={(e) => resetInputStyles(e.currentTarget)}
+          />
+        </div>
+        <div>
+          <Label htmlFor="input-number">Number</Label>
+          <input
+            id="input-number"
+            type="number"
+            placeholder="Enter a number"
+            value={number}
+            onChange={(e) => setNumber(e.target.value)}
+            style={inputBaseStyles}
+            onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+            onBlur={(e) => resetInputStyles(e.currentTarget)}
           />
         </div>
       </div>
@@ -385,272 +418,290 @@ export const States: Story = {
   },
 };
 
-export const WithPlaceholder: Story = {
+export const Textarea: Story = {
   tags: ['!dev'],
-  render: () => {
-    return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-style-spacing-4px-4-16px)", width: "300px" }}>
-        <Input placeholder="Enter your name..." />
-        <Input placeholder="Search for anything..." iconLeading={<Search />} />
-        <Input placeholder="Type here..." />
-      </div>
-    );
-  },
-};
-
-export const FullWidth: Story = {
-  tags: ['!dev'],
-  parameters: {
-    layout: "padded",
-  },
   render: () => {
     const [value, setValue] = useState("");
+    const textareaStyles: React.CSSProperties = {
+      ...inputBaseStyles,
+      minHeight: "120px",
+      resize: "vertical",
+      paddingTop: "var(--spacing-8)",
+      paddingBottom: "var(--spacing-8)",
+      lineHeight: "var(--fonts-semantic-md-line-height)",
+    };
+    
     return (
-      <div style={{ width: "100%" }}>
-        <Input
-          placeholder="Full width input..."
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-          iconLeading={<Search />}
-        />
-      </div>
-    );
-  },
-};
-
-
-export const InputStates: Story = {
-  tags: ['!dev'],
-  parameters: {
-    docs: {
-      description: {
-        story: "Input states (default, error, success). For labels and error messages, use the FormField molecule component.",
-      },
-    },
-  },
-  render: () => {
-    const [defaultValue, setDefaultValue] = useState("Arsindesigners");
-    const [errorValue, setErrorValue] = useState("Invalid username");
-    const [successValue, setSuccessValue] = useState("Valid username");
-    const [emptyValue, setEmptyValue] = useState("");
-    return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-style-spacing-4px-5-20px)", width: "300px" }}>
-        <div>
-          <label style={{ display: "block", marginBottom: "var(--spacing-8)", fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-secondary)" }}>
-            Default
-          </label>
-          <Input
-            placeholder="Enter username"
-            value={defaultValue}
-            onChange={(e) => setDefaultValue(e.target.value)}
-            maxLength={20}
-            iconLeading={<User />}
-            state="default"
-            ariaLabel="Username"
-          />
-        </div>
-        <div>
-          <label style={{ display: "block", marginBottom: "var(--spacing-8)", fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-secondary)" }}>
-            Empty
-          </label>
-          <Input
-            placeholder="Enter username"
-            value={emptyValue}
-            onChange={(e) => setEmptyValue(e.target.value)}
-            maxLength={20}
-            iconLeading={<User />}
-            state="default"
-            ariaLabel="Username"
-          />
-        </div>
-        <div>
-          <label style={{ display: "block", marginBottom: "var(--spacing-8)", fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-secondary)" }}>
-            Error
-          </label>
-          <Input
-            placeholder="Enter username"
-            value={errorValue}
-            onChange={(e) => setErrorValue(e.target.value)}
-            maxLength={20}
-            iconLeading={<User />}
-            state="error"
-            ariaLabel="Username"
-          />
-        </div>
-        <div>
-          <label style={{ display: "block", marginBottom: "var(--spacing-8)", fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-secondary)" }}>
-            Success
-          </label>
-          <Input
-            placeholder="Enter username"
-            value={successValue}
-            onChange={(e) => setSuccessValue(e.target.value)}
-            maxLength={20}
-            iconLeading={<User />}
-            iconTrailing={<Check />}
-            state="success"
-            ariaLabel="Username"
-          />
-        </div>
-      </div>
-    );
-  },
-};
-
-export const MultilineTextarea: Story = {
-  tags: ['!dev'],
-  parameters: {
-    docs: {
-      description: {
-        story: "Multiline textarea input. For labels and character count, use the FormField molecule component.",
-      },
-    },
-  },
-  render: () => {
-    const [value, setValue] = useState("Sample text typed here. Sample text typed here. Sample text typed here. Sample text typed here. Sample text typed here.");
-    return (
-      <div style={{ width: "300px" }}>
-        <Input
+      <div style={{ width: "300px", display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+        <Label htmlFor="textarea-input">Description</Label>
+        <textarea
+          id="textarea-input"
           placeholder="Enter description..."
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          multiline
           rows={6}
-          ariaLabel="Description"
+          style={textareaStyles}
+          onMouseEnter={(e) => Object.assign(e.currentTarget.style, inputHoverStyles)}
+          onMouseLeave={(e) => {
+            if (document.activeElement !== e.currentTarget) {
+              e.currentTarget.style.borderColor = "var(--semantic-border-subtle)";
+              e.currentTarget.style.background = inputBaseStyles.background as string;
+              e.currentTarget.style.fontWeight = inputBaseStyles.fontWeight as string;
+            }
+          }}
+          onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+          onBlur={(e) => resetInputStyles(e.currentTarget)}
         />
       </div>
     );
   },
 };
 
-export const AllVariations: Story = {
+export const FormExample: Story = {
   tags: ['!dev'],
   parameters: {
     layout: "padded",
-  },
-  render: () => {
-    const [smValue, setSmValue] = useState("");
-    const [mdValue, setMdValue] = useState("");
-    const [lgValue, setLgValue] = useState("");
-    return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-style-spacing-4px-6-24px)", maxWidth: "400px" }}>
-        <div>
-          <h3 style={{ marginBottom: "var(--spacing-12)", fontSize: "var(--fonts-semantic-sm)", fontWeight: 500, color: "var(--semantic-text-primary)" }}>
-            Small (32px)
-          </h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
-            <Input
-              size="sm"
-              placeholder="Small input"
-              value={smValue}
-              onChange={(e) => setSmValue(e.target.value)}
-            />
-            <Input
-              size="sm"
-              placeholder="With search icon"
-              value={smValue}
-              onChange={(e) => setSmValue(e.target.value)}
-              iconLeading={<Search />}
-            />
-            <Input size="sm" placeholder="Disabled" disabled />
-          </div>
-        </div>
-        <div>
-          <h3 style={{ marginBottom: "var(--spacing-12)", fontSize: "var(--fonts-semantic-sm)", fontWeight: 500, color: "var(--semantic-text-primary)" }}>
-            Medium (40px)
-          </h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
-            <Input
-              size="md"
-              placeholder="Medium input"
-              value={mdValue}
-              onChange={(e) => setMdValue(e.target.value)}
-            />
-            <Input
-              size="md"
-              placeholder="With search icon"
-              value={mdValue}
-              onChange={(e) => setMdValue(e.target.value)}
-              iconLeading={<Search />}
-            />
-            <Input size="md" placeholder="Disabled" disabled />
-          </div>
-        </div>
-        <div>
-          <h3 style={{ marginBottom: "var(--spacing-12)", fontSize: "var(--fonts-semantic-sm)", fontWeight: 500, color: "var(--semantic-text-primary)" }}>
-            Large (48px)
-          </h3>
-          <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-12)" }}>
-            <Input
-              size="lg"
-              placeholder="Large input"
-              value={lgValue}
-              onChange={(e) => setLgValue(e.target.value)}
-            />
-            <Input
-              size="lg"
-              placeholder="With search icon"
-              value={lgValue}
-              onChange={(e) => setLgValue(e.target.value)}
-              iconLeading={<Search />}
-            />
-            <Input size="lg" placeholder="Disabled" disabled />
-          </div>
-        </div>
-      </div>
-    );
-  },
-};
-
-export const LongContent: Story = {
-  tags: ['!dev'],
-  parameters: {
     docs: {
       description: {
-        story: "Examples showing how Input handles long content. Single-line inputs truncate with ellipsis, while textarea inputs wrap and scroll.",
+        story: "Complete form example using native HTML form elements styled with ARKEM tokens. Demonstrates proper form structure, label association, and validation states.",
       },
     },
   },
   render: () => {
-    const [longText, setLongText] = useState("This is a very long text that demonstrates how single-line inputs handle extended content that exceeds the input width.");
-    const [longTextarea, setLongTextarea] = useState(`This is a very long textarea content that demonstrates how multiline inputs handle extended content. The textarea will wrap and allow scrolling when the content exceeds the visible area. This is useful for longer form inputs like descriptions, comments, or notes that require multiple lines of text.`);
+    const [formData, setFormData] = useState({
+      name: "",
+      email: "",
+      password: "",
+      bio: "",
+    });
+    const [errors, setErrors] = useState<Record<string, string>>({});
+    const [showPassword, setShowPassword] = useState(false);
+    
+    const handleChange = (field: string, value: string) => {
+      setFormData((prev) => ({ ...prev, [field]: value }));
+      if (errors[field]) {
+        setErrors((prev) => ({ ...prev, [field]: "" }));
+      }
+    };
     
     return (
-      <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-16)", maxWidth: "400px" }}>
-        <div>
-          <p style={{ fontSize: "var(--fonts-semantic-sm)", color: "var(--semantic-text-secondary)", marginBottom: "var(--spacing-8)" }}>
-            Single-line input with long text (truncates):
-          </p>
-          <Input
-            size="md"
-            value={longText}
-            onChange={(e) => setLongText(e.target.value)}
-            placeholder="Enter long text..."
-            maxLength={200}
+      <form
+        style={{
+          width: "100%",
+          maxWidth: "400px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "var(--spacing-16)",
+        }}
+        onSubmit={(e) => {
+          e.preventDefault();
+          const newErrors: Record<string, string> = {};
+          if (!formData.email.includes("@")) {
+            newErrors.email = "Please enter a valid email address";
+          }
+          if (formData.password.length < 8) {
+            newErrors.password = "Password must be at least 8 characters";
+          }
+          setErrors(newErrors);
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+          <Label htmlFor="form-name">Full Name</Label>
+          <input
+            id="form-name"
+            type="text"
+            placeholder="Enter your full name"
+            value={formData.name}
+            onChange={(e) => handleChange("name", e.target.value)}
+            style={inputBaseStyles}
+            onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+            onBlur={(e) => resetInputStyles(e.currentTarget)}
           />
-          <p style={{ fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-muted)", marginTop: "var(--spacing-4)" }}>
-            Character count: {longText.length}/200
-          </p>
         </div>
         
-        <div>
-          <p style={{ fontSize: "var(--fonts-semantic-sm)", color: "var(--semantic-text-secondary)", marginBottom: "var(--spacing-8)" }}>
-            Textarea with long content (wraps and scrolls):
-          </p>
-          <Input
-            size="md"
-            multiline
-            rows={6}
-            value={longTextarea}
-            onChange={(e) => setLongTextarea(e.target.value)}
-            placeholder="Enter long text..."
-            maxLength={500}
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+          <Label htmlFor="form-email">Email</Label>
+          <input
+            id="form-email"
+            type="email"
+            placeholder="Enter your email"
+            value={formData.email}
+            onChange={(e) => handleChange("email", e.target.value)}
+            style={{
+              ...inputBaseStyles,
+              ...(errors.email ? inputErrorStyles : {}),
+            }}
+            aria-invalid={errors.email ? "true" : undefined}
+            aria-describedby={errors.email ? "email-error" : undefined}
+            onFocus={(e) => {
+              if (errors.email) {
+                e.currentTarget.style.boxShadow = "0 0 0 3px color-mix(in srgb, var(--semantic-feedback-error-base) 30%, transparent)";
+              } else {
+                Object.assign(e.currentTarget.style, inputFocusStyles);
+              }
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.boxShadow = "";
+              if (!errors.email) {
+                resetInputStyles(e.currentTarget);
+              }
+            }}
           />
-          <p style={{ fontSize: "var(--fonts-semantic-xs)", color: "var(--semantic-text-muted)", marginTop: "var(--spacing-4)" }}>
-            Character count: {longTextarea.length}/500
-          </p>
+          {errors.email && (
+            <p
+              id="email-error"
+              style={{
+                fontSize: "var(--fonts-semantic-xs)",
+                color: "var(--semantic-feedback-error-base)",
+                margin: 0,
+              }}
+            >
+              {errors.email}
+            </p>
+          )}
         </div>
-      </div>
+        
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+          <Label htmlFor="form-password">Password</Label>
+          <div style={{ position: "relative" }}>
+            <input
+              id="form-password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={(e) => handleChange("password", e.target.value)}
+              style={{
+                ...inputBaseStyles,
+                paddingRight: "var(--spacing-40)",
+                ...(errors.password ? inputErrorStyles : {}),
+              }}
+              aria-invalid={errors.password ? "true" : undefined}
+              aria-describedby={errors.password ? "password-error" : undefined}
+              onFocus={(e) => {
+                if (errors.password) {
+                  e.currentTarget.style.boxShadow = "0 0 0 3px color-mix(in srgb, var(--semantic-feedback-error-base) 30%, transparent)";
+                } else {
+                  Object.assign(e.currentTarget.style, inputFocusStyles);
+                }
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.boxShadow = "";
+                if (!errors.password) {
+                  resetInputStyles(e.currentTarget);
+                }
+              }}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: "absolute",
+                right: "var(--spacing-8)",
+                top: "50%",
+                transform: "translateY(-50%)",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                padding: 0,
+                display: "flex",
+                alignItems: "center",
+                color: "var(--semantic-text-secondary)",
+              }}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
+          <p
+            style={{
+              fontSize: "var(--fonts-semantic-xs)",
+              color: "var(--semantic-text-secondary)",
+              margin: 0,
+            }}
+          >
+            Must be at least 8 characters
+          </p>
+          {errors.password && (
+            <p
+              id="password-error"
+              style={{
+                fontSize: "var(--fonts-semantic-xs)",
+                color: "var(--semantic-feedback-error-base)",
+                margin: 0,
+              }}
+            >
+              {errors.password}
+            </p>
+          )}
+        </div>
+        
+        <div style={{ display: "flex", flexDirection: "column", gap: "var(--spacing-8)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <Label htmlFor="form-bio">Bio</Label>
+            <span
+              style={{
+                fontSize: "var(--fonts-semantic-xs)",
+                color: "var(--semantic-text-secondary)",
+              }}
+            >
+              {formData.bio.length}/200
+            </span>
+          </div>
+          <textarea
+            id="form-bio"
+            placeholder="Tell us about yourself"
+            value={formData.bio}
+            onChange={(e) => handleChange("bio", e.target.value)}
+            rows={6}
+            maxLength={200}
+            style={{
+              ...inputBaseStyles,
+              minHeight: "120px",
+              resize: "vertical",
+              paddingTop: "var(--spacing-8)",
+              paddingBottom: "var(--spacing-8)",
+              lineHeight: "var(--fonts-semantic-md-line-height)",
+            }}
+            onFocus={(e) => Object.assign(e.currentTarget.style, inputFocusStyles)}
+            onBlur={(e) => resetInputStyles(e.currentTarget)}
+          />
+        </div>
+        
+        <div style={{ display: "flex", gap: "var(--spacing-12)", marginTop: "var(--spacing-8)" }}>
+          <button
+            type="button"
+            style={{
+              flex: 1,
+              padding: "var(--spacing-8) var(--spacing-16)",
+              fontSize: "var(--fonts-semantic-md)",
+              fontWeight: "var(--font-weight-medium)",
+              color: "var(--semantic-text-primary)",
+              background: "var(--semantic-background-muted)",
+              border: "var(--border-width-thin) solid var(--semantic-border-subtle)",
+              borderRadius: "var(--radius-md)",
+              cursor: "pointer",
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            style={{
+              flex: 1,
+              padding: "var(--spacing-8) var(--spacing-16)",
+              fontSize: "var(--fonts-semantic-md)",
+              fontWeight: "var(--font-weight-medium)",
+              color: "var(--semantic-text-inverse)",
+              background: "var(--semantic-brand-base)",
+              border: "none",
+              borderRadius: "var(--radius-md)",
+              cursor: "pointer",
+            }}
+          >
+            Create Account
+          </button>
+        </div>
+      </form>
     );
   },
 };
